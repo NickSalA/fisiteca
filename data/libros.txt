@@ -1,5 +1,6 @@
-ID: 1234567
-Autor: Isabel Allende
+La Casa de los Espiritus
+1234567
+Isabel Allende
 Género: Novela
 Año de publicación: 1982
 Sinopsis: "La Casa de los Espíritus" es una saga familiar que abarca varias generaciones y explora temas como el amor, la magia y la política en una América Latina imaginaria.

@@ -3,7 +3,7 @@
 #include <fstream>
 using namespace std;
 int main(){
-	cout<<"fbewofbwbfoewf";
+
 }
 
 void leerLibro(){
