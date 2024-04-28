@@ -1,9 +1,9 @@
-#include <iosteam>
+#include <iostream>
 #include <stdlib.h>
 #include <fstream>
-
+using namespace std;
 int main(){
-
+void leerLibro();
 }
 
 void leerLibro(){
