@@ -1,0 +1,100 @@
+ID: 1234567
+Autor: Isabel Allende
+Género: Novela
+Año de publicación: 1982
+Sinopsis: "La Casa de los Espíritus" es una saga familiar que abarca varias generaciones y explora temas como el amor, la magia y la política en una América Latina imaginaria.
+ID: 2345678
+Autor: Haruki Murakami
+Género: Ficción contemporánea
+Año de publicación: 1997
+Sinopsis: "Tokio Blues" sigue la historia de Toru Watanabe mientras reflexiona sobre su juventud, amor y pérdida en el Japón de la década de 1960.
+ID: 3456789
+Autor: J.K. Rowling
+Género: Fantasía
+Año de publicación: 1997
+Sinopsis: "Harry Potter y la piedra filosofal" narra las aventuras del joven mago Harry Potter mientras descubre su identidad y se enfrenta a las fuerzas oscuras que amenazan el mundo mágico.
+ID: 4567890
+Autor: Gabriel García Márquez
+Género: Realismo mágico
+Año de publicación: 1967
+Sinopsis: "Cien años de soledad" cuenta la historia de la familia Buendía a lo largo de varias generaciones en el pueblo ficticio de Macondo, explorando temas de amor, soledad y destino.
+ID: 5678901
+Autor: Stephen King
+Género: Terror
+Año de publicación: 1986
+Sinopsis: "It" sigue a un grupo de amigos mientras luchan contra una entidad malévola que adopta la forma de sus peores miedos en la ciudad de Derry.
+ID: 6789012
+Autor: Paulo Coelho
+Género: Ficción espiritual
+Año de publicación: 1988
+Sinopsis: "El Alquimista" sigue el viaje de Santiago, un joven pastor andaluz, mientras busca su tesoro personal y descubre su destino en un viaje espiritual por el desierto.
+ID: 7890123
+Autor: Agatha Christie
+Género: Misterio
+Año de publicación: 1934
+Sinopsis: "Asesinato en el Orient Express" sigue al famoso detective Hercule Poirot mientras investiga el asesinato de un pasajero a bordo de un lujoso tren.
+ID: 8901234
+Autor: Margaret Atwood
+Género: Distopía
+Año de publicación: 1985
+Sinopsis: "El cuento de la criada" presenta un futuro distópico en el que las mujeres son subyugadas y utilizadas como propiedad reproductiva en un régimen totalitario.
+ID: 9012345
+Autor: George Orwell
+Género: Ciencia ficción
+Año de publicación: 1949
+Sinopsis: "1984" presenta un mundo distópico donde el gobierno totalitario controla todos los aspectos de la vida y la libertad individual es casi inexistente.
+ID: 1230456
+Autor: Ernest Hemingway
+Género: Novela bélica
+Año de publicación: 1929
+Sinopsis: "Adiós a las armas" sigue la historia de un joven soldado estadounidense que lucha en la Primera Guerra Mundial y su relación con una enfermera británica.
+ID: 2340567
+Autor: Jane Austen
+Género: Romance clásico
+Año de publicación: 1813
+Sinopsis: "Orgullo y prejuicio" sigue la historia de Elizabeth Bennet mientras navega por el complicado mundo del amor y la sociedad en la Inglaterra del siglo XIX.
+ID: 3450678
+Autor: Fyodor Dostoevsky
+Género: Novela filosófica
+Año de publicación: 1866
+Sinopsis: "Crime and Punishment" sigue la historia de Raskólnikov, un estudiante pobre que comete un asesinato y se debate entre la culpa y la redención.
+ID: 4560789
+Autor: Virginia Woolf
+Género: Modernismo
+Año de publicación: 1925
+Sinopsis: "Mrs. Dalloway" sigue un día en la vida de Clarissa Dalloway mientras se prepara para una fiesta y reflexiona sobre su pasado, presente y futuro.
+ID: 5670890
+Autor: Franz Kafka
+Género: Surrealismo
+Año de publicación: 1915
+Sinopsis: "La metamorfosis" cuenta la historia de Gregor Samsa, un hombre que se despierta un día transformado en un insecto y debe lidiar con las consecuencias de su nueva forma.
+ID: 6780901
+Autor: Leo Tolstoy
+Género: Novela histórica
+Año de publicación: 1869
+Sinopsis: "Guerra y paz" sigue la vida de varias familias nobles rusas durante la invasión napoleónica de Rusia y explora temas de amor, guerra y destino.
+ID: 7890012
+Autor: Truman Capote
+Género: Novela criminal
+Año de publicación: 1966
+Sinopsis: "A sangre fría" es una crónica de un asesinato real en Kansas en 1959 y la investigación que siguió, escrita con un estilo narrativo innovador.
+ID: 8900123
+Autor: Albert Camus
+Género: Existencialismo
+Año de publicación: 1942
+Sinopsis: "El extranjero" sigue la historia de Meursault, un hombre aparentemente indiferente a la sociedad y las normas sociales, que se enfrenta a las consecuencias de un crimen absurdo.
+ID: 9001234
+Autor: Miguel de Cervantes
+Género: Novela de caballerías
+Año de publicación: 1605
+Sinopsis: "Don Quijote de la Mancha" cuenta las aventuras de un hidalgo que se vuelve loco leyendo libros de caballería y decide convertirse en un caballero andante.
+ID: 3456123
+Autor: Emily Brontë
+Género: Novela gótica
+Año de publicación: 1847
+Sinopsis: "Cumbres borrascosas" narra la historia de amor tormentosa entre Heathcliff y Catherine Earnshaw en el sombrío paisaje de los páramos ingleses.
+ID: 4561234
+Autor: Mark Twain
+Género: Aventura
+Año de publicación: 1884
+Sinopsis: "Las aventuras de Huckleberry Finn" sigue las aventuras de Huck Finn y Jim, un esclavo fugitivo, mientras viajan por el río Mississippi en busca de libertad y aventura.
