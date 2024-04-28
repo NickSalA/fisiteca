@@ -1,9 +1,9 @@
-#include <iosteam>
+#include <iostream>
 #include <stdlib.h>
 #include <fstream>
-
+using namespace std;
 int main(){
-
+	cout<<"fbewofbwbfoewf";
 }
 
 void leerLibro(){
@@ -12,7 +12,7 @@ void leerLibro(){
 					cout<<"Error en el archivo..."<<endl;
 					Sleep(2000);
 					exit(1);
-}
+}}
 void añadirLibro(){
     cout<<"Sistema de pedido de libros"<<endl;
                 do{
