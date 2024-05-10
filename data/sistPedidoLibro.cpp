@@ -2,79 +2,103 @@
 #include <stdlib.h>
 #include <fstream>
 #include <time.h>
-using namespace std;
-int main(){
-cout<<"hola";
-}
+#include <string>
+#include <windows.h>
 
-void leerLibro(){
+using namespace std;
+struct Libro {
+    int codigo;
+    string nombre;
+    string genero;
+	string autor;
+	int añoPublicacion;
+	string sinopsis;
+};
+
+void leerLibro(Libro libros[], int& n){
     ifstream Leer("libros.txt", ios::in);
     if(Leer.fail()){
-					cout<<"Error en el archivo..."<<endl;
-					Sleep(2000);
-					exit(1);
-}}
-void añadirLibro(){
-    cout<<"Sistema de pedido de libros"<<endl;
-                do{
-                	cout<<"Ingresar los datos del libro"<<endl;
-				}while((n<1)||(n>10));
-                
-					for(int i=0; i<n;i++){
-						cout<<" "<<i+1<<endl;
-						cout<<"Codigo: ";cin>>customer[i].Codigo;
-						fflush(stdin);	
-						cout<<"Nombre: ";
-						getline(cin,customer[i].nombre);
-						do{
-							cout<<"Precio(20-100): ";cin>>customer[i].precio;
-						}while((customer[i].precio<20)||(customer[i].precio>100 ));
-						do{
-							cout<<"Tipo:\n1.A \n2.B \n";cin>>customer[i].tipo;
-						}while((customer[i].tipo<1)||(customer[i].tipo>2 ));
-						
-					}
-					system("pause");
-					for(int i=0;i<n;i++){
-						cout<<"Producto "<<i+1<<endl;
-						cout<<"\nCodigo: "<<customer[i].Codigo;
-						cout<<"\nNombre: "<<customer[i].nombre;
-						cout<<"\nPrecio base: "<<customer[i].precio;
+		cout<<"Error en el archivo..."<<endl;
+		exit(1);
 
-						cout<<"Campo porcentaje de aumento: "<<customer[i].porcentajeaum*100<<"%"<<endl;
-						cout<<"Importe aumento: "<<customer[i].importeau<<endl;
-						cout<<"Precio maximo: "<<customer[i].preciomax<<endl;
-						cout<<"Campo porcentaje de descuento: "<<customer[i].porcentajedesc*100<<"%"<<endl;
-						cout<<"Importe descuento: "<<customer[i].importedesc<<endl;
-						cout<<endl;
-						ofstream Grabacion("cliente.txt", ios::app);
-						if(Grabacion.fail()){
-							cout<<"Error en el archivo..."<<endl;
-							Sleep(2000);
-							exit(1);
-						}
-						cout<<"Grabando registros....."<<endl;
-						Sleep(2000);
-						for(int i=0; i<n;i++){
-							Grabacion<<	customer[i].Codigo<<endl;
-							Grabacion<<	customer[i].nombre<<endl;
-							Grabacion<<	customer[i].precio<<endl;
-							if(customer[i].tipo==1){
-								Grabacion<<"A"<<endl;
-							}
-							else{
-								Grabacion<<"B"<<endl;
-							}
-							Grabacion<<	customer[i].porcentajeaum<<endl;
-							Grabacion<<	customer[i].importeau<<endl;
-							Grabacion<<	customer[i].preciomax<<endl;
-							Grabacion<<	customer[i].porcentajedesc<<endl;
-							Grabacion<<	customer[i].importedesc<<endl;
-							
-						}
-						Grabacion.close();	
-					}	
-				break;
+	for (int i = 0; i < n; i++) {
+        Leer >> libros[i].codigo;
+        Leer >> libros[i].nombre;
+        Leer >> libros[i].genero;
+		Leer >> libros[i].autor;
+        Leer >> libros[i].añoPublicacion;
+        Leer >> libros[i].sinopsis;	
+	}
+	Leer.close();
+	}
 }
 
-aeaeaeasdajsbdasjkbiuasdasda;
+void agregarLibro(Libro libros[], int& n) {
+    cout << "Sistema de pedido de libros" << endl;
+    cout << "Ingresar los datos del libro" << endl;
+	//Lo de abajo es la base de datos, los cout se pueden cambiar de acuerdo al diseño final
+    Libro newLibro;
+    cout << "Codigo: ";
+    cin >> newLibro.codigo;
+    fflush(stdin);
+    cout << "Nombre: ";
+    cin >> newLibro.nombre;
+    cout << "Genero: ";
+    cin >> newLibro.genero;
+    cout << "Autor: ";
+    cin >> newLibro.autor;
+    cout << "Año de publicacion: ";
+    cin >> newLibro.añoPublicacion;
+    cin.ignore();
+    cout << "Sinopsis: ";
+    cin >> newLibro.sinopsis;
+    libros[n] = newLibro;
+    n++;
+    ofstream Grabacion("libros.txt", ios::app);
+    if (Grabacion.fail()) {
+        cout << "Error en el archivo..." << endl;
+        Sleep(2000);
+    } else {
+        Grabacion << newLibro.codigo << endl;
+        Grabacion << newLibro.nombre << endl;
+        Grabacion << newLibro.genero << endl;
+        Grabacion << newLibro.autor << endl;
+        Grabacion << newLibro.añoPublicacion << endl;
+        Grabacion << newLibro.sinopsis << endl;
+        Grabacion.close();
+    }
+}
+
+//int main provisional, lo importante es lo de arriba xd
+int main() {
+    Libro libros[100];
+    int n = 0;
+    leerLibro(libros, n);
+    int opcion;
+    do {
+        cout << "\n1. Agregar libro\n2. Leer libros\n3. Salir" << endl;
+        cin >> opcion;
+        switch (opcion) {
+            case 1:
+                agregarLibro(libros, n);
+                break;
+            case 2:
+                for (int i = 0; i < n; i++) {
+                    cout << "\nLibro " << i + 1 << endl;
+                    cout << "Codigo: " << libros[i].codigo << endl;
+                    cout << "Nombre: " << libros[i].nombre << endl;
+                    cout << "Genero: " << libros[i].genero << endl;
+                    cout << "Autor: " << libros[i].autor << endl;
+                    cout << "Año de publicacion: " << libros[i].añoPublicacion << endl;
+                    cout << "Sinopsis: " << libros[i].sinopsis << endl;
+                }
+                break;
+            case 3:
+                cout << "Adios!" << endl;
+                break;
+            default:
+                cout << "Opcion invalida" << endl;
+        }
+    } while (opcion!= 3);
+    return 0;
+}
