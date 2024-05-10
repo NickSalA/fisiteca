@@ -1,2 +1,5 @@
 #hola nick pasa informe
-cout<<"holi";
+cout<<"hole neck";
+cout<<"asfasdf";
+
+cout<<"asdfasdfaf";
