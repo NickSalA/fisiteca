@@ -42,16 +42,16 @@ void agregarLibro(Libro libros[], int& n) {
     cin >> newLibro.codigo;
     fflush(stdin);
     cout << "Nombre: ";
-    cin >> newLibro.nombre;
+    getline(cin, newLibro.nombre);
     cout << "Genero: ";
-    cin >> newLibro.genero;
+    getline(cin, newLibro.genero);
     cout << "Autor: ";
-    cin >> newLibro.autor;
+    getline(cin, newLibro.autor);
     cout << "Año de publicacion: ";
     cin >> newLibro.añoPublicacion;
     cin.ignore();
     cout << "Sinopsis: ";
-    cin >> newLibro.sinopsis;
+    getline(cin, newLibro.sinopsis);
     libros[n] = newLibro;
     n++;
     ofstream Grabacion("libros.txt", ios::app);
@@ -102,3 +102,4 @@ int main() {
     } while (opcion!= 3);
     return 0;
 }
+//ayuda Edu D:
