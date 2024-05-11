@@ -71,6 +71,7 @@ void agregarLibro(Libro libros[], int& n) {
     } else {
         Grabacion << newLibro.codigo << endl;
         Grabacion << newLibro.nombre << endl;
+        fflush(stdin);
         Grabacion << newLibro.genero << endl;
         Grabacion << newLibro.autor << endl;
         Grabacion << newLibro.anoPublicacion << endl;
