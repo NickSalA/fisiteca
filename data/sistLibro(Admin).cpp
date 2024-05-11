@@ -43,7 +43,7 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
-    ofstream Grabacion("D:/Repos/fisiteca/data/libros.txt", ios::app);
+
     //Prob cuando lo compilen les salga erro/r D:, si encuentran la forma de conectarlo a la nube en lugar del espacio de trabajo local colocanlo uu
     cout << "Sistema de pedido de libros" << endl;
     cout << "Ingresar los datos del libro" << endl;
@@ -65,6 +65,7 @@ void agregarLibro(Libro libros[], int& n) {
     getline(cin, newLibro.sinopsis);
     libros[n] = newLibro;
     n++;
+    ofstream Grabacion("D:/Repos/fisiteca/data/libros.txt", ios::app);
     if (Grabacion.fail()) {
         cout << "Error en el archivo..." << endl;
         Sleep(2000);
@@ -79,7 +80,9 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion.close();
     }
 }
-
+void eliminarLibro(){
+    
+}
 //int main provisional, lo importante es lo de arriba xd
 int main() {
     Libro libros[100];
