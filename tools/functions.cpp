@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <conio.h>
-
+HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 using namespace std;
 
 void gotoxy(int x,int y){  
@@ -41,4 +41,8 @@ void CursorOn(bool visible, DWORD size){
 	lpCursor.bVisible = visible;
 	lpCursor.dwSize = size;
 	SetConsoleCursorInfo(console,&lpCursor);
+}
+void CursorOff(){
+  CONSOLE_CURSOR_INFO cursor = {1, FALSE};
+  SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 }
