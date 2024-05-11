@@ -1,7 +1,9 @@
 #include <iostream>
 #include <windows.h>
+#include <studio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h>
 
 using namespace std;
 
