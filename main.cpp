@@ -1,6 +1,6 @@
 #hola nick pasa informe
 cout<<"hole neck";
 cout<<"asfasdf";
-hgvhg
+hgvhgjhughgh
 cout<<"asdfasdfaf";
 COUT<<"hOLAPERRA";
