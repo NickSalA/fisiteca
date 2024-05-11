@@ -11,12 +11,12 @@ struct Libro {
     string nombre;
     string genero;
 	string autor;
-	int añoPublicacion;
+	int anoPublicacion;
 	string sinopsis;
 };
 
 void leerLibro(Libro libros[], int& n){
-    ifstream Leer("libros.txt", ios::in);
+    ifstream Leer("D:/Repos/fisiteca/data/output/libros.txt", ios::in);
     if(Leer.fail()){
 		cout<<"Error en el archivo..."<<endl;
 		exit(1);
@@ -26,7 +26,7 @@ void leerLibro(Libro libros[], int& n){
         Leer >> libros[i].nombre;
         Leer >> libros[i].genero;
 		Leer >> libros[i].autor;
-        Leer >> libros[i].añoPublicacion;
+        Leer >> libros[i].anoPublicacion;
         Leer >> libros[i].sinopsis;	
 	}
 	Leer.close();
@@ -34,7 +34,8 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
-    ofstream Grabacion("libros.txt", ios::app);
+    ofstream Grabacion("D:/Repos/fisiteca/data/output/libros.txt", ios::app);
+    //Prob cuando lo compilen les salga error D:, si encuentran la forma de conectarlo a la nube en lugar del espacio de trabajo local colocanlo uu
     cout << "Sistema de pedido de libros" << endl;
     cout << "Ingresar los datos del libro" << endl;
 	//Lo de abajo es la base de datos, los cout se pueden cambiar de acuerdo al diseño final
@@ -49,7 +50,7 @@ void agregarLibro(Libro libros[], int& n) {
     cout << "Autor: ";
     getline(cin, newLibro.autor);
     cout << "Año de publicacion: ";
-    cin >> newLibro.añoPublicacion;
+    cin >> newLibro.anoPublicacion;
     cin.ignore();
     cout << "Sinopsis: ";
     getline(cin, newLibro.sinopsis);
@@ -63,7 +64,7 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion << newLibro.nombre << endl;
         Grabacion << newLibro.genero << endl;
         Grabacion << newLibro.autor << endl;
-        Grabacion << newLibro.añoPublicacion << endl;
+        Grabacion << newLibro.anoPublicacion << endl;
         Grabacion << newLibro.sinopsis << endl;
         Grabacion.close();
     }
@@ -89,7 +90,7 @@ int main() {
                     cout << "Nombre: " << libros[i].nombre << endl;
                     cout << "Genero: " << libros[i].genero << endl;
                     cout << "Autor: " << libros[i].autor << endl;
-                    cout << "Año de publicacion: " << libros[i].añoPublicacion << endl;
+                    cout << "Año de publicacion: " << libros[i].anoPublicacion << endl;
                     cout << "Sinopsis: " << libros[i].sinopsis << endl;
                 }
                 break;
