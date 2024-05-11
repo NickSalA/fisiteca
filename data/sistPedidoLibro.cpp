@@ -34,6 +34,7 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
+    ofstream Grabacion("libros.txt", ios::app);
     cout << "Sistema de pedido de libros" << endl;
     cout << "Ingresar los datos del libro" << endl;
 	//Lo de abajo es la base de datos, los cout se pueden cambiar de acuerdo al diseño final
@@ -54,7 +55,6 @@ void agregarLibro(Libro libros[], int& n) {
     getline(cin, newLibro.sinopsis);
     libros[n] = newLibro;
     n++;
-    ofstream Grabacion("libros.txt", ios::app);
     if (Grabacion.fail()) {
         cout << "Error en el archivo..." << endl;
         Sleep(2000);
