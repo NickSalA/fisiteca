@@ -18,7 +18,7 @@ struct Libro {
 };
 
 void leerLibro(Libro libros[], int& n){
-    ifstream Leer("D:/Repos/fisiteca/data/output/libros.txt", ios::in);
+    ifstream Leer("D:/Repos/fisiteca/data/libros.txt", ios::in);
     if(Leer.fail()){
 		cout<<"Error en el archivo..."<<endl;
 		exit(1);
@@ -43,8 +43,8 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
-    ofstream Grabacion("D:/Repos/fisiteca/data/output/libros.txt", ios::app);
-    //Prob cuando lo compilen les salga error D:, si encuentran la forma de conectarlo a la nube en lugar del espacio de trabajo local colocanlo uu
+    ofstream Grabacion("D:/Repos/fisiteca/data/libros.txt", ios::app);
+    //Prob cuando lo compilen les salga erro/r D:, si encuentran la forma de conectarlo a la nube en lugar del espacio de trabajo local colocanlo uu
     cout << "Sistema de pedido de libros" << endl;
     cout << "Ingresar los datos del libro" << endl;
 	//Lo de abajo es la base de datos, los cout se pueden cambiar de acuerdo al diseño final
