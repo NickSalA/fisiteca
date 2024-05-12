@@ -80,8 +80,11 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion.close();
     }
 }
-void eliminarLibro(){
+void editarLibro(){
     
+}
+void eliminarLibro(){
+
 }
 //int main provisional, lo importante es lo de arriba xd
 int main() {
