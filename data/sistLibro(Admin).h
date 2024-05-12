@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <windows.h>
+#include <limits>
 
 using namespace std;
 string xcodigo,xano;
@@ -18,7 +19,7 @@ struct Libro {
 };
 
 void leerLibro(Libro libros[], int& n){
-    ifstream Leer("D:/Repos/fisiteca/data/libros.txt", ios::in);
+    ifstream Leer("libros.txt", ios::in);
     if(Leer.fail()){
 		cout<<"Error en el archivo..."<<endl;
 		exit(1);
@@ -43,16 +44,15 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
-
-    //Prob cuando lo compilen les salga erro/r D:, si encuentran la forma de conectarlo a la nube en lugar del espacio de trabajo local colocanlo uu
+    ofstream Grabacion("libros.txt", ios::app);
     cout << "Sistema de pedido de libros" << endl;
     cout << "Ingresar los datos del libro" << endl;
-	//Lo de abajo es la base de datos, los cout se pueden cambiar de acuerdo al diseño final
     Libro newLibro;
     cout << "Codigo: ";
     cin >> newLibro.codigo;
-    cin.ignore(); //ERA ESTOOOOOOOOOOO AAAAAAAAAAAAAAA
     fflush(stdin);
+    cin.ignore();
+
     cout << "Nombre: ";
     getline(cin, newLibro.nombre);
     cout << "Genero: ";
@@ -61,60 +61,82 @@ void agregarLibro(Libro libros[], int& n) {
     getline(cin, newLibro.autor);
     cout << "Año de publicacion: ";
     cin >> newLibro.anoPublicacion;
+    fflush(stdin);
     cin.ignore();
+
     cout << "Sinopsis: ";
     getline(cin, newLibro.sinopsis);
     libros[n] = newLibro;
     n++;
-    ofstream Grabacion("D:/Repos/fisiteca/data/libros.txt", ios::app);
     if (Grabacion.fail()) {
         cout << "Error en el archivo..." << endl;
         Sleep(2000);
     } else {
         Grabacion << newLibro.codigo << endl;
         Grabacion << newLibro.nombre << endl;
-        fflush(stdin);
         Grabacion << newLibro.genero << endl;
         Grabacion << newLibro.autor << endl;
         Grabacion << newLibro.anoPublicacion << endl;
         Grabacion << newLibro.sinopsis << endl;
+        // Agregar un salto de línea al final del registro del libro
+        Grabacion << endl;
         Grabacion.close();
     }
 }
-void editarLibro(){
-    
-}
-void eliminarLibro(){
+void eliminarLibro(Libro libros[], int& n) {
+    int codigo;
+    cout << "Ingrese el código del libro que desea eliminar: ";
+    cin >> codigo;
 
+    bool encontrado = false;
+    for (int i = 0; i < n; ++i) {
+        if (libros[i].codigo == codigo) {
+            encontrado = true;
+            // Desplazar los elementos hacia abajo para sobrescribir el libro a eliminar
+            for (int j = i; j < n - 1; ++j) {
+                libros[j] = libros[j + 1];
+            }
+            // Reducir el contador de libros
+            --n;
+            break;
+        }
+    }
+
+    if (encontrado) {
+        ofstream Grabacion("libros.txt");
+        for (int i = 0; i < n; ++i) {
+            Grabacion << libros[i].codigo << endl;
+            Grabacion << libros[i].nombre << endl;
+            Grabacion << libros[i].genero << endl;
+            Grabacion << libros[i].autor << endl;
+            Grabacion << libros[i].anoPublicacion << endl;
+            Grabacion << libros[i].sinopsis << endl;
+            // Agregar un salto de línea al final del registro del libro
+            Grabacion << endl;
+        }
+        Grabacion.close();
+        cout << "Libro eliminado exitosamente." << endl;
+    } else {
+        cout << "No se encontró ningún libro con el código " << codigo << "." << endl;
+    }
 }
 //int main provisional, lo importante es lo de arriba xd
 int main() {
-    SetConsoleOutputCP(CP_UTF8);
     Libro libros[100];
     int n = 0;
-    leerLibro(libros,n);
+    leerLibro(libros, n);
     int opcion;
     do {
-        cout << "\n1. Agregar libro\n2. Leer libros\n3. Salir" << endl;
+        cout << "\n1. Agregar libro\n2. Eliminar libros\n3. Salir" << endl;
         cin >> opcion;
         switch (opcion) {
             case 1:
+                leerLibro(libros, n);
                 agregarLibro(libros, n);
-                leerLibro(libros,n);
                 break;
             case 2:
-                int numlibro;
-                
-                for (int i = 0; i < n; i++) {
-                    cout << "\nLibro " << i + 1<<": " <<libros[i].nombre<< endl;
-                }
-                cout<<"Seleccione su libro "<<endl;cin>>numlibro;
-                numlibro-=1;
-                cout<<"\nLibro: "<<libros[numlibro].nombre;
-                cout<<"\nGenero: "<<libros[numlibro].genero;
-                cout<<"\nAutor: "<<libros[numlibro].autor;
-                cout<<"\nAño de publicacion: "<<libros[numlibro].anoPublicacion;
-                cout<<"\nSipnosis: "<<libros[numlibro].sinopsis;
+                leerLibro(libros, n);
+                eliminarLibro(libros, n);
                 break;
             case 3:
                 cout << "Adios!" << endl;
@@ -122,8 +144,11 @@ int main() {
             default:
                 cout << "Opcion invalida" << endl;
         }
+        // Limpiar el búfer de entrada
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         system("pause");
         system("cls");
-
-    } while (opcion!= 3);
+    } while (opcion != 3);
+    return 0;
 }
