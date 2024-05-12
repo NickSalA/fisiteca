@@ -52,6 +52,7 @@ void buscar(int n,Libro libros[]){
         cout << "\t 4. Año de lanzamiento" << endl;
         cout << "\t 5. Retroceder" << endl;
         cin >> opc;
+        system("cls");
 
         // Limpiar el búfer de entrada(no c q es,pero m dio muchos errores)
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -118,7 +119,7 @@ void buscar(int n,Libro libros[]){
                 cin>>anio;
 
                 for (int i = 0; i < n; i++) {
-                    if (anio = libros[i].anoPublicacion) {
+                    if (anio == libros[i].anoPublicacion) {
                         coincidencia[i] = dato;
                     }
                 }
