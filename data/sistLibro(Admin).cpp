@@ -18,7 +18,7 @@ struct Libro {
 };
 
 void leerLibro(Libro libros[], int& n){
-    ifstream Leer("D:/Repos/fisiteca/data/libros.txt", ios::in);
+    ifstream Leer("C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-1/data/libros.txt", ios::in);
     if(Leer.fail()){
 		cout<<"Error en el archivo..."<<endl;
 		exit(1);
@@ -65,7 +65,7 @@ void agregarLibro(Libro libros[], int& n) {
     getline(cin, newLibro.sinopsis);
     libros[n] = newLibro;
     n++;
-    ofstream Grabacion("D:/Repos/fisiteca/data/libros.txt", ios::app);
+    ofstream Grabacion("C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-1/data/libros.txt", ios::app);
     if (Grabacion.fail()) {
         cout << "Error en el archivo..." << endl;
         Sleep(2000);
@@ -88,6 +88,7 @@ void eliminarLibro(){
 }
 //int main provisional, lo importante es lo de arriba xd
 int main() {
+    SetConsoleOutputCP(CP_UTF8);
     Libro libros[100];
     int n = 0;
     leerLibro(libros,n);
