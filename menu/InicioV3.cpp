@@ -73,7 +73,7 @@ void WriteUserCredentialsToFile(const std::wstring& username, const std::wstring
     std::wofstream file("credUsuario.txt", std::ios_base::app);
     if (file.is_open()) {
         // Escribir el nombre de usuario y la contraseña en una nueva línea
-        file << '\n' << username << '\n' << password << '\n';
+        file << username << '\n' << password << '\n';
         file.close(); // Cerrar el archivo
     }
 }
