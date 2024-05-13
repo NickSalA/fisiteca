@@ -26,14 +26,12 @@ void leerLibro(Libro libros[], int& n){
     }
     int i=0;
     while(!Leer.eof()){
-        //lectura de datos
         getline(Leer,xcodigo);
         getline(Leer,libros[i].nombre);
         getline(Leer,libros[i].genero);
         getline(Leer,libros[i].autor);
         getline(Leer,xano);
         getline(Leer,libros[i].sinopsis);
-        //almacenar datos
         istringstream(xcodigo) >> libros[i].codigo;
         istringstream(xano)>>libros[i].anoPublicacion;
         n++;
@@ -83,7 +81,6 @@ void agregarLibro(Libro libros[], int& n) {
 void eliminarLibro(Libro libros[], int& n) {
     int numLibro;
     
-    //Mostrar lista de libros
     for (int i = 0; i < n; i++) {
         cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << endl;
     }
@@ -94,7 +91,6 @@ void eliminarLibro(Libro libros[], int& n) {
     
     if (numLibro >= 1 && numLibro <= n) {
         int indiceLibro = numLibro - 1;
-        // Mostrar la información del libro seleccionado
         cout << "\nLibro: " << libros[indiceLibro].nombre << endl;
         cout << "Genero: " << libros[indiceLibro].genero << endl;
         cout << "Autor: " << libros[indiceLibro].autor << endl;
@@ -105,7 +101,6 @@ void eliminarLibro(Libro libros[], int& n) {
         cin >> confirmacion;
         confirmacion = toupper(confirmacion);
         
-        // Procesar la respuesta del usuario
         if (confirmacion == 'S') {
             for (int i = indiceLibro; i < n - 1; ++i) {
                 libros[i] = libros[i + 1];
@@ -133,22 +128,17 @@ void eliminarLibro(Libro libros[], int& n) {
 void editarLibro(Libro libros[], int n) {
     int numLibro;
     
-    // Mostrar la lista de libros
     for (int i = 0; i < n; i++) {
         cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << endl;
     }
     
-    // Solicitar al usuario que seleccione el libro a editar
     cout << "Seleccione el número del libro que desea editar: ";
     cin >> numLibro;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el búfer de entrada
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     
-    // Validar si el número de libro ingresado es válido
     if (numLibro >= 1 && numLibro <= n) {
-        // Obtener el índice del libro seleccionado en base al número de libro ingresado
         int indiceLibro = numLibro - 1;
         
-        // Mostrar la información actual del libro seleccionado
         cout << "\nEditar libro: " << libros[indiceLibro].nombre << endl;
         cout << "1. Nombre: " << libros[indiceLibro].nombre << endl;
         cout << "2. Genero: " << libros[indiceLibro].genero << endl;
@@ -156,13 +146,11 @@ void editarLibro(Libro libros[], int n) {
         cout << "4. Año de publicación: " << libros[indiceLibro].anoPublicacion << endl;
         cout << "5. Sinopsis: " << libros[indiceLibro].sinopsis << endl;
         
-        // Solicitar al usuario que elija el campo a editar
         int opcion;
         cout << "\nSeleccione el número del campo que desea editar (1-5): ";
         cin >> opcion;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el búfer de entrada
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         
-        // Realizar la edición del campo seleccionado
         switch (opcion) {
             case 1:
                 cout << "Ingrese el nuevo nombre del libro: ";
@@ -190,7 +178,6 @@ void editarLibro(Libro libros[], int n) {
                 break;
         }
         
-        // Guardar los cambios en el archivo de texto
         ofstream Grabacion("libros.txt");
         for (int i = 0; i < n; ++i) {
             Grabacion << libros[i].codigo << endl;
@@ -234,7 +221,6 @@ int main() {
             default:
                 cout << "Opcion invalida" << endl;
         }
-        // Limpiar el búfer de entrada
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         system("pause");
