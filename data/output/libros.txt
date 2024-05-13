@@ -1,36 +1,36 @@
 1
 El Juego de Ender
-Ciencia ficción
+Ciencia ficcion
 Orson Scott Card
 1985
 Un niño prodigio es reclutado por la humanidad para liderar la batalla contra una raza alienígena.
 2
 Cien años de soledad
-Realismo mágico
+Realismo magico
 Gabriel García Márquez
 1967
 La historia de la familia Buendía y su ciudad Macondo, donde los eventos fantásticos y lo cotidiano se entrelazan.
 3
 El Señor de los Anillos
-Fantasía épica
+Fantasia epica
 J.R.R. Tolkien
 1954
 Un hobbit llamado Frodo emprende un viaje para destruir un anillo maligno y salvar su mundo de la oscuridad.
 4
 1984
-Distopía
+Distopia
 George Orwell
 1949
 En un mundo totalitario, un hombre lucha contra el régimen opresivo mientras busca la verdad y la libertad.
 5
 Harry Potter y la piedra filosofal
-Fantasía
+Fantasia
 J.K. Rowling
 1997
 Un niño descubre que es un mago y comienza su aventura en el mundo mágico de Hogwarts.
 6
-Crónicas marcianas
-Ciencia ficción
+Cronicas marcianas
+Ciencia ficcion
 Ray Bradbury
 1950
 Una colección de relatos que exploran la colonización y la vida en Marte desde diversas perspectivas.
@@ -42,13 +42,13 @@ Harper Lee
 La historia de un abogado que defiende a un hombre negro acusado injustamente en el sur de Estados Unidos durante la década de 1930.
 8
 Orgullo y prejuicio
-Romance clásico
+Romance clasico
 Jane Austen
 1813
 La compleja relación entre Elizabeth Bennet y Mr. Darcy en la Inglaterra del siglo XIX.
 9
 El Alquimista
-Ficción espiritual
+Ficcion espiritual
 Paulo Coelho
 1988
 Un joven pastor emprende un viaje en busca de un tesoro y descubre lecciones de vida sobre el destino y la realización personal.
@@ -60,25 +60,25 @@ Miguel de Cervantes
 Las aventuras de un hidalgo que se vuelve loco leyendo libros de caballería y sale en busca de aventuras.
 11
 Los juegos del hambre
-Distopía
+Distopia
 Suzanne Collins
 2008
 En un futuro distópico, adolescentes son obligados a luchar hasta la muerte en un reality show televisado.
 12
 El nombre del viento
-Fantasía épica
+Fantasia epica
 Patrick Rothfuss
 2007
 La historia de Kvothe, un legendario héroe y músico, narrada por él mismo en una taberna.
 13
 Anna Karenina
 Realismo
-León Tolstói
+Leon Tolstoi
 1877
 La tragedia de una mujer aristocrática que sacrifica todo por un amor prohibido.
 14
 El retrato de Dorian Gray
-Novela gótica
+Novela gotica
 Oscar Wilde
 1890
 Un hombre hace un pacto con el diablo para preservar su juventud mientras su retrato envejece por él.
@@ -96,7 +96,7 @@ Julio Cortázar
 Una obra innovadora que desafía la estructura narrativa convencional y anima al lector a participar en la creación de la historia.
 17
 El perfume: Historia de un asesino
-Novela histórica
+Novela historica
 Patrick Süskind
 1985
 La vida de un asesino obsesionado por crear el perfume perfecto en el siglo XVIII en Francia.
@@ -109,11 +109,11 @@ La construcción de una catedral en la Inglaterra medieval y las vidas de aquell
 19
 La sombra del viento
 Misterio
-Carlos Ruiz Zafón
+Carlos Ruiz Zafon
 2001
 Un joven encuentra un libro misterioso que lo lleva a descubrir oscuros secretos en la Barcelona de posguerra.
 20
-El código Da Vinci
+El codigo Da Vinci
 Novela
 Dan Brown
 2003
