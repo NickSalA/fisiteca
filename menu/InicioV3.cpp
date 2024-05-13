@@ -40,45 +40,19 @@ LRESULT CALLBACK AdminLoginWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARA
 void ShowInvalidLoginDialog(HWND hwnd);
 
 // Función para abrir la ventana del menú de usuario
-void OpenUserMenuWindow(HINSTANCE hInstance);
+// void OpenUserMenuWindow(HINSTANCE hInstance); // Eliminado
 
 HWND g_hMainWindow;
 
 // Función para verificar el usuario y la contraseña
 bool VerifyCredentials(const std::wstring& username, const std::wstring& password) {
-    // Abrir el archivo "credUsuario.txt" para lectura
-    std::wifstream file("credUsuario.txt");
-    if (!file.is_open()) {
-        return false; // Si no se pudo abrir el archivo, retornar falso
-    }
-
-    std::wstring storedUsername, storedPassword;
-
-    // Leer los datos del archivo línea por línea
-    while (std::getline(file, storedUsername) && std::getline(file, storedPassword)) {
-        // Comparar el usuario y la contraseña con los valores almacenados
-        if (storedUsername == username && storedPassword == password) {
-            file.close(); // Cerrar el archivo
-            return true; // Si coinciden, retornar verdadero
-        }
-    }
-
-    file.close(); // Cerrar el archivo
-    return false; // Si no se encontraron coincidencias, retornar falso
+    // Código de verificación de credenciales...
 }
 
 // Función para escribir los datos de usuario en el archivo "credUsuario.txt"
 void WriteUserCredentialsToFile(const std::wstring& username, const std::wstring& password) {
-    // Abrir el archivo "credUsuario.txt" para escritura (appending)
-    std::wofstream file("credUsuario.txt", std::ios_base::app);
-    if (file.is_open()) {
-        // Escribir el nombre de usuario y la contraseña en una nueva línea
-        file << username << '\n' << password << '\n';
-        file.close(); // Cerrar el archivo
-    }
+    // Código para escribir en el archivo "credUsuario.txt"...
 }
-
-LRESULT CALLBACK UserMenuWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -158,7 +132,8 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             else {
                 // Verificar el usuario y la contraseña
                 if (VerifyCredentials(username, password)) {
-                    OpenUserMenuWindow(GetModuleHandle(NULL)); // Abrir la ventana del menú de usuario
+                    // Abrir la ventana del menú de usuario
+                    // OpenUserMenuWindow(GetModuleHandle(NULL)); // Eliminado
                 }
                 else {
                     MessageBox(hwnd, L"Usuario y/o contraseña incorrectos", L"Inicio de Sesión", MB_OK | MB_ICONERROR);
@@ -222,6 +197,32 @@ void OpenAdminRegistrationWindow(HINSTANCE hInstance)
 
 void OpenAdminLoginWindow(HINSTANCE hInstance)
 {
+    // Registrar la clase de la ventana de inicio de sesión de administrador
+    WNDCLASSEX wc = {0};
+    wc.cbSize = sizeof(WNDCLASSEX);
+    wc.style = CS_HREDRAW | CS_VREDRAW;
+    wc.lpfnWndProc = AdminLoginWindowProc;
+    wc.hInstance = hInstance;
+    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
+    wc.lpszClassName = L"AdminLoginWindowClass";
+    RegisterClassEx(&wc);
+
+    // Crear la ventana de inicio de sesión de administrador
+    HWND hwnd = CreateWindowEx(
+        0,
+        L"AdminLoginWindowClass",
+        L"Inicio de Sesión de Administrador",
+        WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, CW_USEDEFAULT, 500, 250,
+        NULL,
+        NULL,
+        hInstance,
+        NULL);
+
+    // Mostrar la ventana de inicio de sesión de administrador
+    ShowWindow(hwnd, SW_SHOW);
+    UpdateWindow(hwnd);
 }
 
 // Procedimiento de ventana para la ventana de registro de administrador
@@ -329,68 +330,4 @@ LRESULT CALLBACK AdminLoginWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARA
 void ShowInvalidLoginDialog(HWND hwnd)
 {
     MessageBox(hwnd, L"Ingrese un usuario y/o contraseña válidos", L"Inicio de Sesión", MB_OK | MB_ICONERROR);
-}
-
-// Función para abrir la ventana del menú de usuario
-void OpenUserMenuWindow(HINSTANCE hInstance)
-{
-    // Registrar la clase de la ventana del menú de usuario
-    WNDCLASSEX wc = {0};
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpfnWndProc = UserMenuWindowProc;
-    wc.hInstance = hInstance;
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-    wc.lpszClassName = L"UserMenuWindowClass";
-    RegisterClassEx(&wc);
-
-    // Crear la ventana del menú de usuario
-    HWND hwnd = CreateWindowEx(
-        0,
-        L"UserMenuWindowClass",
-        L"Menú de Usuario",
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 300, 250,
-        NULL,
-        NULL,
-        hInstance,
-        NULL);
-
-    // Mostrar la ventana del menú de usuario
-    ShowWindow(hwnd, SW_SHOW);
-    UpdateWindow(hwnd);
-}
-
-// Procedimiento de ventana para la ventana del menú de usuario
-LRESULT CALLBACK UserMenuWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    switch (uMsg)
-    {
-    case WM_CREATE:
-    {
-        // Crear botones para el menú de usuario
-        CreateWindowW(L"Button", L"Libros Prestados", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 50, 20, 200, 30, hwnd, (HMENU)IDC_LIBROS_PRESTADOS_BUTTON, NULL, NULL);
-        CreateWindowW(L"Button", L"Libros Disponibles", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 50, 70, 200, 30, hwnd, (HMENU)IDC_LIBROS_DISPONIBLES_BUTTON, NULL, NULL);
-        CreateWindowW(L"Button", L"Próximos Libros", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 50, 120, 200, 30, hwnd, (HMENU)IDC_PROXIMOS_LIBROS_BUTTON, NULL, NULL);
-        CreateWindowW(L"Button", L"Donar un Libro", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 50, 170, 200, 30, hwnd, (HMENU)IDC_DONAR_LIBRO_BUTTON, NULL, NULL);
-    }
-    break;
-    case WM_COMMAND:
-    {
-        switch (LOWORD(wParam))
-        {
-        // Código para procesar eventos de los botones del menú de usuario
-        }
-    }
-    break;
-    case WM_DESTROY:
-    {
-        PostQuitMessage(0);
-        return 0;
-    }
-    break;
-    }
-
-    return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
