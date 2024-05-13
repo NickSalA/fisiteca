@@ -239,6 +239,7 @@ LRESULT CALLBACK AdminRegistrationWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam
         // Procesar mensajes de control para la ventana de registro de administrador
         switch (LOWORD(wParam))
         {
+
         // Código para procesar eventos de los controles
         }
     }
