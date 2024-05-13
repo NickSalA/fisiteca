@@ -5,7 +5,7 @@ using namespace std;
 
 // Declaración de variables globales
 HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
-HWND hUsuario, hContraseña, hBotonIngresar, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar;
+HWND hUsuario, hContraseña, hBotonIngresarUsuario, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar, hBotonIngresarAdmin;
 
 // Prototipos de funciones
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
@@ -34,14 +34,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM lParam) {
     switch (message) {
         case WM_COMMAND: {
-            if ((HWND)lParam == hBotonIngresar) {
+            if ((HWND)lParam == hBotonIngresarUsuario) {
                 char usuario[50], contraseña[50];
                 GetWindowText(hUsuario, usuario, 50);
                 GetWindowText(hContraseña, contraseña, 50);
                 if (verificarCredencialesUsuario(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
-                } else if (verificarCredencialesAdmin(usuario, contraseña)) {
-                    MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
                 } else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
                 }
@@ -49,6 +47,15 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 createRegistroWindow(GetModuleHandle(NULL));
             } else if ((HWND)lParam == hBotonAdmin) {
                 createAdminWindow(GetModuleHandle(NULL));
+            } else if ((HWND)lParam == hBotonIngresarAdmin) {
+                char usuario[50], contraseña[50];
+                GetWindowText(hUsuario, usuario, 50);
+                GetWindowText(hContraseña, contraseña, 50);
+                if (verificarCredencialesAdmin(usuario, contraseña)) {
+                    MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
+                } else {
+                    MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
+                }
             } else if ((HWND)lParam == hBotonRegistrar) {
                 char nombre[50], contraseña[50], confirmar[50];
                 GetWindowText(hNombre, nombre, 50);
@@ -97,7 +104,7 @@ void createLoginWindow(HINSTANCE hInstance) {
     hUsuario = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 180, 50, 300, 20, hwndLogin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 80, 90, 100, 20, hwndLogin, NULL, NULL, NULL);
     hContraseña = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 180, 90, 300, 20, hwndLogin, NULL, NULL, NULL);
-    hBotonIngresar = CreateWindow("BUTTON", "Ingresar", WS_VISIBLE | WS_CHILD, 340, 150, 200, 25, hwndLogin, (HMENU)1, NULL, NULL);
+    hBotonIngresarUsuario = CreateWindow("BUTTON", "Ingresar", WS_VISIBLE | WS_CHILD, 340, 150, 200, 25, hwndLogin, (HMENU)1, NULL, NULL);
     hBotonRegistrarse = CreateWindow("BUTTON", "Registrarse", WS_VISIBLE | WS_CHILD, 70, 210, 200, 25, hwndLogin, (HMENU)2, NULL, NULL);
     hBotonAdmin = CreateWindow("BUTTON", "Ingresar como administrador", WS_VISIBLE | WS_CHILD, 320, 210, 200, 25, hwndLogin, (HMENU)3, NULL, NULL);
 
@@ -159,7 +166,7 @@ void createAdminWindow(HINSTANCE hInstance) {
     hUsuario = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 150, 30, 200, 20, hwndAdmin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 50, 63, 100, 20, hwndAdmin, NULL, NULL, NULL);
     hContraseña = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 150, 60, 200, 20, hwndAdmin, NULL, NULL, NULL);
-    hBotonIngresar = CreateWindow("BUTTON", "Ingresar", WS_VISIBLE | WS_CHILD, 150, 90, 200, 25, hwndAdmin, (HMENU)1, NULL, NULL);
+    hBotonIngresarAdmin = CreateWindow("BUTTON", "Ingresar", WS_VISIBLE | WS_CHILD, 150, 90, 200, 25, hwndAdmin, (HMENU)5, NULL, NULL);
 
     ShowWindow(hwndAdmin, SW_SHOW);
     UpdateWindow(hwndAdmin);
