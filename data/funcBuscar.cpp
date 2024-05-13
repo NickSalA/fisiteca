@@ -1,3 +1,26 @@
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <limits> // Para std::numeric_limits
+#include <cstdlib> // Para system
+#include <windows.h>
+
+using namespace std;
+
+// Estructura para representar un libro
+struct Libro {
+    int codigo;
+    string nombre;
+    string genero;
+    string autor;
+    int anoPublicacion;
+    string sinopsis;
+};
+
+
+
 
 // Función para buscar coincidencias en los títulos de los libros (ignorando mayúsculas/minúsculas)
 vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
@@ -366,6 +389,13 @@ void mainBuscar_autor(){
                     }
 
 
+int main(){
 
+    mainBuscador_ti;
+
+
+
+    
+}
 
 
