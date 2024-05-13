@@ -12,8 +12,9 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 void createLoginWindow(HINSTANCE hInstance);
 void createRegistroWindow(HINSTANCE hInstance);
 void createAdminWindow(HINSTANCE hInstance);
-bool verificarCredenciales(const string& usuario, const string& contraseña, const string& archivo);
-void registrarUsuario(const string& usuario, const string& contraseña, const string& archivo);
+bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);
+bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
+void registrarUsuario(const string& usuario, const string& contraseña);
 
 // Función principal
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
@@ -37,10 +38,12 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 char usuario[50], contraseña[50];
                 GetWindowText(hUsuario, usuario, 50);
                 GetWindowText(hContraseña, contraseña, 50);
-                if (verificarCredenciales(usuario, contraseña, "credUsuario.txt")) {
+                if (verificarCredencialesUsuario(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
+                } else if (verificarCredencialesAdmin(usuario, contraseña)) {
+                    MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
                 } else {
-                    MessageBox(hwnd, "Ingrese un usuario y/o contraseña validos", "Error", MB_OK | MB_ICONERROR);
+                    MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
                 }
             } else if ((HWND)lParam == hBotonRegistrarse) {
                 createRegistroWindow(GetModuleHandle(NULL));
@@ -52,7 +55,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 GetWindowText(hContraseñaReg, contraseña, 50);
                 GetWindowText(hConfirmarContraseña, confirmar, 50);
                 if (strcmp(contraseña, confirmar) == 0) {
-                    registrarUsuario(nombre, contraseña, "credUsuario.txt");
+                    registrarUsuario(nombre, contraseña);
                     MessageBox(hwnd, "Registro exitoso", "Mensaje", MB_OK);
                 } else {
                     MessageBox(hwnd, "Las contrasenas no coinciden", "Error", MB_OK | MB_ICONERROR);
@@ -123,9 +126,9 @@ void createRegistroWindow(HINSTANCE hInstance) {
     // Crear controles
     CreateWindow("STATIC", "Nombre de usuario:", WS_VISIBLE | WS_CHILD, 50, 30, 150, 20, hwndRegistro, NULL, NULL, NULL);
     hNombre = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 200, 30, 150, 20, hwndRegistro, NULL, NULL, NULL);
-    CreateWindow("STATIC", "Contraseña:", WS_VISIBLE | WS_CHILD, 50, 60, 150, 20, hwndRegistro, NULL, NULL, NULL);
+    CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 50, 60, 150, 20, hwndRegistro, NULL, NULL, NULL);
     hContraseñaReg = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 200, 60, 150, 20, hwndRegistro, NULL, NULL, NULL);
-    CreateWindow("STATIC", "Confirmar contraseña:", WS_VISIBLE | WS_CHILD, 50, 90, 150, 20, hwndRegistro, NULL, NULL, NULL);
+    CreateWindow("STATIC", "Confirmar contrasena:", WS_VISIBLE | WS_CHILD, 50, 90, 150, 20, hwndRegistro, NULL, NULL, NULL);
     hConfirmarContraseña = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 200, 90, 150, 20, hwndRegistro, NULL, NULL, NULL);
     hBotonRegistrar = CreateWindow("BUTTON", "Registrarse", WS_VISIBLE | WS_CHILD, 150, 130, 200, 25, hwndRegistro, (HMENU)4, NULL, NULL);
 
@@ -154,7 +157,7 @@ void createAdminWindow(HINSTANCE hInstance) {
     // Crear controles
     CreateWindow("STATIC", "Usuario:", WS_VISIBLE | WS_CHILD, 50, 33, 100, 20, hwndAdmin, NULL, NULL, NULL);
     hUsuario = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 150, 30, 200, 20, hwndAdmin, NULL, NULL, NULL);
-    CreateWindow("STATIC", "Contraseña:", WS_VISIBLE | WS_CHILD, 50, 63, 100, 20, hwndAdmin, NULL, NULL, NULL);
+    CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 50, 63, 100, 20, hwndAdmin, NULL, NULL, NULL);
     hContraseña = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 150, 60, 200, 20, hwndAdmin, NULL, NULL, NULL);
     hBotonIngresar = CreateWindow("BUTTON", "Ingresar", WS_VISIBLE | WS_CHILD, 150, 90, 200, 25, hwndAdmin, (HMENU)1, NULL, NULL);
 
@@ -162,11 +165,32 @@ void createAdminWindow(HINSTANCE hInstance) {
     UpdateWindow(hwndAdmin);
 }
 
-// Función para verificar las credenciales
-bool verificarCredenciales(const string& usuario, const string& contraseña, const string& archivo) {
-    ifstream file(archivo);
+// Función para verificar las credenciales de usuario
+bool verificarCredencialesUsuario(const string& usuario, const string& contraseña) {
+    ifstream file("credUsuario.txt");
     if (!file.is_open()) {
-        cerr << "Error al abrir el archivo " << archivo << endl;
+        cerr << "Error al abrir el archivo credUsuario.txt" << endl;
+        return false;
+    }
+
+    string line;
+    while (getline(file, line)) {
+        if (line == usuario) {
+            if (getline(file, line) && line == contraseña) {
+                file.close();
+                return true;
+            }
+        }
+    }
+    file.close();
+    return false;
+}
+
+// Función para verificar las credenciales de administrador
+bool verificarCredencialesAdmin(const string& usuario, const string& contraseña) {
+    ifstream file("credAdmin.txt");
+    if (!file.is_open()) {
+        cerr << "Error al abrir el archivo credAdmin.txt" << endl;
         return false;
     }
 
@@ -184,10 +208,10 @@ bool verificarCredenciales(const string& usuario, const string& contraseña, con
 }
 
 // Función para registrar un nuevo usuario
-void registrarUsuario(const string& usuario, const string& contraseña, const string& archivo) {
-    ofstream file(archivo, ios_base::app);
+void registrarUsuario(const string& usuario, const string& contraseña) {
+    ofstream file("credUsuario.txt", ios_base::app);
     if (!file.is_open()) {
-        cerr << "Error al abrir el archivo " << archivo << endl;
+        cerr << "Error al abrir el archivo credUsuario.txt" << endl;
         return;
     }
     file << usuario << endl << contraseña << endl;
