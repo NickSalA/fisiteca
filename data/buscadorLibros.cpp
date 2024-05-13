@@ -1,8 +1,55 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
+#include <windows.h>
+#include <conio.h>
+#include<limits>
+#include<vector>
+#include<algorithm>
+#include<cstdlib>
+using namespace std;
+
+struct Libro {
+    int codigo;
+    string nombre;
+    string genero;
+    string autor;
+    int anoPublicacion;
+    string sinopsis;
+};
+
+void leerLibro(Libro libros[], int& n) {
+    ifstream Leer("C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt", ios::in);
+    if (Leer.fail()) {
+        cout << "Error en el archivo..." << endl;
+        exit(1);
+    }
+    int i = 0;
+    while (!Leer.eof()) {
+        //lectura de datos
+        string xcodigo, xano;
+        getline(Leer, xcodigo);
+        getline(Leer, libros[i].nombre);
+        getline(Leer, libros[i].genero);
+        getline(Leer, libros[i].autor);
+        getline(Leer, xano);
+        getline(Leer, libros[i].sinopsis);
+        //almacenar datos
+        istringstream(xcodigo) >> libros[i].codigo;
+        istringstream(xano) >> libros[i].anoPublicacion;
+        n++;
+        i++;
+    }
+    Leer.close();
+}
 
 void buscar(int n,Libro libros[]){
-	
+
+    do{
+        
 	int opc;
-	    do {
+	    
         cout << "QUE FILTRO LE GUSTARIA USAR ?" << endl;
         cout << "\t 1. Nombre del libro" << endl;
         cout << "\t 2. Género" << endl;
@@ -23,8 +70,8 @@ void buscar(int n,Libro libros[]){
         switch (opc) {
             case 1:
                 // Función para buscar coincidencias en los títulos de los libros (ignorando mayúsculas/minúsculas)
-                vector<Libro> buscarCoincidencias(const vector<Libro>& libros, const string& busqueda) {
-                    vector<Libro> coincidencias;
+                vector<Libro> buscarCoincidencias(const vector<Libro>& libros, const string& busqueda){
+                      vector<Libro> coincidencias;
 
                     // Convertir la búsqueda a minúsculas (o mayúsculas) para ignorar diferencias de caso
                     string busquedaLower = busqueda;
@@ -45,7 +92,7 @@ void buscar(int n,Libro libros[]){
                 }
 
                 // Función para cargar los libros desde un archivo de texto
-                vector<Libro> cargarLibrosDesdeArchivo(const string& nombreArchivo) {
+                vector<Libro> cargarLibrosDesdeArchivo(const string& nombreArchivo){
                     vector<Libro> libros;
                     ifstream archivo(nombreArchivo.c_str(), ios::in); // Se necesita convertir la cadena de nombreArchivo a un const char* usando c_str()
                     if (archivo.is_open()) {
@@ -68,12 +115,13 @@ void buscar(int n,Libro libros[]){
                      cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
                     }
                     return libros;
-                }              
+                }   
+                              
 
-                void mainBuscador() {
-                     SetConsoleOutputCP(CP_UTF8);
+                void mainBuscador(){
+                     
                         // Ruta completa del archivo de texto
-                                        string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
+                        string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
 
                         // Cargar los libros desde el archivo de texto
                         vector<Libro> libros = cargarLibrosDesdeArchivo(nombreArchivo);
@@ -111,6 +159,8 @@ void buscar(int n,Libro libros[]){
                             system("pause");
                         }
                 }
+                
+                mainBuscador();
                 break;
 
             case 2:
@@ -160,10 +210,11 @@ void buscar(int n,Libro libros[]){
                         cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
                     }
                     return libros;
+                
                 }
 
-                void mainBuscador() {
-                    SetConsoleOutputCP(CP_UTF8);
+                void mainBuscador(){
+                
                     // Ruta completa del archivo de texto
                     string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
 
@@ -203,7 +254,8 @@ void buscar(int n,Libro libros[]){
                         system("pause");
                     }
 
-                }               
+                }     
+                mainBuscador();          
                 break;
                 
             case 3:
@@ -225,7 +277,7 @@ void buscar(int n,Libro libros[]){
                 }
 
                 // Función para cargar los libros desde un archivo de texto
-                vector<Libro> cargarLibrosDesdeArchivo(const string& nombreArchivo) {
+                vector<Libro> cargarLibrosDesdeArchivo(const string& nombreArchivo){
                     vector<Libro> libros;
                     ifstream archivo(nombreArchivo.c_str(), ios::in); // Se necesita convertir la cadena de nombreArchivo a un const char* usando c_str()
                     if (archivo.is_open()) {
@@ -251,7 +303,7 @@ void buscar(int n,Libro libros[]){
                 }
 
                 void mainBuscar() {
-                    SetConsoleOutputCP(CP_UTF8);
+                
                     // Ruta completa del archivo de texto
                     string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
 
@@ -292,6 +344,7 @@ void buscar(int n,Libro libros[]){
                     }
 
                 }
+                mainBuscador();
                 break;
                 
             case 4:
@@ -343,14 +396,14 @@ void buscar(int n,Libro libros[]){
                         }
                         return libros;
                     }
-
-                    void mainBuscar {
-                        SetConsoleOutputCP(CP_UTF8);
+        
+                    void mainBuscar(){
+        
                         // Ruta completa del archivo de texto
                         string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
 
                         // Cargar los libros desde el archivo de texto
-                        vector<Libro> libros = cargarLibrosDesdeArchivo(nombreArchivo);
+                        vector<Libro>libros = cargarLibrosDesdeArchivo(nombreArchivo);
 
                         // Bucle de búsqueda
                         string busqueda;
@@ -386,6 +439,7 @@ void buscar(int n,Libro libros[]){
                         }
                     }
 
+                   mainBuscador();
                 break;
             	
             case 5:
