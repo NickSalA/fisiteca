@@ -1,46 +1,63 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <locale> // Necesario para admitir caracteres especiales
+#include <locale>
 
 using namespace std;
 
+bool usuarioExiste(const string& usuario) {
+    ifstream archivo("credUsuario.txt");
+    string linea;
+    while (getline(archivo, linea)) {
+        if (linea == usuario) {
+            archivo.close();
+            return true;
+        }
+    }
+    archivo.close();
+    return false;
+}
+
 int main() {
-    // Configurar la localización para admitir caracteres especiales
     setlocale(LC_ALL, "es_ES.UTF-8");
 
     string usuario, contrasena, confirmar_contrasena;
     
-    // Pedir al usuario y contraseña
-    cout << "Introduce tu nombre de usuario: ";
-    getline(cin, usuario);
-    
-    cout << "Introduce tu contraseña: ";
-    getline(cin, contrasena);
-    
-    cout << "Confirma tu contraseña: ";
-    getline(cin, confirmar_contrasena);
-    
-    // Verificar si las contraseñas coinciden
-    if (contrasena != confirmar_contrasena) {
-        cout << "Las contraseñas no coinciden. Inténtalo de nuevo." << endl;
-        return 1;
+    bool registrado = false;
+    while (!registrado) {
+        cout << "Introduce tu nombre de usuario: ";
+        getline(cin, usuario);
+        
+        if (usuarioExiste(usuario)) {
+            cout << "El usuario ya existe. Introduce un nombre de usuario diferente." << endl;
+            continue;
+        }
+        
+        cout << "Introduce tu contraseña: ";
+        getline(cin, contrasena);
+        
+        cout << "Confirma tu contraseña: ";
+        getline(cin, confirmar_contrasena);
+        
+        if (contrasena != confirmar_contrasena) {
+            cout << "\nLas contraseñas no coinciden. Inténtalo de nuevo." << endl << endl;
+            continue;
+        }
+        
+        ofstream archivo("credUsuario.txt", ios::app);
+        
+        if (!archivo.is_open()) {
+            cout << "Error al abrir el archivo." << endl;
+            return 1;
+        }
+        
+        archivo << usuario << endl << contrasena << endl;
+        
+        archivo.close();
+        
+        registrado = true;
+        cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << endl;
     }
-    
-    // Abrir el archivo para escritura (se creará si no existe)
-    ofstream archivo("credUsuario.txt", ios::app);
-    
-    // Verificar si el archivo se abrió correctamente
-    if (!archivo.is_open()) {
-        cout << "Error al abrir el archivo." << endl;
-        return 1;
-    }
-    
-    // Guardar el usuario y contraseña en el archivo
-    archivo << usuario << endl << contrasena << endl;
-    
-    // Cerrar el archivo
-    archivo.close();
             
     return 0;
 }

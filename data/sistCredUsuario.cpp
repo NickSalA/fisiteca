@@ -31,21 +31,26 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
 int main() {
     string usuarioIngresado;
     string contrasenaIngresada;
+    bool credencialesCorrectas = false;
 
-    // Solicitar al usuario que ingrese su nombre de usuario
-    cout << "Ingrese su nombre de usuario: ";
-    cin >> usuarioIngresado;
+    do {
+        // Solicitar al usuario que ingrese su nombre de usuario
+        cout << "Ingrese su nombre de usuario: ";
+        cin >> usuarioIngresado;
 
-    // Solicitar al usuario que ingrese su contraseña
-    cout << "Ingrese su contrasena: ";
-    cin >> contrasenaIngresada;
+        // Solicitar al usuario que ingrese su contraseña
+        cout << "Ingrese su contrasena: ";
+        cin >> contrasenaIngresada;
 
-    // Verificar las credenciales con el archivo de notas
-    if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
-        cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl;
-    } else {
-        cout << "\nError: Nombre de usuario o contrasena incorrectos." << endl;
-    }
+        // Verificar las credenciales con el archivo de notas
+        if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
+            credencialesCorrectas = true;
+        } else {
+            cout << "\nError: Nombre de usuario o contrasena incorrectos. Intente de nuevo." << endl << endl;
+        }
+    } while (!credencialesCorrectas);
+
+    cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl;
 
     return 0;
 }
