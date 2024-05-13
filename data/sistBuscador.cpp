@@ -60,7 +60,7 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
 }
 
 void mainBuscador_ti(){
-    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
+    string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
@@ -118,7 +118,7 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string&
 
 void mainBuscador_gen(){
                 
-    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
+    string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
@@ -166,7 +166,7 @@ vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string
 
 void mainBuscar_anio() {
                 
-                    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
+                    string nombreArchivo = "libros.txt";
 
                     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
                     string busqueda;
@@ -220,7 +220,7 @@ vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const strin
         
 void mainBuscar_autor(){
         
-                        string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
+                        string nombreArchivo = "libros.txt";
 
                         vector<Libro>libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
@@ -253,6 +253,7 @@ void mainBuscar_autor(){
                     }
 
 int main(){
+    setlocale(LC_ALL, "es_ES.UTF-8"); 
     mainBuscador_gen();
     
 }
