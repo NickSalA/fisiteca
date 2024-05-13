@@ -14,7 +14,7 @@ La historia de la familia Buendía y su ciudad Macondo, donde los eventos fantá
 El Señor de los Anillos
 Fantasía épica
 J.R.R. Tolkien
-1954-1955
+1954
 Un hobbit llamado Frodo emprende un viaje para destruir un anillo maligno y salvar su mundo de la oscuridad.
 4
 1984
@@ -56,7 +56,7 @@ Un joven pastor emprende un viaje en busca de un tesoro y descubre lecciones de 
 Don Quijote de la Mancha
 Novela de caballería
 Miguel de Cervantes
-1605-1615
+1605
 Las aventuras de un hidalgo que se vuelve loco leyendo libros de caballería y sale en busca de aventuras.
 11
 Los juegos del hambre
@@ -114,7 +114,7 @@ Carlos Ruiz Zafón
 Un joven encuentra un libro misterioso que lo lleva a descubrir oscuros secretos en la Barcelona de posguerra.
 20
 El código Da Vinci
-Novela de misterio
+Novela
 Dan Brown
 2003
 Una trama de intriga que involucra al famoso pintor renacentista Leonardo da Vinci y secretos del Vaticano.
