@@ -67,6 +67,17 @@ bool VerifyCredentials(const std::wstring& username, const std::wstring& passwor
     return false; // Si no se encontraron coincidencias, retornar falso
 }
 
+// Función para escribir los datos de usuario en el archivo "credUsuario.txt"
+void WriteUserCredentialsToFile(const std::wstring& username, const std::wstring& password) {
+    // Abrir el archivo "credUsuario.txt" para escritura (appending)
+    std::wofstream file("credUsuario.txt", std::ios_base::app);
+    if (file.is_open()) {
+        // Escribir el nombre de usuario y la contraseña en una nueva línea
+        file << username << '\n' << password << '\n';
+        file.close(); // Cerrar el archivo
+    }
+}
+
 LRESULT CALLBACK UserMenuWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -125,9 +136,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
         CreateWindowW(L"Static", L"Contraseña:", WS_VISIBLE | WS_CHILD, 20, 60, 120, 25, hwnd, NULL, NULL, NULL);
         HWND hwndPasswordEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER | ES_PASSWORD, 150, 60, 300, 25, hwnd, (HMENU)IDC_PASSWORD_EDIT, NULL, NULL);
 
-        CreateWindowW(L"Button", L"Ingresar", WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 20, 100, 150, 30, hwnd, (HMENU)IDC_LOGIN_BUTTON, NULL, NULL);
-        CreateWindowW(L"Button", L"Registrarse", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 200, 100, 150, 30, hwnd, (HMENU)IDC_REGISTER_BUTTON, NULL, NULL);
-        CreateWindowW(L"Button", L"Ingresar como administrador", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 20, 150, 330, 30, hwnd, (HMENU)IDC_ADMIN_BUTTON, NULL, NULL);
+        CreateWindowW(L"Button", L"Ingresar", WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 70, 100, 150, 30, hwnd, (HMENU)IDC_LOGIN_BUTTON, NULL, NULL);
+        CreateWindowW(L"Button", L"Registrarse", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 250, 100, 150, 30, hwnd, (HMENU)IDC_REGISTER_BUTTON, NULL, NULL);
+        CreateWindowW(L"Button", L"Ingresar como administrador", WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 70, 150, 330, 30, hwnd, (HMENU)IDC_ADMIN_BUTTON, NULL, NULL);
     }
     break;
     case WM_COMMAND:
@@ -156,10 +167,12 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
             
         case IDC_REGISTER_BUTTON:
-            OpenAdminRegistrationWindow(GetModuleHandle(NULL)); // Abrir la ventana de registro de administrador
+            // Abrir la ventana de registro de usuario
+            OpenAdminRegistrationWindow(GetModuleHandle(NULL));
             break;
         case IDC_ADMIN_BUTTON:
-            OpenAdminLoginWindow(GetModuleHandle(NULL)); // Abrir la ventana de inicio de sesión de administrador
+            // Abrir la ventana de inicio de sesión de administrador
+            OpenAdminLoginWindow(GetModuleHandle(NULL));
             break;
         // Código para procesar otros mensajes de control
         }
@@ -194,7 +207,7 @@ void OpenAdminRegistrationWindow(HINSTANCE hInstance)
     HWND hwnd = CreateWindowEx(
         0,
         L"AdminRegistrationWindowClass",
-        L"Registro de Administrador",
+        L"Registro de Usuario",
         WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, CW_USEDEFAULT, 500, 300,
         NULL,
@@ -207,35 +220,8 @@ void OpenAdminRegistrationWindow(HINSTANCE hInstance)
     UpdateWindow(hwnd);
 }
 
-// Función para abrir la ventana de inicio de sesión de administrador
 void OpenAdminLoginWindow(HINSTANCE hInstance)
 {
-    // Registrar la clase de la ventana de inicio de sesión de administrador
-    WNDCLASSEX wc = {0};
-    wc.cbSize = sizeof(WNDCLASSEX);
-    wc.style = CS_HREDRAW | CS_VREDRAW;
-    wc.lpfnWndProc = AdminLoginWindowProc;
-    wc.hInstance = hInstance;
-    wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.hbrBackground = (HBRUSH)COLOR_WINDOW;
-    wc.lpszClassName = L"AdminLoginWindowClass";
-    RegisterClassEx(&wc);
-
-    // Crear la ventana de inicio de sesión de administrador
-    HWND hwnd = CreateWindowEx(
-        0,
-        L"AdminLoginWindowClass",
-        L"Inicio de Sesión de Administrador",
-        WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, CW_USEDEFAULT, 500, 250,
-        NULL,
-        NULL,
-        hInstance,
-        NULL);
-
-    // Mostrar la ventana de inicio de sesión de administrador
-    ShowWindow(hwnd, SW_SHOW);
-    UpdateWindow(hwnd);
 }
 
 // Procedimiento de ventana para la ventana de registro de administrador
@@ -266,6 +252,27 @@ LRESULT CALLBACK AdminRegistrationWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam
         // Procesar mensajes de control para la ventana de registro de administrador
         switch (LOWORD(wParam))
         {
+        case IDC_ADMIN_REGISTER_BUTTON:
+            // Obtener el texto de los campos de registro
+            TCHAR username[256], password[256], confirmPassword[256], studentCode[256];
+            GetDlgItemText(hwnd, IDC_USERNAME_EDIT_ADMIN, username, 256);
+            GetDlgItemText(hwnd, IDC_PASSWORD_EDIT_ADMIN, password, 256);
+            GetDlgItemText(hwnd, IDC_CONFIRM_PASSWORD_EDIT_ADMIN, confirmPassword, 256);
+            GetDlgItemText(hwnd, IDC_STUDENT_CODE_EDIT_ADMIN, studentCode, 256);
+
+            // Verificar si los campos están vacíos
+            if (lstrlen(username) == 0 || lstrlen(password) == 0 || lstrlen(confirmPassword) == 0 || lstrlen(studentCode) == 0) {
+                MessageBox(hwnd, L"Todos los campos son obligatorios", L"Registro de Usuario", MB_OK | MB_ICONERROR);
+            }
+            else if (lstrcmp(password, confirmPassword) != 0) {
+                MessageBox(hwnd, L"Las contraseñas no coinciden", L"Registro de Usuario", MB_OK | MB_ICONERROR);
+            }
+            else {
+                // Escribir los datos del usuario en el archivo
+                WriteUserCredentialsToFile(username, password);
+                MessageBox(hwnd, L"Usuario registrado exitosamente", L"Registro de Usuario", MB_OK | MB_ICONINFORMATION);
+            }
+            break;
         // Código para procesar eventos de los controles
         }
     }
