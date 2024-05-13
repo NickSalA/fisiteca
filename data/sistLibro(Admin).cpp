@@ -40,7 +40,6 @@ void leerLibro(Libro libros[], int& n){
         i++;
     }
 	Leer.close();
-	
 }
 
 void agregarLibro(Libro libros[], int& n) {
@@ -78,48 +77,64 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion << newLibro.autor << endl;
         Grabacion << newLibro.anoPublicacion << endl;
         Grabacion << newLibro.sinopsis << endl;
-        // Agregar un salto de línea al final del registro del libro
-        Grabacion << endl;
         Grabacion.close();
     }
 }
 void eliminarLibro(Libro libros[], int& n) {
-    int codigo;
-    cout << "Ingrese el código del libro que desea eliminar: ";
-    cin >> codigo;
-
-    bool encontrado = false;
-    for (int i = 0; i < n; ++i) {
-        if (libros[i].codigo == codigo) {
-            encontrado = true;
-            // Desplazar los elementos hacia abajo para sobrescribir el libro a eliminar
-            for (int j = i; j < n - 1; ++j) {
-                libros[j] = libros[j + 1];
-            }
-            // Reducir el contador de libros
-            --n;
-            break;
-        }
+    int numLibro;
+    
+    //Mostrar lista de libros
+    for (int i = 0; i < n; i++) {
+        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << endl;
     }
 
-    if (encontrado) {
-        ofstream Grabacion("libros.txt");
-        for (int i = 0; i < n; ++i) {
-            Grabacion << libros[i].codigo << endl;
-            Grabacion << libros[i].nombre << endl;
-            Grabacion << libros[i].genero << endl;
-            Grabacion << libros[i].autor << endl;
-            Grabacion << libros[i].anoPublicacion << endl;
-            Grabacion << libros[i].sinopsis << endl;
-            // Agregar un salto de línea al final del registro del libro
-            Grabacion << endl;
+    cout << "Seleccione el número del libro que desea eliminar: ";
+    cin >> numLibro;
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+    
+    if (numLibro >= 1 && numLibro <= n) {
+        int indiceLibro = numLibro - 1;
+        // Mostrar la información del libro seleccionado
+        cout << "\nLibro: " << libros[indiceLibro].nombre << endl;
+        cout << "Genero: " << libros[indiceLibro].genero << endl;
+        cout << "Autor: " << libros[indiceLibro].autor << endl;
+        cout << "Año de publicacion: " << libros[indiceLibro].anoPublicacion << endl;
+        
+        char confirmacion;
+        cout << "¿Está seguro de que desea eliminar este libro? (S/N): ";
+        cin >> confirmacion;
+        confirmacion = toupper(confirmacion);
+        
+        // Procesar la respuesta del usuario
+        if (confirmacion == 'S') {
+            for (int i = indiceLibro; i < n - 1; ++i) {
+                libros[i] = libros[i + 1];
+            }
+            --n;
+            cout << "Libro eliminado exitosamente." << endl;
+
+            ofstream Grabacion("libros.txt");
+            for (int i = 0; i < n; ++i) {
+                Grabacion << libros[i].codigo << endl;
+                Grabacion << libros[i].nombre << endl;
+                Grabacion << libros[i].genero << endl;
+                Grabacion << libros[i].autor << endl;
+                Grabacion << libros[i].anoPublicacion << endl;
+                Grabacion << libros[i].sinopsis << endl;
+            }
+            Grabacion.close();
+        } else {
+            cout << "Operación cancelada. El libro no ha sido eliminado." << endl;
         }
-        Grabacion.close();
-        cout << "Libro eliminado exitosamente." << endl;
     } else {
-        cout << "No se encontró ningún libro con el código " << codigo << "." << endl;
+        cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
+void editarLibro(){
+    
+}
+
+
 //int main provisional, lo importante es lo de arriba xd
 int main() {
     Libro libros[100];
@@ -131,11 +146,9 @@ int main() {
         cin >> opcion;
         switch (opcion) {
             case 1:
-                leerLibro(libros, n);
                 agregarLibro(libros, n);
                 break;
             case 2:
-                leerLibro(libros, n);
                 eliminarLibro(libros, n);
                 break;
             case 3:

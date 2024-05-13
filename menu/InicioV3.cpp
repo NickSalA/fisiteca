@@ -5,6 +5,7 @@
 // Declaración de identificadores de control
 #define IDC_USERNAME_EDIT 1001
 #define IDC_PASSWORD_EDIT 1002
+
 #define IDC_LOGIN_BUTTON 1003
 #define IDC_REGISTER_BUTTON 1004
 #define IDC_ADMIN_BUTTON 1005
