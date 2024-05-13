@@ -386,6 +386,7 @@ void mainBuscar_autor(){
                     }
 
 int main(){
-    
+    SetConsoleOutputCP(CP_UTF8);
+    mainBuscar_autor();
     //colocar un switch futuro al menu uwu
 }
