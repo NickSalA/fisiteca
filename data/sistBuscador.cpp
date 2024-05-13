@@ -389,5 +389,3 @@ int main(){
     
     //colocar un switch futuro al menu uwu
 }
-
-
