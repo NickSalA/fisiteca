@@ -3,13 +3,12 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <limits> // Para std::numeric_limits
-#include <cstdlib> // Para system
+#include <limits> 
+#include <cstdlib> 
 #include <windows.h>
 
 using namespace std;
 
-// Estructura para representar un libro
 struct Libro {
     int codigo;
     string nombre;
@@ -23,16 +22,13 @@ struct Libro {
 vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
 
-    // Convertir la búsqueda a minúsculas (o mayúsculas) para ignorar diferencias de caso
     string busquedaLower = busqueda;
     transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
 
     for (const Libro& libro : libros) {
-        // Convertir el título del libro a minúsculas (o mayúsculas)
         string tituloLower = libro.nombre;
         transform(tituloLower.begin(), tituloLower.end(), tituloLower.begin(), ::tolower);
 
-        // Buscar coincidencias
         if (tituloLower.find(busquedaLower) != string::npos) {
             coincidencias.push_back(libro);
         }
@@ -48,14 +44,12 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
     if (archivo.is_open()) {
         Libro libro;
         while (archivo >> libro.codigo) {
-            // Ignorar el carácter de nueva línea después del código
+
             archivo.ignore();
-            // Leer los demás atributos del libro
             getline(archivo, libro.nombre);
             getline(archivo, libro.genero);
             getline(archivo, libro.autor);
             archivo >> libro.anoPublicacion;
-            // Ignorar el carácter de nueva línea después del año de publicación
             archivo.ignore();
             getline(archivo, libro.sinopsis);
             libros.push_back(libro);
@@ -68,26 +62,20 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
 }
 
 void mainBuscador_ti(){
-    // Ruta completa del archivo de texto
     string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
-    // Cargar los libros desde el archivo de texto
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
-    // Bucle de búsqueda
     string busqueda;
     while (true) {
-        // Limpiar la pantalla
         system("cls");
 
-        // Pedir al usuario que ingrese el término de búsqueda
         cout << "Ingrese el término de búsqueda: ";
         getline(cin, busqueda);
 
-        // Buscar coincidencias
+
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
 
-        // Mostrar coincidencias
         cout << "Coincidencias encontradas:\n";
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
