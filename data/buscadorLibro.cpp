@@ -17,7 +17,7 @@ struct Libro {
 };
 
 void leerLibro(Libro libros[], int& n) {
-    ifstream Leer("C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-1/data/libros.txt", ios::in);
+    ifstream Leer("libros.txt", ios::in);
     if (Leer.fail()) {
         cout << "Error en el archivo..." << endl;
         exit(1);
