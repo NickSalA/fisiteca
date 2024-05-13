@@ -154,6 +154,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 }
             }
             break;
+            
         case IDC_REGISTER_BUTTON:
             OpenAdminRegistrationWindow(GetModuleHandle(NULL)); // Abrir la ventana de registro de administrador
             break;
@@ -265,7 +266,6 @@ LRESULT CALLBACK AdminRegistrationWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam
         // Procesar mensajes de control para la ventana de registro de administrador
         switch (LOWORD(wParam))
         {
-
         // Código para procesar eventos de los controles
         }
     }

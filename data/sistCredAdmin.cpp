@@ -43,6 +43,7 @@ int main() {
     // Verificar las credenciales con el archivo de notas
     if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
         cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
+        
     } else {
         cout << "\nError: Nombre de usuario o contrasena incorrectos." << endl;
     }
