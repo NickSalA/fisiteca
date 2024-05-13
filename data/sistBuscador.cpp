@@ -60,7 +60,7 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
 }
 
 void mainBuscador_ti(){
-    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
+    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
@@ -114,33 +114,13 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string&
      return coincidencias;
 }
 
-vector<Libro> cargarLibrosDesdeArchivo_gen(const string& nombreArchivo) {               
-        vector<Libro> libros;
-        ifstream archivo(nombreArchivo.c_str(), ios::in); 
-        if (archivo.is_open()) {
-            Libro libro;
-            while (archivo >> libro.codigo) {
-                archivo.ignore();
-                getline(archivo, libro.nombre);
-                getline(archivo, libro.genero);
-                getline(archivo, libro.autor);
-                archivo >> libro.anoPublicacion;
-                archivo.ignore();
-                getline(archivo, libro.sinopsis);
-                libros.push_back(libro);
-            }
-                 archivo.close();
-            } else {
-            cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
-            }
-            return libros;
-    }
+
 
 void mainBuscador_gen(){
                 
-    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
+    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
 
-    vector<Libro> libros = cargarLibrosDesdeArchivo_gen(nombreArchivo);
+    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
     string busqueda;
     while (true) {
@@ -183,33 +163,12 @@ vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string
                     return coincidencias;
                 }
 
-vector<Libro> cargarLibrosDesdeArchivo_anio(const string& nombreArchivo){
-                    vector<Libro> libros;
-                    ifstream archivo(nombreArchivo.c_str(), ios::in); /
-                    if (archivo.is_open()) {
-                        Libro libro;
-                        while (archivo >> libro.codigo) {
-                            archivo.ignore();
-                            getline(archivo, libro.nombre);
-                            getline(archivo, libro.genero);
-                            getline(archivo, libro.autor);
-                            archivo >> libro.anoPublicacion;
-                            archivo.ignore();
-                            getline(archivo, libro.sinopsis);
-                            libros.push_back(libro);
-                        }
-                        archivo.close();
-                    } else {
-                        cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
-                    }
-                    return libros;
-                }
 
 void mainBuscar_anio() {
                 
-                    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
+                    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
 
-                    vector<Libro> libros = cargarLibrosDesdeArchivo_anio(nombreArchivo);
+                    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
                     string busqueda;
                     while (true) {
                         system("cls");
@@ -257,33 +216,13 @@ vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const strin
                         return coincidencias;
                     }       
 
-vector<Libro> cargarLibrosDesdeArchivo_autor(const string& nombreArchivo) {
-                        vector<Libro> libros;
-                        ifstream archivo(nombreArchivo.c_str(), ios::in); 
-                        if (archivo.is_open()) {
-                            Libro libro;
-                         while (archivo >> libro.codigo) {
-                                archivo.ignore();
-                                getline(archivo, libro.nombre);
-                                getline(archivo, libro.genero);
-                                getline(archivo, libro.autor);
-                                archivo >> libro.anoPublicacion;
-                                archivo.ignore();
-                                getline(archivo, libro.sinopsis);
-                                libros.push_back(libro);
-                            }
-                            archivo.close();
-                        } else {
-                            cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
-                        }
-                        return libros;
-                    }
+
         
 void mainBuscar_autor(){
         
-                        string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
+                        string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca-6/data/output/libros.txt";
 
-                        vector<Libro>libros = cargarLibrosDesdeArchivo_autor(nombreArchivo);
+                        vector<Libro>libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
                         string busqueda;
                         while (true) {
@@ -314,6 +253,6 @@ void mainBuscar_autor(){
                     }
 
 int main(){
-    SetConsoleOutputCP(CP_UTF8);
-    mainBuscar_autor();
+    mainBuscador_gen();
+    
 }
