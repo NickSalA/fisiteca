@@ -8,7 +8,7 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
     // Abrir el archivo para lectura
     ifstream archivo("credAdmin.txt");
     
-    if (!archivo.is_open()) {
+    if (archivo.fail()) {
         cout << "Error: No se pudo abrir el archivo 'credAdmin.txt'." << endl;
         return false;
     }
@@ -31,18 +31,26 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
 int main() {
     string usuarioIngresado;
     string contrasenaIngresada;
+    bool credencialesCorrectas = false;
 
-    cout << "Ingrese su nombre de usuario: ";
-    cin >> usuarioIngresado;
-    cout << "Ingrese su contrasena: ";
-    cin >> contrasenaIngresada;
+    do {
+        // Solicitar al usuario que ingrese su nombre de usuario
+        cout << "Ingrese su nombre de usuario: ";
+        cin >> usuarioIngresado;
 
-    if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
-        cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
-        
-    } else {
-        cout << "\nError: Nombre de usuario o contrasena incorrectos." << endl;
-    }
+        // Solicitar al usuario que ingrese su contraseña
+        cout << "Ingrese su contrasena: ";
+        cin >> contrasenaIngresada;
+
+        // Verificar las credenciales con el archivo de notas
+        if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
+            credencialesCorrectas = true;
+        } else {
+            cout << "\nError: Nombre de usuario o contrasena incorrectos. Intente de nuevo." << endl << endl;
+        }
+    } while (!credencialesCorrectas);
+
+    cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
 
     return 0;
 }
