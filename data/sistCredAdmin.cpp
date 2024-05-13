@@ -1,11 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <locale> 
 
 using namespace std;
 
-bool verificarCredenciales(const string& usuario, const string& contrasena) {
-    // Abrir el archivo para lectura
+void configurarConsolaUtf8() {
+    setlocale(LC_ALL, "es_ES.UTF-8"); 
+}
+
+bool verificarCredenciales(const string& usuario, const string& contraseña) {
     ifstream archivo("credAdmin.txt");
     
     if (archivo.fail()) {
@@ -14,11 +18,10 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
     }
     
     string usuarioGuardado;
-    string contrasenaGuardada;
+    string contraseñaGuardada;
     
-    // Leer el archivo línea por línea y buscar las credenciales
-    while (archivo >> usuarioGuardado >> contrasenaGuardada) {
-        if (usuarioGuardado == usuario && contrasenaGuardada == contrasena) {
+    while (archivo >> usuarioGuardado >> contraseñaGuardada) {
+        if (usuarioGuardado == usuario && contraseñaGuardada == contraseña) {
             archivo.close();
             return true;
         }
@@ -29,24 +32,23 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
 }
 
 int main() {
+    configurarConsolaUtf8(); 
+    
     string usuarioIngresado;
-    string contrasenaIngresada;
+    string contraseñaIngresada;
     bool credencialesCorrectas = false;
 
     do {
-        // Solicitar al usuario que ingrese su nombre de usuario
         cout << "Ingrese su nombre de usuario: ";
-        cin >> usuarioIngresado;
+        getline(cin, usuarioIngresado);
 
-        // Solicitar al usuario que ingrese su contraseña
-        cout << "Ingrese su contrasena: ";
-        cin >> contrasenaIngresada;
+        cout << "Ingrese su contraseña: ";
+        getline(cin, contraseñaIngresada);
 
-        // Verificar las credenciales con el archivo de notas
-        if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
+        if (verificarCredenciales(usuarioIngresado, contraseñaIngresada)) {
             credencialesCorrectas = true;
         } else {
-            cout << "\nError: Nombre de usuario o contrasena incorrectos. Intente de nuevo." << endl << endl;
+            cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl << endl;
         }
     } while (!credencialesCorrectas);
 

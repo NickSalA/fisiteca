@@ -77,7 +77,7 @@ int main() {
         archivo.close();
         
         registrado = true;
-        cout << "Registro exitoso. ¡Te has registrado correctamente!" << endl;
+        cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << endl;
     }
             
     return 0;
