@@ -32,15 +32,11 @@ int main() {
     string usuarioIngresado;
     string contrasenaIngresada;
 
-    // Solicitar al usuario que ingrese su nombre de usuario
     cout << "Ingrese su nombre de usuario: ";
     cin >> usuarioIngresado;
-
-    // Solicitar al usuario que ingrese su contraseña
     cout << "Ingrese su contrasena: ";
     cin >> contrasenaIngresada;
 
-    // Verificar las credenciales con el archivo de notas
     if (verificarCredenciales(usuarioIngresado, contrasenaIngresada)) {
         cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
         

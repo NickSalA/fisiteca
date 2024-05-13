@@ -128,14 +128,11 @@ vector<Libro> cargarLibrosDesdeArchivo_gen(const string& nombreArchivo) {
         if (archivo.is_open()) {
             Libro libro;
             while (archivo >> libro.codigo) {
-                // Ignorar el carácter de nueva línea después del código
                 archivo.ignore();
-                // Leer los demás atributos del libro
                 getline(archivo, libro.nombre);
                 getline(archivo, libro.genero);
                 getline(archivo, libro.autor);
                 archivo >> libro.anoPublicacion;
-                // Ignorar el carácter de nueva línea después del año de publicación
                 archivo.ignore();
                 getline(archivo, libro.sinopsis);
                 libros.push_back(libro);
@@ -150,26 +147,18 @@ vector<Libro> cargarLibrosDesdeArchivo_gen(const string& nombreArchivo) {
 
 void mainBuscador_gen(){
                 
-    // Ruta completa del archivo de texto
     string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
-    // Cargar los libros desde el archivo de texto
     vector<Libro> libros = cargarLibrosDesdeArchivo_gen(nombreArchivo);
 
-    // Bucle de búsqueda
     string busqueda;
     while (true) {
-                    // Limpiar la pantalla
         system("cls");
-
-        // Pedir al usuario que ingrese el término de búsqueda
         cout << "Ingrese el género a buscar: ";
         getline(cin,busqueda);
 
-        // Buscar coincidencias
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
 
-                    // Mostrar coincidencias
         cout << "Coincidencias encontradas:\n";
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el género: " << busqueda << endl;
@@ -184,8 +173,6 @@ void mainBuscador_gen(){
                 cout << endl;
             }               
         }
-
-        // Pausar para permitir al usuario ver los resultados 
         system("pause");
     }
 
@@ -200,10 +187,8 @@ vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string
                     vector<Libro> coincidencias;
 
                     for (const Libro& libro : libros) {
-                        // Convertir el año de publicación del libro a string
                         string anoPublicacionStr = to_string(libro.anoPublicacion);
 
-                        // Buscar coincidencias
                         if (anoPublicacionStr.find(busqueda) != string::npos) {
                                             coincidencias.push_back(libro);
                         }
@@ -245,21 +230,15 @@ void mainBuscar_anio() {
 
                     // Cargar los libros desde el archivo de texto
                     vector<Libro> libros = cargarLibrosDesdeArchivo_anio(nombreArchivo);
-
-                    // Bucle de búsqueda
                     string busqueda;
                     while (true) {
-                        // Limpiar la pantalla
                         system("cls");
 
-                        // Pedir al usuario que ingrese el año de publicación a buscar
                         cout << "Ingrese el año de publicación a buscar: ";
                         getline(cin, busqueda);
 
-                        // Buscar coincidencias
                         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
 
-                        // Mostrar coincidencias
                         cout << "Coincidencias encontradas:\n";
                         if (coincidencias.empty()) {
                             cout << "No se encontraron coincidencias para el año de publicación: " << busqueda << endl;
