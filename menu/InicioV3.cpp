@@ -1,11 +1,11 @@
 #define UNICODE
 #include <windows.h>
 #include <string>
+#include <fstream>
 
 // Declaración de identificadores de control
 #define IDC_USERNAME_EDIT 1001
 #define IDC_PASSWORD_EDIT 1002
-
 #define IDC_LOGIN_BUTTON 1003
 #define IDC_REGISTER_BUTTON 1004
 #define IDC_ADMIN_BUTTON 1005
@@ -42,10 +42,32 @@ void ShowInvalidLoginDialog(HWND hwnd);
 // Función para abrir la ventana del menú de usuario
 void OpenUserMenuWindow(HINSTANCE hInstance);
 
-// Función de ventana para la ventana del menú de usuario
-LRESULT CALLBACK UserMenuWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
-
 HWND g_hMainWindow;
+
+// Función para verificar el usuario y la contraseña
+bool VerifyCredentials(const std::wstring& username, const std::wstring& password) {
+    // Abrir el archivo "credUsuario.txt" para lectura
+    std::wifstream file("credUsuario.txt");
+    if (!file.is_open()) {
+        return false; // Si no se pudo abrir el archivo, retornar falso
+    }
+
+    std::wstring storedUsername, storedPassword;
+
+    // Leer los datos del archivo línea por línea
+    while (std::getline(file, storedUsername) && std::getline(file, storedPassword)) {
+        // Comparar el usuario y la contraseña con los valores almacenados
+        if (storedUsername == username && storedPassword == password) {
+            file.close(); // Cerrar el archivo
+            return true; // Si coinciden, retornar verdadero
+        }
+    }
+
+    file.close(); // Cerrar el archivo
+    return false; // Si no se encontraron coincidencias, retornar falso
+}
+
+LRESULT CALLBACK UserMenuWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
@@ -119,13 +141,17 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             GetDlgItemText(hwnd, IDC_PASSWORD_EDIT, password, 256);
 
             // Verificar si los campos están vacíos
-            if (lstrlen(username) == 0 || lstrlen(password) == 0)
-            {
+            if (lstrlen(username) == 0 || lstrlen(password) == 0) {
                 MessageBox(hwnd, L"Ingrese un usuario y/o contraseña válidos", L"Inicio de Sesión", MB_OK | MB_ICONERROR);
             }
-            else
-            {
-                OpenUserMenuWindow(GetModuleHandle(NULL)); // Abrir la ventana del menú de usuario
+            else {
+                // Verificar el usuario y la contraseña
+                if (VerifyCredentials(username, password)) {
+                    OpenUserMenuWindow(GetModuleHandle(NULL)); // Abrir la ventana del menú de usuario
+                }
+                else {
+                    MessageBox(hwnd, L"Usuario y/o contraseña incorrectos", L"Inicio de Sesión", MB_OK | MB_ICONERROR);
+                }
             }
             break;
             
