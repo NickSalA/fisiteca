@@ -97,7 +97,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
     {
         // Crear controles
-        CreateWindowW(L"Static", L"Nombre de usuario:", WS_VISIBLE | WS_CHILD, 20, 20, 120, 25, hwnd, NULL, NULL, NULL);
+        CreateWindowW(L"Static", L"Usuario:", WS_VISIBLE | WS_CHILD, 20, 20, 120, 25, hwnd, NULL, NULL, NULL);
         HWND hwndUsernameEdit = CreateWindowW(L"Edit", L"", WS_VISIBLE | WS_CHILD | WS_BORDER, 150, 20, 300, 25, hwnd, (HMENU)IDC_USERNAME_EDIT, NULL, NULL);
 
         CreateWindowW(L"Static", L"Contraseña:", WS_VISIBLE | WS_CHILD, 20, 60, 120, 25, hwnd, NULL, NULL, NULL);
@@ -239,6 +239,7 @@ LRESULT CALLBACK AdminRegistrationWindowProc(HWND hwnd, UINT uMsg, WPARAM wParam
         // Procesar mensajes de control para la ventana de registro de administrador
         switch (LOWORD(wParam))
         {
+
         // Código para procesar eventos de los controles
         }
     }
