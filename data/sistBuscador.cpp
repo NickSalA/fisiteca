@@ -19,9 +19,6 @@ struct Libro {
     string sinopsis;
 };
 
-
-
-
 // Función para buscar coincidencias en los títulos de los libros (ignorando mayúsculas/minúsculas)
 vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
@@ -72,7 +69,7 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
 
 void mainBuscador_ti(){
     // Ruta completa del archivo de texto
-    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
+    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
     // Cargar los libros desde el archivo de texto
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
@@ -166,7 +163,7 @@ vector<Libro> cargarLibrosDesdeArchivo_gen(const string& nombreArchivo) {
 void mainBuscador_gen(){
                 
     // Ruta completa del archivo de texto
-    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
+    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
     // Cargar los libros desde el archivo de texto
     vector<Libro> libros = cargarLibrosDesdeArchivo_gen(nombreArchivo);
@@ -256,7 +253,7 @@ vector<Libro> cargarLibrosDesdeArchivo_anio(const string& nombreArchivo){
 void mainBuscar_anio() {
                 
                     // Ruta completa del archivo de texto
-                    string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
+                    string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
                     // Cargar los libros desde el archivo de texto
                     vector<Libro> libros = cargarLibrosDesdeArchivo_anio(nombreArchivo);
@@ -349,7 +346,7 @@ vector<Libro> cargarLibrosDesdeArchivo_autor(const string& nombreArchivo) {
 void mainBuscar_autor(){
         
                         // Ruta completa del archivo de texto
-                        string nombreArchivo = "C:/Users/Giancarlo/Desktop/Proyecto algoritmica/fisiteca/data/libros.txt";
+                        string nombreArchivo = "D:/Repos/fisiteca-1/data/output/libros.txt";
 
                         // Cargar los libros desde el archivo de texto
                         vector<Libro>libros = cargarLibrosDesdeArchivo_autor(nombreArchivo);
@@ -388,14 +385,8 @@ void mainBuscar_autor(){
                         }
                     }
 
-
 int main(){
-
-    mainBuscador_ti;
-
-
-
-    
+    SetConsoleOutputCP(CP_UTF8);
+    mainBuscar_autor();
+    //colocar un switch futuro al menu uwu
 }
-
-
