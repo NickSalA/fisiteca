@@ -8,7 +8,7 @@ bool verificarCredenciales(const string& usuario, const string& contrasena) {
     // Abrir el archivo para lectura
     ifstream archivo("credUsuario.txt");
     
-    if (!archivo.is_open()) {
+    if (archivo.fail()) {
         cout << "Error: No se pudo abrir el archivo 'credUsuario.txt'." << endl;
         return false;
     }
