@@ -1,10 +1,4 @@
-nick
-12345
-David
-12345
-giancarlo
-12345
-puta
-12345
-zorra
-12345
+david
+123
+david
+123

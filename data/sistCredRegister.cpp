@@ -23,7 +23,7 @@ int main() {
     }
     
     // Guardar el usuario y contraseña en el archivo
-    archivo <<endl<< usuario << endl << contrasena;
+    archivo << usuario << endl << contrasena << endl;
     
     // Cerrar el archivo
     archivo.close();
