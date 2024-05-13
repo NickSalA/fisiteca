@@ -31,21 +31,33 @@ int main() {
         cout << "Introduce tu nombre de usuario: ";
         getline(cin, usuario);
         
+        // Verificar si el usuario está vacío
+        if (usuario.empty()) {
+            cout << "\nEl nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
+            continue;
+        }
+        
         // Verificar si el usuario ya existe
         if (usuarioExiste(usuario)) {
-            cout << "El usuario ya existe. Introduce un nombre de usuario diferente." << endl;
+            cout << "\nEl usuario ya existe. Introduce un nombre de usuario diferente." << endl << endl;
             continue;
         }
         
         cout << "Introduce tu contraseña: ";
         getline(cin, contrasena);
         
+        // Verificar si la contraseña está vacía
+        if (contrasena.empty()) {
+            cout << "\nLa contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
+            continue;
+        }
+        
         cout << "Confirma tu contraseña: ";
         getline(cin, confirmar_contrasena);
         
         // Verificar si las contraseñas coinciden
         if (contrasena != confirmar_contrasena) {
-            cout << "Las contraseñas no coinciden. Inténtalo de nuevo." << endl;
+            cout << "\nLas contraseñas no coinciden. Inténtalo de nuevo." << endl << endl;
             continue;
         }
         
