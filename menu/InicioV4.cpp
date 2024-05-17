@@ -14,7 +14,8 @@ void createAdminWindow(HINSTANCE hInstance);
 bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);
 bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
 void registrarUsuario(const string& usuario, const string& contraseña);
-void ejecutarCmd();
+void menuUsuario();
+void menuAdmin();
 
 // Función principal
 int main() {

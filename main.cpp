@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
+#include "menu/funcionesVerificar.h"
 using namespace std;
 
 HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
@@ -11,10 +12,8 @@ LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 void createLoginWindow(HINSTANCE hInstance);
 void createRegistroWindow(HINSTANCE hInstance);
 void createAdminWindow(HINSTANCE hInstance);
-bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);
-bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
-void registrarUsuario(const string& usuario, const string& contraseña);
-void ejecutarCmd();
+void menuUsuario();
+void menuAdmin();
 
 // Función principal
 int main() {
@@ -42,7 +41,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
                     //Añadir aca las funciones (del CMD :D)
-                    ejecutarCmd();
+                    menuUsuario();
                 } else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
                 }
@@ -58,7 +57,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                     MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
                     //Añadir aca las funciones (del CMD :D)
-                    ejecutarCmd();
+                    menuAdmin();
                 } 
                 else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
@@ -180,59 +179,44 @@ void createAdminWindow(HINSTANCE hInstance) {
 }
 
 // Función para verificar las credenciales de usuario
-bool verificarCredencialesUsuario(const string& usuario, const string& contraseña) {
-    ifstream file("credUsuario.txt");
-    if (!file.is_open()) {
-        cerr << "Error al abrir el archivo credUsuario.txt" << endl;
-        return false;
-    }
+void menuUsuario() {
+    while (true) {
+        system("cls"); // Limpiar la consola
+        cout << "Menu de Opciones" << endl;
+        cout << "1. Opción 1" << endl;
+        cout << "2. Opción 2" << endl;
+        cout << "3. Opción 3" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Seleccione una opción: ";
 
-    string line;
-    while (getline(file, line)) {
-        if (line == usuario) {
-            if (getline(file, line) && line == contraseña) {
-                file.close();
-                return true;
-            }
+        int opcion;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Has seleccionado la Opción 1" << endl;
+                system("pause");
+                break;
+            case 2:
+                cout << "Has seleccionado la Opción 2" << endl;
+                system("pause");
+                break;
+            case 3:
+                cout << "Has seleccionado la Opción 3" << endl;
+                system("pause");
+                break;
+            case 4:
+                cout << "Saliendo..." << endl;
+                return;
+            default:
+                cout << "Opción inválida. Intente de nuevo." << endl;
+                system("pause");
+                break;
         }
     }
-    file.close();
-    return false;
 }
 
-// Función para verificar las credenciales de administrador
-bool verificarCredencialesAdmin(const string& usuario, const string& contraseña) {
-    ifstream file("credAdmin.txt");
-    if (!file.is_open()) {
-        cerr << "Error al abrir el archivo credAdmin.txt" << endl;
-        return false;
-    }
-
-    string line;
-    while (getline(file, line)) {
-        if (line == usuario) {
-            if (getline(file, line) && line == contraseña) {
-                file.close();
-                return true;
-            }
-        }
-    }
-    file.close();
-    return false;
-}
-
-// Función para registrar un nuevo usuario
-void registrarUsuario(const string& usuario, const string& contraseña) {
-    ofstream file("credUsuario.txt", ios_base::app);
-    if (!file.is_open()) {
-        cerr << "Error al abrir el archivo credUsuario.txt" << endl;
-        return;
-    }
-    file << usuario << endl << contraseña << endl;
-    file.close();
-}
-
-void ejecutarCmd() {
+void menuAdmin() {
     while (true) {
         system("cls"); // Limpiar la consola
         cout << "Menu de Opciones" << endl;
