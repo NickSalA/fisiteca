@@ -254,6 +254,6 @@ void mainBuscar_autor(){
 
 int main(){
     setlocale(LC_ALL, "es_ES.UTF-8"); 
-    mainBuscador_gen();
+    mainBuscar_autor();
     
 }
