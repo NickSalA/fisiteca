@@ -72,8 +72,7 @@ void registrarUsuario(const string& usuario, const string& contraseña) {
         return;
     }
     if (usuarioExiste(usuario)) {
-            cout << "\nEl usuario ya existe. Introduce un nombre de usuario diferente." << endl << endl;
-            return;
+            MessageBox(hwnd, "El usuario ya existe. Introduce un nombre de usuario diferente", "Error", MB_OK | MB_ICONERROR);            return;
         }
     file << usuario << endl << contraseña << endl;
     file.close();
