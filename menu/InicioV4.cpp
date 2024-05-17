@@ -41,6 +41,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 if (verificarCredencialesUsuario(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
+                    //Añadir aca las funciones (del CMD :D)
                     ejecutarCmd();
                 } else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
@@ -56,6 +57,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 if (verificarCredencialesAdmin(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
+                    //Añadir aca las funciones (del CMD :D)
                     ejecutarCmd();
                 } 
                 else {
@@ -99,12 +101,12 @@ void createLoginWindow(HINSTANCE hInstance) {
         "LoginWindow",
         "Inicio de Sesion",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, 600, 300,
+        CW_USEDEFAULT, CW_USEDEFAULT, 550, 270,
         NULL, NULL, hInstance, NULL
     );
 
     // Crear controles
-    CreateWindow("STATIC", "", WS_VISIBLE | WS_CHILD, 40, 35, 500, 90, hwndLogin, NULL, NULL, NULL);
+    CreateWindow("STATIC", "", WS_VISIBLE | WS_CHILD, 20, 20, 505, 110, hwndLogin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Usuario:", WS_VISIBLE | WS_CHILD, 80, 50, 100, 20, hwndLogin, NULL, NULL, NULL);
     hUsuario = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 180, 50, 300, 20, hwndLogin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 80, 90, 100, 20, hwndLogin, NULL, NULL, NULL);
@@ -266,3 +268,5 @@ void ejecutarCmd() {
         }
     }
 }
+
+//Continuar en el main.cpp
