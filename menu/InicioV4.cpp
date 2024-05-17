@@ -3,7 +3,6 @@
 #include <windows.h>
 using namespace std;
 
-// Declaración de variables globales
 HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
 HWND hUsuario, hContraseña, hBotonIngresarUsuario, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar, hBotonIngresarAdmin;
 
@@ -15,19 +14,20 @@ void createAdminWindow(HINSTANCE hInstance);
 bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);
 bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
 void registrarUsuario(const string& usuario, const string& contraseña);
+void ejecutarCmd();
 
 // Función principal
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-    // Crear ventana de inicio de sesión
+int main() {
+    HINSTANCE hInstance = GetModuleHandle(NULL);
     createLoginWindow(hInstance);
 
-    // Ciclo principal del programa
     MSG msg;
     while (GetMessage(&msg, NULL, 0, 0)) {
         TranslateMessage(&msg);
         DispatchMessage(&msg);
     }
     return msg.wParam;
+    cout<<"hola";
 }
 
 // Procedimiento de la ventana
@@ -40,6 +40,9 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 GetWindowText(hContraseña, contraseña, 50);
                 if (verificarCredencialesUsuario(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
+                    DestroyWindow(hwnd);
+                    //Añadir aca las funciones (del CMD :D)
+                    ejecutarCmd();
                 } else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
                 }
@@ -53,7 +56,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 GetWindowText(hContraseña, contraseña, 50);
                 if (verificarCredencialesAdmin(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
-                } else {
+                    DestroyWindow(hwnd);
+                    //Añadir aca las funciones (del CMD :D)
+                    ejecutarCmd();
+                } 
+                else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
                 }
             } else if ((HWND)lParam == hBotonRegistrar) {
@@ -94,12 +101,12 @@ void createLoginWindow(HINSTANCE hInstance) {
         "LoginWindow",
         "Inicio de Sesion",
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
-        CW_USEDEFAULT, CW_USEDEFAULT, 600, 300,
+        CW_USEDEFAULT, CW_USEDEFAULT, 550, 270,
         NULL, NULL, hInstance, NULL
     );
 
     // Crear controles
-    CreateWindow("STATIC", "", WS_VISIBLE | WS_CHILD, 40, 35, 500, 90, hwndLogin, NULL, NULL, NULL);
+    CreateWindow("STATIC", "", WS_VISIBLE | WS_CHILD, 20, 20, 505, 110, hwndLogin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Usuario:", WS_VISIBLE | WS_CHILD, 80, 50, 100, 20, hwndLogin, NULL, NULL, NULL);
     hUsuario = CreateWindow("EDIT", "", WS_VISIBLE | WS_CHILD | WS_BORDER, 180, 50, 300, 20, hwndLogin, NULL, NULL, NULL);
     CreateWindow("STATIC", "Contrasena:", WS_VISIBLE | WS_CHILD, 80, 90, 100, 20, hwndLogin, NULL, NULL, NULL);
@@ -224,3 +231,42 @@ void registrarUsuario(const string& usuario, const string& contraseña) {
     file << usuario << endl << contraseña << endl;
     file.close();
 }
+
+void ejecutarCmd() {
+    while (true) {
+        system("cls"); // Limpiar la consola
+        cout << "Menu de Opciones" << endl;
+        cout << "1. Opción 1" << endl;
+        cout << "2. Opción 2" << endl;
+        cout << "3. Opción 3" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Seleccione una opción: ";
+
+        int opcion;
+        cin >> opcion;
+
+        switch (opcion) {
+            case 1:
+                cout << "Has seleccionado la Opción 1" << endl;
+                system("pause");
+                break;
+            case 2:
+                cout << "Has seleccionado la Opción 2" << endl;
+                system("pause");
+                break;
+            case 3:
+                cout << "Has seleccionado la Opción 3" << endl;
+                system("pause");
+                break;
+            case 4:
+                cout << "Saliendo..." << endl;
+                return;
+            default:
+                cout << "Opción inválida. Intente de nuevo." << endl;
+                system("pause");
+                break;
+        }
+    }
+}
+
+//Continuar en el main.cpp

@@ -215,11 +215,13 @@ int main() {
                 break;
             case 3:
                 editarLibro(libros, n);
+                break;
             case 4:
                 cout << "Adios!" << endl;
                 break;
             default:
                 cout << "Opcion invalida" << endl;
+                break;
         }
         cin.clear();
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
