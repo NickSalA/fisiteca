@@ -5,6 +5,8 @@
 #define FUNCIONES_VERIFICAR_HPP
 using namespace std;
 
+HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
+HWND hUsuario, hContraseña, hBotonIngresarUsuario, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar, hBotonIngresarAdmin;
 //funciones
 bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
 bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);

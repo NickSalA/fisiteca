@@ -4,9 +4,6 @@
 #include "menu/funcionesVerificar.h"
 using namespace std;
 
-HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
-HWND hUsuario, hContraseña, hBotonIngresarUsuario, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar, hBotonIngresarAdmin;
-
 // Prototipos de funciones
 LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
 void createLoginWindow(HINSTANCE hInstance);
