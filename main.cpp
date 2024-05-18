@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <windows.h>
-#include "menu/funcionesVerificar.h"
+#include "menu/funcionesVentana.h"
 
 using namespace std;
 
@@ -15,7 +15,6 @@ int main() {
         DispatchMessage(&msg);
     }
     return msg.wParam;
-    cout<<"hola";
 }
 
 // Procedimiento de la ventana
