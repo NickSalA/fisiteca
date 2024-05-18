@@ -195,39 +195,3 @@ void editarLibro(Libro libros[], int n) {
     }
 }
 
-
-//int main provisional, lo importante es lo de arriba xd
-int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    Libro libros[100];
-    int n = 0;
-    leerLibro(libros, n);
-    int opcion;
-    do {
-        cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << endl;
-        cin >> opcion;
-        switch (opcion) {
-            case 1:
-                agregarLibro(libros, n);
-                break;
-            case 2:
-                eliminarLibro(libros, n);
-                break;
-            case 3:
-                editarLibro(libros, n);
-                break;
-            case 4:
-                cout << "Adios!" << endl;
-                break;
-            default:
-                cout << "Opcion invalida" << endl;
-                break;
-        }
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        system("pause");
-        system("cls");
-    } while (opcion != 4);
-    return 0;
-}
-

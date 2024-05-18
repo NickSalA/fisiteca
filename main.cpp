@@ -2,6 +2,7 @@
 #include <fstream>
 #include <windows.h>
 #include "menu/funcionesVentana.h"
+#include "data/sistLibro(Admin).hpp"
 
 using namespace std;
 
@@ -207,38 +208,35 @@ void menuUsuario() {
 }
 
 void menuAdmin() {
-    while (true) {
-        system("cls"); 
-        cout << "Menu de Opciones" << endl;
-        cout << "1. Opción 1" << endl;
-        cout << "2. Opción 2" << endl;
-        cout << "3. Opción 3" << endl;
-        cout << "4. Salir" << endl;
-        cout << "Seleccione una opción: ";
-
-        int opcion;
+    SetConsoleOutputCP(CP_UTF8);
+    Libro libros[100];
+    int n = 0;
+    leerLibro(libros, n);
+    int opcion;
+    do {
+        cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << endl;
         cin >> opcion;
-
         switch (opcion) {
             case 1:
-                cout << "Has seleccionado la Opción 1" << endl;
-                system("pause");
+                agregarLibro(libros, n);
                 break;
             case 2:
-                cout << "Has seleccionado la Opción 2" << endl;
-                system("pause");
+                eliminarLibro(libros, n);
                 break;
             case 3:
-                cout << "Has seleccionado la Opción 3" << endl;
-                system("pause");
+                editarLibro(libros, n);
                 break;
             case 4:
-                cout << "Saliendo..." << endl;
+                cout << "Adios!" << endl;
                 return;
             default:
-                cout << "Opción inválida. Intente de nuevo." << endl;
+                cout << "Opcion invalida" << endl;
                 system("pause");
                 break;
         }
-    }
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        system("pause");
+        system("cls");
+    } while (opcion != 4);
 }
