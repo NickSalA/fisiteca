@@ -2,17 +2,9 @@
 #include <fstream>
 #include <windows.h>
 #include "menu/funcionesVerificar.h"
+
 using namespace std;
 
-// Prototipos de funciones
-LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
-void createLoginWindow(HINSTANCE hInstance);
-void createRegistroWindow(HINSTANCE hInstance);
-void createAdminWindow(HINSTANCE hInstance);
-void menuUsuario();
-void menuAdmin();
-
-// Función principal
 int main() {
     HINSTANCE hInstance = GetModuleHandle(NULL);
     createLoginWindow(hInstance);
@@ -37,7 +29,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 if (verificarCredencialesUsuario(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
-                    //Añadir aca las funciones (del CMD :D)
+                    //Aca comienza el CMD :D
                     menuUsuario();
                 } else {
                     MessageBox(hwnd, "Ingrese un usuario y/o contrasena validos", "Error", MB_OK | MB_ICONERROR);
@@ -53,7 +45,7 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 if (verificarCredencialesAdmin(usuario, contraseña)) {
                     MessageBox(hwnd, "Inicio de sesion exitoso como administrador", "Mensaje", MB_OK);
                     DestroyWindow(hwnd);
-                    //Añadir aca las funciones (del CMD :D)
+                    //Aca comienza el CMD :D
                     menuAdmin();
                 } 
                 else {
@@ -65,8 +57,11 @@ LRESULT CALLBACK WindowProcedure(HWND hwnd, UINT message, WPARAM wParam, LPARAM 
                 GetWindowText(hContraseñaReg, contraseña, 50);
                 GetWindowText(hConfirmarContraseña, confirmar, 50);
                 if (strcmp(contraseña, confirmar) == 0) {
-                    registrarUsuario(nombre, contraseña);
-                    MessageBox(hwnd, "Registro exitoso", "Mensaje", MB_OK);
+                    if (registrarUsuario(nombre, contraseña)) {
+                        MessageBox(hwnd, "Registro exitoso", "Mensaje", MB_OK);
+                    } else {
+                        MessageBox(hwnd, "El usuario ya existe. Introduce un nombre de usuario diferente", "Error", MB_OK | MB_ICONERROR);
+                    }
                 } else {
                     MessageBox(hwnd, "Las contrasenas no coinciden", "Error", MB_OK | MB_ICONERROR);
                 }
@@ -175,10 +170,9 @@ void createAdminWindow(HINSTANCE hInstance) {
     UpdateWindow(hwndAdmin);
 }
 
-// Función para verificar las credenciales de usuario
 void menuUsuario() {
     while (true) {
-        system("cls"); // Limpiar la consola
+        system("cls"); 
         cout << "Menu de Opciones" << endl;
         cout << "1. Opción 1" << endl;
         cout << "2. Opción 2" << endl;
@@ -215,7 +209,7 @@ void menuUsuario() {
 
 void menuAdmin() {
     while (true) {
-        system("cls"); // Limpiar la consola
+        system("cls"); 
         cout << "Menu de Opciones" << endl;
         cout << "1. Opción 1" << endl;
         cout << "2. Opción 2" << endl;

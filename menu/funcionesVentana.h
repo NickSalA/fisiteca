@@ -7,11 +7,20 @@ using namespace std;
 
 HWND hwnd, hwndLogin, hwndRegistro, hwndAdmin;
 HWND hUsuario, hContraseña, hBotonIngresarUsuario, hBotonRegistrarse, hBotonAdmin, hNombre, hContraseñaReg, hConfirmarContraseña, hBotonRegistrar, hBotonIngresarAdmin;
+
 //funciones
 bool verificarCredencialesAdmin(const string& usuario, const string& contraseña);
 bool verificarCredencialesUsuario(const string& usuario, const string& contraseña);
-void registrarUsuario(const string& usuario, const string& contraseña);
+bool registrarUsuario(const string& usuario, const string& contraseña);
 bool usuarioExiste(const string& usuario);
+
+// Prototipos de funciones
+LRESULT CALLBACK WindowProcedure(HWND, UINT, WPARAM, LPARAM);
+void createLoginWindow(HINSTANCE hInstance);
+void createRegistroWindow(HINSTANCE hInstance);
+void createAdminWindow(HINSTANCE hInstance);
+void menuUsuario();
+void menuAdmin();
 
 //métodos
 bool verificarCredencialesUsuario(const string& usuario, const string& contraseña) {
@@ -20,7 +29,6 @@ bool verificarCredencialesUsuario(const string& usuario, const string& contrase�
         cerr << "Error al abrir el archivo credUsuario.txt" << endl;
         return false;
     }
-
     string line;
     while (getline(file, line)) {
         if (line == usuario) {
@@ -40,7 +48,6 @@ bool verificarCredencialesAdmin(const string& usuario, const string& contraseña
         cerr << "Error al abrir el archivo credAdmin.txt" << endl;
         return false;
     }
-
     string line;
     while (getline(file, line)) {
         if (line == usuario) {
@@ -67,17 +74,20 @@ bool usuarioExiste(const string& usuario) {
     return false;
 }
 
-void registrarUsuario(const string& usuario, const string& contraseña) {
+bool registrarUsuario(const string& usuario, const string& contraseña) {
+     if (usuarioExiste(usuario)) {
+        return false;
+    }
+
     ofstream file("credUsuario.txt", ios_base::app);
     if (!file.is_open()) {
         cerr << "Error al abrir el archivo credUsuario.txt" << endl;
-        return;
+        return false;
     }
-    if (usuarioExiste(usuario)) {
-            MessageBox(hwnd, "El usuario ya existe. Introduce un nombre de usuario diferente", "Error", MB_OK | MB_ICONERROR);            return;
-        }
+
     file << usuario << endl << contraseña << endl;
     file.close();
+    return true;
 }
 
 #endif // FUNCIONESVERIFICAR_H
