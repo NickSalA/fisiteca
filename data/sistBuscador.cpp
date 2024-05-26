@@ -3,8 +3,8 @@
 #include <vector>
 #include <string>
 #include <algorithm>
-#include <limits> 
-#include <cstdlib> 
+#include <limits>
+#include <cstdlib>
 #include <windows.h>
 
 using namespace std;
@@ -16,8 +16,8 @@ struct Libro {
     string autor;
     int anoPublicacion;
     string sinopsis;
+    int cantidad; // Nueva variable para la cantidad de libros disponibles
 };
-
 
 vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
@@ -36,9 +36,10 @@ vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& 
 
     return coincidencias;
 }
+
 vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
     vector<Libro> libros;
-    ifstream archivo(nombreArchivo.c_str(), ios::in); 
+    ifstream archivo(nombreArchivo.c_str(), ios::in);
     if (archivo.is_open()) {
         Libro libro;
         while (archivo >> libro.codigo) {
@@ -50,6 +51,7 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
             archivo >> libro.anoPublicacion;
             archivo.ignore();
             getline(archivo, libro.sinopsis);
+            archivo >> libro.cantidad; // Leer la cantidad de libros
             libros.push_back(libro);
         }
         archivo.close();
@@ -59,7 +61,7 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
     return libros;
 }
 
-void mainBuscador_ti(){
+void mainBuscador_ti() {
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
@@ -70,7 +72,6 @@ void mainBuscador_ti(){
 
         cout << "Ingrese el término de búsqueda: ";
         getline(cin, busqueda);
-
 
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
 
@@ -85,16 +86,13 @@ void mainBuscador_ti(){
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout << "Cantidad: " << libro.cantidad << endl; // Mostrar la cantidad
                 cout << endl;
             }
         }
         system("pause");
     }
-
 }
-
-
-
 
 vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
@@ -111,13 +109,10 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string&
         }
     }
 
-     return coincidencias;
+    return coincidencias;
 }
 
-
-
-void mainBuscador_gen(){
-                
+void mainBuscador_gen() {
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
@@ -126,7 +121,7 @@ void mainBuscador_gen(){
     while (true) {
         system("cls");
         cout << "Ingrese el género a buscar: ";
-        getline(cin,busqueda);
+        getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
 
@@ -141,118 +136,114 @@ void mainBuscador_gen(){
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout << "Cantidad: " << libro.cantidad << endl; // Mostrar la cantidad
                 cout << endl;
-            }               
+            }
         }
         system("pause");
     }
-
 }
 
 vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string& busqueda) {
-                    vector<Libro> coincidencias;
+    vector<Libro> coincidencias;
 
-                    for (const Libro& libro : libros) {
-                        string anoPublicacionStr = to_string(libro.anoPublicacion);
+    for (const Libro& libro : libros) {
+        string anoPublicacionStr = to_string(libro.anoPublicacion);
 
-                        if (anoPublicacionStr.find(busqueda) != string::npos) {
-                                            coincidencias.push_back(libro);
-                        }
-                    }
+        if (anoPublicacionStr.find(busqueda) != string::npos) {
+            coincidencias.push_back(libro);
+        }
+    }
 
-                    return coincidencias;
-                }
-
+    return coincidencias;
+}
 
 void mainBuscar_anio() {
-                
-                    string nombreArchivo = "libros.txt";
+    string nombreArchivo = "libros.txt";
 
-                    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
-                    string busqueda;
-                    while (true) {
-                        system("cls");
+    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
+    string busqueda;
+    while (true) {
+        system("cls");
 
-                        cout << "Ingrese el año de publicación a buscar: ";
-                        getline(cin, busqueda);
+        cout << "Ingrese el año de publicación a buscar: ";
+        getline(cin, busqueda);
 
-                        vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
+        vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
 
-                        cout << "Coincidencias encontradas:\n";
-                        if (coincidencias.empty()) {
-                            cout << "No se encontraron coincidencias para el año de publicación: " << busqueda << endl;
-                        } else {
-                            for (const Libro& libro : coincidencias) {
-                                cout << "Código: " << libro.codigo << endl;
-                                cout << "Nombre: " << libro.nombre << endl;
-                                cout << "Género: " << libro.genero << endl;
-                                cout << "Autor: " << libro.autor << endl;
-                                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                                cout << "Sinopsis: " << libro.sinopsis << endl;
-                                cout << endl;
-                            }
-                        }
+        cout << "Coincidencias encontradas:\n";
+        if (coincidencias.empty()) {
+            cout << "No se encontraron coincidencias para el año de publicación: " << busqueda << endl;
+        } else {
+            for (const Libro& libro : coincidencias) {
+                cout << "Código: " << libro.codigo << endl;
+                cout << "Nombre: " << libro.nombre << endl;
+                cout << "Género: " << libro.genero << endl;
+                cout << "Autor: " << libro.autor << endl;
+                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
+                cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout << "Cantidad: " << libro.cantidad << endl; // Mostrar la cantidad
+                cout << endl;
+            }
+        }
 
-                        system("pause");
-                    }
-
-                }
+        system("pause");
+    }
+}
 
 vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const string& busqueda) {
-                    vector<Libro> coincidencias;
+    vector<Libro> coincidencias;
 
-                        string busquedaLower = busqueda;
-                        transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
+    string busquedaLower = busqueda;
+    transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
 
-                        for (const Libro& libro : libros) {
-                            string autorLower = libro.autor;
-                            transform(autorLower.begin(), autorLower.end(), autorLower.begin(), ::tolower);
+    for (const Libro& libro : libros) {
+        string autorLower = libro.autor;
+        transform(autorLower.begin(), autorLower.end(), autorLower.begin(), ::tolower);
 
-                            if (autorLower.find(busquedaLower) != string::npos) {
-                            coincidencias.push_back(libro);
-                            }
-                        }
+        if (autorLower.find(busquedaLower) != string::npos) {
+            coincidencias.push_back(libro);
+        }
+    }
 
-                        return coincidencias;
-                    }       
+    return coincidencias;
+}       
 
+void mainBuscar_autor() {
+    string nombreArchivo = "libros.txt";
 
-        
-void mainBuscar_autor(){
-        
-                        string nombreArchivo = "libros.txt";
+    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
-                        vector<Libro>libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
+    string busqueda;
+    while (true) {
+        system("cls");
 
-                        string busqueda;
-                        while (true) {
-                            system("cls");
+        cout << "Ingrese el autor de búsqueda: ";
+        getline(cin, busqueda);
 
-                            cout << "Ingrese el autor de búsqueda: ";
-                            getline(cin, busqueda);
+        vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
 
-                            vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
+        cout << "Coincidencias encontradas:\n";
+        if (coincidencias.empty()) {
+            cout << "No se encontraron coincidencias para el autor de búsqueda: " << busqueda << endl;
+        } else {
+            for (const Libro& libro : coincidencias) {
+                cout << "Código: " << libro.codigo << endl;
+                cout << "Nombre: " << libro.nombre << endl;
+                cout << "Género: " << libro.genero << endl;
+                cout << "Autor: " << libro.autor << endl;
+                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
+                cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout << "Cantidad: " << libro.cantidad << endl; // Mostrar la cantidad
+                cout << endl;
+            }
+        }
 
-                            cout << "Coincidencias encontradas:\n";
-                            if (coincidencias.empty()) {
-                                cout << "No se encontraron coincidencias para el autor de búsqueda: " << busqueda << endl;
-                            } else {
-                                for (const Libro& libro : coincidencias) {
-                                    cout << "Código: " << libro.codigo << endl;
-                                    cout << "Nombre: " << libro.nombre << endl;
-                                    cout << "Género: " << libro.genero << endl;
-                                    cout << "Autor: " << libro.autor << endl;
-                                    cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                                    cout << "Sinopsis: " << libro.sinopsis << endl;
-                                    cout << endl;
-                                }
-                            }
+        system("pause");
+    }
+}
 
-                            system("pause");
-                        }
-                    }
-
-int main(){
+int main() {
     setlocale(LC_ALL, "es_ES.UTF-8");
     int opcion;
     cout << "Bienvenido al sistema de búsqueda de libros." << endl;
@@ -281,4 +272,5 @@ int main(){
             break;
     }
     
+    return 0;
 }

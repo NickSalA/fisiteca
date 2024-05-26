@@ -8,7 +8,7 @@
 #include <limits>
 
 using namespace std;
-string xcodigo,xano;
+string xcodigo,xano,xcantidad;
 struct Libro {
     int codigo;
     string nombre;
@@ -16,6 +16,7 @@ struct Libro {
 	string autor;
 	int anoPublicacion;
 	string sinopsis;
+    int cantidad; // Añadimos la cantidad aquí
 };
 
 void leerLibro(Libro libros[], int& n){
@@ -32,8 +33,10 @@ void leerLibro(Libro libros[], int& n){
         getline(Leer,libros[i].autor);
         getline(Leer,xano);
         getline(Leer,libros[i].sinopsis);
+        getline(Leer,xcantidad); // Leemos la cantidad aquí
         istringstream(xcodigo) >> libros[i].codigo;
         istringstream(xano)>>libros[i].anoPublicacion;
+        istringstream(xcantidad)>>libros[i].cantidad; // Convertimos la cantidad a int
         n++;
         i++;
     }
@@ -63,6 +66,11 @@ void agregarLibro(Libro libros[], int& n) {
 
     cout << "Sinopsis: ";
     getline(cin, newLibro.sinopsis);
+    cout << "Cantidad: "; // Pedimos la cantidad aquí
+    cin >> newLibro.cantidad;
+    fflush(stdin);
+    cin.ignore();
+
     libros[n] = newLibro;
     n++;
     if (Grabacion.fail()) {
@@ -75,6 +83,7 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion << newLibro.autor << endl;
         Grabacion << newLibro.anoPublicacion << endl;
         Grabacion << newLibro.sinopsis << endl;
+        Grabacion << newLibro.cantidad << endl; // Guardamos la cantidad aquí
         Grabacion.close();
     }
 }
@@ -82,7 +91,7 @@ void eliminarLibro(Libro libros[], int& n) {
     int numLibro;
     
     for (int i = 0; i < n; i++) {
-        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << endl;
+        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << " - Cantidad: " << libros[i].cantidad << endl;
     }
 
     cout << "Seleccione el número del libro que desea eliminar: ";
@@ -91,7 +100,7 @@ void eliminarLibro(Libro libros[], int& n) {
     
     if (numLibro >= 1 && numLibro <= n) {
         int indiceLibro = numLibro - 1;
-        cout << "\nLibro: " << libros[indiceLibro].nombre << endl;
+        cout << "\nLibro: " << libros[indiceLibro].nombre << " - Cantidad: " << libros[indiceLibro].cantidad << endl;
         cout << "Genero: " << libros[indiceLibro].genero << endl;
         cout << "Autor: " << libros[indiceLibro].autor << endl;
         cout << "Año de publicacion: " << libros[indiceLibro].anoPublicacion << endl;
@@ -116,6 +125,7 @@ void eliminarLibro(Libro libros[], int& n) {
                 Grabacion << libros[i].autor << endl;
                 Grabacion << libros[i].anoPublicacion << endl;
                 Grabacion << libros[i].sinopsis << endl;
+                Grabacion << libros[i].cantidad << endl; // Guardamos la cantidad aquí
             }
             Grabacion.close();
         } else {
@@ -125,11 +135,12 @@ void eliminarLibro(Libro libros[], int& n) {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
+
 void editarLibro(Libro libros[], int n) {
     int numLibro;
     
     for (int i = 0; i < n; i++) {
-        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << endl;
+        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << " - Cantidad: " << libros[i].cantidad << endl;
     }
     
     cout << "Seleccione el número del libro que desea editar: ";
@@ -145,9 +156,10 @@ void editarLibro(Libro libros[], int n) {
         cout << "3. Autor: " << libros[indiceLibro].autor << endl;
         cout << "4. Año de publicación: " << libros[indiceLibro].anoPublicacion << endl;
         cout << "5. Sinopsis: " << libros[indiceLibro].sinopsis << endl;
+        cout << "6. Cantidad: " << libros[indiceLibro].cantidad << endl; // Añadimos la opción de editar la cantidad
         
         int opcion;
-        cout << "\nSeleccione el número del campo que desea editar (1-5): ";
+        cout << "\nSeleccione el número del campo que desea editar (1-6): ";
         cin >> opcion;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         
@@ -173,6 +185,11 @@ void editarLibro(Libro libros[], int n) {
                 cout << "Ingrese la nueva sinopsis del libro: ";
                 getline(cin, libros[indiceLibro].sinopsis);
                 break;
+            case 6:
+                cout << "Ingrese la nueva cantidad del libro: ";
+                cin >> libros[indiceLibro].cantidad;
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
+                break;
             default:
                 cout << "Opción no válida." << endl;
                 break;
@@ -186,6 +203,7 @@ void editarLibro(Libro libros[], int n) {
             Grabacion << libros[i].autor << endl;
             Grabacion << libros[i].anoPublicacion << endl;
             Grabacion << libros[i].sinopsis << endl;
+            Grabacion << libros[i].cantidad << endl; // Guardamos la cantidad aquí
         }
         Grabacion.close();
         
@@ -194,4 +212,3 @@ void editarLibro(Libro libros[], int n) {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
-
