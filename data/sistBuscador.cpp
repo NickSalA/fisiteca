@@ -253,7 +253,32 @@ void mainBuscar_autor(){
                     }
 
 int main(){
-    setlocale(LC_ALL, "es_ES.UTF-8"); 
-    mainBuscar_autor();
+    setlocale(LC_ALL, "es_ES.UTF-8");
+    int opcion;
+    cout << "Bienvenido al sistema de búsqueda de libros." << endl;
+    cout << "1. Buscar por título" << endl;
+    cout << "2. Buscar por género" << endl;
+    cout << "3. Buscar por año de publicación" << endl;
+    cout << "4. Buscar por autor" << endl;
+    cout << "Seleccione una opción: ";
+    cin >> opcion;
+    cin.ignore();
+    switch (opcion) {
+        case 1:
+            mainBuscador_ti();
+            break;
+        case 2:
+            mainBuscador_gen();
+            break;
+        case 3:
+            mainBuscar_anio();
+            break;
+        case 4:
+            mainBuscar_autor();
+            break;
+        default:
+            cout << "Opción no válida." << endl;
+            break;
+    }
     
 }
