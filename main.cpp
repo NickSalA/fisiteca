@@ -1,4 +1,17 @@
-
+void InicioSesion(){
+    string usuario, contrasena;
+    cout << "Ingrese su usuario: ";
+    cin >> usuario;
+    cout << "Ingrese su contraseña: ";
+    cin >> contrasena;
+    if (usuario == "admin" && contrasena == "admin") {
+        cout << "Bienvenido administrador" << endl;
+        menuAdmin();
+    } else {
+        cout << "Bienvenido usuario" << endl;
+        menuUsuario();
+    }
+}
 
 void menuUsuario() {
     while (true) {
