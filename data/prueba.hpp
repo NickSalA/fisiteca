@@ -3,6 +3,8 @@
 #include <string>
 #include <locale>
 #include <limits> 
+#ifndef FUNCIONESVERIFICAR_H
+#define FUNCIONES_VERIFICAR_HPP
 
 using namespace std;
 
@@ -112,3 +114,5 @@ void registrarUsuario() {
         cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << endl;
     }
 }
+
+#endif // FUNCIONESVERIFICAR_H
