@@ -1,3 +1,13 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <locale>
+#include <limits> 
+#include "data/prueba.hpp"
+#include "data/sistLibro(Admin).hpp"
+
+using namespace std;
+
 void menuUsuario() {
     while (true) {
         system("cls"); 
