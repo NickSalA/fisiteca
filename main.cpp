@@ -21,7 +21,7 @@ int main() {
         dibujarMenu(pos.x, pos.y, opciones);
         moverCursor({pos.x - 2, pos.y + opc});
 
-        cout << "==>";
+        cout << "=>";
 
         char key = _getch();
         if (key == 72 && opc > 0) { // Flecha arriba

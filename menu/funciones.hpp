@@ -88,7 +88,7 @@ void dibujarTitulo(int x, int y, string titulo) {
 }
 
 void dibujarMenu(int x, int y, vector<string> opciones) {
-    for (int i = 0; i < opciones.size(); i++) {
+    for (int i = 0; i < static_cast<int>(opciones.size()); i++) {
         gotoxy(x, y + i);
         cout << i + 1 << ". " << opciones[i];
     }
