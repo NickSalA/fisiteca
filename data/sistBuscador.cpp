@@ -6,6 +6,7 @@
 #include <limits>
 #include <cstdlib>
 #include <windows.h>
+#include<locale>
 
 using namespace std;
 
@@ -16,9 +17,12 @@ struct Libro {
     string autor;
     int anoPublicacion;
     string sinopsis;
-};
+}; //incluir esto con las librerias para que funcione.
 
-
+void esperaConMensaje(const string& mensaje) {
+    cout << mensaje << endl;
+    _getwch(); // Espera a que el usuario presione una tecla sin mostrar un mensaje por defecto
+}
 
 vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
     vector<Libro> libros;
@@ -69,10 +73,11 @@ void mainBuscador_ti() {
     string busqueda;
     do {
         system("cls");
-
-        cout << "Ingrese el término de búsqueda: ";
+        
+        cout<<"0.Regresar\n";
+        cout << "\t\tIngrese el titulo a buscar: ";
         getline(cin, busqueda);
-
+        
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
 
         if(busqueda == to_string(0)){
@@ -82,10 +87,11 @@ void mainBuscador_ti() {
             break;
         }
 
-        cout << "Coincidencias encontradas:\n";
+        
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
         } else {
+            cout << "Coincidencias encontradas:\n";
             for (const Libro& libro : coincidencias) {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
@@ -96,7 +102,7 @@ void mainBuscador_ti() {
                 cout << endl;
             }
         }
-        system("pause");
+        esperaConMensaje("Presione una tecla para volver a buscar...");
     } while(true);
 }
 
@@ -127,7 +133,8 @@ void mainBuscador_gen() {
     do {
         system("cls");
 
-        cout << "Ingrese el término de búsqueda: ";
+        cout<<"0.Regresar\n";
+        cout << "\t\tIngrese el genero a buscar: ";
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
@@ -139,10 +146,10 @@ void mainBuscador_gen() {
             break;
         }
 
-        cout << "Coincidencias encontradas:\n";
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
         } else {
+            cout << "Coincidencias encontradas:\n";
             for (const Libro& libro : coincidencias) {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
@@ -153,7 +160,7 @@ void mainBuscador_gen() {
                 cout << endl;
             }
         }
-        system("pause");
+        esperaConMensaje("Presione una tecla para volver a buscar...");
     } while(true);
 }
 
@@ -185,7 +192,8 @@ void mainBuscar_autor(){
     do {
         system("cls");
 
-        cout << "Ingrese el término de búsqueda: ";
+        cout<<"0.Regresar\n";
+        cout << "\t\tIngrese el autor a buscar: ";
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
@@ -197,10 +205,10 @@ void mainBuscar_autor(){
             break;
         }
 
-        cout << "Coincidencias encontradas:\n";
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
         } else {
+            cout << "Coincidencias encontradas:\n";
             for (const Libro& libro : coincidencias) {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
@@ -211,7 +219,7 @@ void mainBuscar_autor(){
                 cout << endl;
             }
         }
-        system("pause");
+        esperaConMensaje("Presione una tecla para volver a buscar...");
     } while(true);
 }
 
@@ -239,7 +247,8 @@ void mainBuscar_anio() {
     do {
         system("cls");
 
-        cout << "Ingrese el término de búsqueda: ";
+        cout<<"0.Regresar\n";
+        cout << "\t\tIngrese el anio a buscar: ";
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -251,10 +260,10 @@ void mainBuscar_anio() {
             break;
         }
 
-        cout << "Coincidencias encontradas:\n";
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
         } else {
+            cout << "Coincidencias encontradas:\n";
             for (const Libro& libro : coincidencias) {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
@@ -265,23 +274,23 @@ void mainBuscar_anio() {
                 cout << endl;
             }
         }
-        system("pause");
+        esperaConMensaje("Presione una tecla para volver a buscar...");
     } while(true);
 }
 
 
+void escogerFiltro(){
 
-int main() {
-    setlocale(LC_ALL, "es_ES.UTF-8");
     int opcion;
-
     do{
+    
     system("cls");
     cout << "Bienvenido al sistema de búsqueda de libros." << endl;
     cout << "1. Buscar por título" << endl;
     cout << "2. Buscar por género" << endl;
     cout << "3. Buscar por año de publicación" << endl;
     cout << "4. Buscar por autor" << endl;
+    cout << "5. Regresar al menú principal" << endl;
     cout << "Seleccione una opción: ";
     cin >> opcion;
     cin.ignore();
@@ -298,10 +307,16 @@ int main() {
         case 4:
             mainBuscar_autor();
             break;
+        case 5:
+            exit(0);//debe ir un break pero eso es con el menú principal
         default:
             cout << "Opción no válida." << endl;
             break;
     }
-    }while(true);
-    return 0;
+    }while(opcion != 5);
+}
+
+int main() {
+    setlocale(LC_ALL, "es_ES.UTF-8");
+    escogerFiltro();
 }
