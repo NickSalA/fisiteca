@@ -21,7 +21,7 @@ struct Libro {
 
 void esperaConMensaje(const string& mensaje) {
     cout << mensaje << endl;
-    _getwch(); // Espera a que el usuario presione una tecla sin mostrar un mensaje por defecto
+    _getwch(); // Espera a que el usuario presione una tecla mostrnaof rl mrnssaje que esta como parametrok
 }
 
 vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
@@ -87,7 +87,6 @@ void mainBuscador_ti() {
             break;
         }
 
-        
         if (coincidencias.empty()) {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
         } else {

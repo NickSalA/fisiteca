@@ -1,18 +1,11 @@
-// userManagement.hpp
 #ifndef USERMANAGEMENT_HPP
 #define USERMANAGEMENT_HPP
-
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <locale>
 #include <limits>
 #include "sistLibro(Admin).hpp"
-#include "rlutil.h"
-
-void configurarConsolaUtf8() {
-    setlocale(LC_ALL, "es_ES.UTF-8");
-}
 
 bool usuarioExiste(const std::string& usuario) {
     std::ifstream archivo("credUsuario.txt");
@@ -116,7 +109,6 @@ void registrarUsuario() {
 
 void menuUsuario() {
     while (true) {
-        rlutil::cls(); // Clear the console
         std::cout << "Menu de Opciones" << std::endl;
         std::cout << "1. Buscador de libros" << std::endl;
         std::cout << "2. Donacion de libros" << std::endl;
@@ -131,22 +123,18 @@ void menuUsuario() {
         switch (opcion) {
             case 1:
                 std::cout << "Has seleccionado la Opción 1" << std::endl;
-                rlutil::anykey(); // Wait for any key press
                 break;
             case 2:
                 std::cout << "Has seleccionado la Opción 2" << std::endl;
-                rlutil::anykey(); // Wait for any key press
                 break;
             case 3:
                 std::cout << "Has seleccionado la Opción 3" << std::endl;
-                rlutil::anykey(); // Wait for any key press
                 break;
             case 4:
                 std::cout << "Saliendo..." << std::endl;
                 return;
             default:
                 std::cout << "Opción inválida. Intente de nuevo." << std::endl;
-                rlutil::anykey(); // Wait for any key press
                 break;
         }
     }
@@ -158,7 +146,6 @@ void menuAdmin() {
     leerLibro(libros, n);
     int opcion;
     do {
-        rlutil::cls(); // Clear the console
         std::cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << std::endl;
         std::cin >> opcion;
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
@@ -177,7 +164,6 @@ void menuAdmin() {
                 return;
             default:
                 std::cout << "Opcion invalida" << std::endl;
-                rlutil::anykey(); // Wait for any key press
                 break;
         }
     } while (opcion != 4);
@@ -199,7 +185,7 @@ void ingresarUsuario() {
             std::cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << std::endl;
             menuUsuario();
         } else {
-            std::cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << std::endl << std::endl;
+            std::cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << std::endl;
         }
     } while (!credencialesCorrectas);
 }
