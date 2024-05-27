@@ -1,0 +1,14 @@
+80
+prueba1
+prueba2
+prueba3
+2000
+prueba4
+10
+100
+prueba1
+prueba2
+prueba3
+2001
+prueba4
+20
