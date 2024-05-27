@@ -17,15 +17,16 @@ int main() {
 
     while (true) {
         system("cls");
-        dibujarTitulo(3, 1, "MENU PRINCIPAL");
+        dibujarTitulo(2, 2, "MENU PRINCIPAL");
         dibujarMenu(pos.x, pos.y, opciones);
         moverCursor({pos.x - 2, pos.y + opc});
+
         cout << "==>";
 
         char key = _getch();
         if (key == 72 && opc > 0) { // Flecha arriba
             opc--;
-        } else if (key == 80 && opc < opciones.size() - 1) { // Flecha abajo
+        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) { // Flecha abajo
             opc++;
         } else if (key == '\r') { // Enter
             switch (opc) {

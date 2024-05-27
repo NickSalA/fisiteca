@@ -7,6 +7,7 @@
 #include <conio.h>
 #include <limits>
 #include <locale>
+
 using namespace std;
 
 struct coordXY {
@@ -64,7 +65,7 @@ void dibujarTitulo(int x, int y, string titulo) {
     int padding = 2; // Espacio adicional a cada lado del título
     gotoxy(x, y);
     cout << char(201);
-    for (int i = 0; i < titulo.length() + 2 * padding; i++) {
+    for (int i = 0; i < static_cast<int>(titulo.size()) + 2 * padding; i++) {
         cout << char(205);
     }
     cout << char(187);
@@ -80,7 +81,7 @@ void dibujarTitulo(int x, int y, string titulo) {
     cout << char(186);
     gotoxy(x, y + 2);
     cout << char(200);
-    for (int i = 0; i < titulo.length() + 2 * padding; i++) {
+    for (int i = 0; i < static_cast<int>(titulo.size()) + 2 * padding; i++) {
         cout << char(205);
     }
     cout << char(188);
