@@ -10,16 +10,25 @@ using namespace std;
 int main() {
     int opc = 0;
     vector<string> opciones = {"Ingresar como Usuario", "Ingresar como Administrador", "Registrar Usuario", "Salir"};
-    coordXY pos = {7, 7};
-
+    coordXY pos = {13, 13};
+    string titulo = R"(
+                ████░█░███░█░█████░████░████░█████
+                █░░░░█░█░░░█░░░█░░░█░░░░█░░░░█░░░█
+                █░░░░█░█░░░█░░░█░░░█░░░░█░░░░█░░░█
+                ███░░█░███░█░░░█░░░████░█░░░░█████
+                █░░░░█░░░█░█░░░█░░░█░░░░█░░░░█░░░█
+                █░░░░█░░░█░█░░░█░░░█░░░░█░░░░█░░░█
+                █░░░░█░███░█░░░█░░░████░████░█░░░█
+)";
     configurarConsolaUtf8();
     ocultarCursor();
 
     while (true) {
-        system("cls");
-        dibujarTitulo(2, 2, "MENU PRINCIPAL");
-        dibujarMenu(pos.x, pos.y, opciones);
-        moverCursor({pos.x - 2, pos.y + opc});
+        limpiarPantalla();
+        setColor(Intensity);
+        dibujarTitulo(2, 2, titulo);
+        dibujarMenu(pos.x+3, pos.y, opciones);
+        moverCursor({pos.x + 1, pos.y + opc});
 
         cout << "=>";
 

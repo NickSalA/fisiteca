@@ -61,33 +61,17 @@ void dibujarCuadro(int x, int y, int ancho, int alto) {
     cout << char(188);
 }
 
-void dibujarTitulo(int x, int y, string titulo) {
-    int padding = 2; // Espacio adicional a cada lado del título
-    gotoxy(x, y);
-    cout << char(201);
-    for (int i = 0; i < static_cast<int>(titulo.size()) + 2 * padding; i++) {
-        cout << char(205);
-    }
-    cout << char(187);
-    gotoxy(x, y + 1);
-    cout << char(186);
-    for (int i = 0; i < padding; i++) {
-        cout << " ";
-    }
-    cout << titulo;
-    for (int i = 0; i < padding; i++) {
-        cout << " ";
-    }
-    cout << char(186);
-    gotoxy(x, y + 2);
-    cout << char(200);
-    for (int i = 0; i < static_cast<int>(titulo.size()) + 2 * padding; i++) {
-        cout << char(205);
-    }
-    cout << char(188);
+void dibujarTitulo(int x, int y, const string& titulo) {
+    // Mueve el cursor a la posición (x, y) en la consola
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    SetConsoleCursorPosition(hConsole, pos);
+
+    // Imprime el título
+    cout << titulo << endl;
 }
 
-void dibujarMenu(int x, int y, vector<string> opciones) {
+void dibujarMenu(int x, int y, const vector<string>& opciones) {
     for (int i = 0; i < static_cast<int>(opciones.size()); i++) {
         gotoxy(x, y + i);
         cout << i + 1 << ". " << opciones[i];
@@ -110,18 +94,17 @@ void moverCursor(coordXY pos) {
     gotoxy(pos.x, pos.y);
 }
 
-void moverCursorUP(int n) {
-    COORD coord;
-    coord.X = 0;
-    coord.Y = -n;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}
+enum ConsoleColor {
+    Black = 0,
+    Blue = BACKGROUND_BLUE,
+    Green = BACKGROUND_GREEN,
+    Red = BACKGROUND_RED,
+    Intensity = BACKGROUND_INTENSITY
+    };
 
-void moverCursorDOWN(int n) {
-    COORD coord;
-    coord.X = 0;
-    coord.Y = n;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-}  
+void setColor(ConsoleColor color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
 
 #endif // USERMANAGEMENT_HPP
