@@ -8,6 +8,8 @@
 using namespace std;
 
 int main() {
+    CenterConsoleWindow();
+    setColor(Intensity);
     int opc = 0;
     vector<string> opciones = {"Ingresar como Usuario", "Ingresar como Administrador", "Registrar Usuario", "Salir"};
     coordXY pos = {13, 13};
@@ -25,10 +27,11 @@ int main() {
 
     while (true) {
         limpiarPantalla();
-        setColor(Intensity);
         dibujarTitulo(2, 2, titulo);
+        dibujarCuadro(pos.x-5, 1, 50,25 );
         dibujarMenu(pos.x+3, pos.y, opciones);
         moverCursor({pos.x + 1, pos.y + opc});
+
 
         cout << "=>";
 

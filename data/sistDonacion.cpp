@@ -191,7 +191,6 @@ int main() {
     unordered_set<int> codigos;
     unordered_set<string> nombres;
     cargarLibros(libros, "libros.txt", codigos, nombres);
-
     donarLibro(libros, librosDonados, "libros.txt");
 
     return 0;

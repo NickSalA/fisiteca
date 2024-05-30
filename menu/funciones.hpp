@@ -9,7 +9,7 @@
 #include <locale>
 
 using namespace std;
-
+//Creditos: FisiCode
 struct coordXY {
         int x;
         int y;
@@ -54,7 +54,7 @@ void dibujarCuadro(int x, int y, int ancho, int alto) {
     gotoxy(x, y);
     cout << char(201);
     gotoxy(x + ancho, y);
-    cout << char(187);
+    cout << char(187); 
     gotoxy(x, y + alto);
     cout << char(200);
     gotoxy(x + ancho, y + alto);
@@ -107,4 +107,15 @@ void setColor(ConsoleColor color) {
     SetConsoleTextAttribute(hConsole, color);
 }
 
+void CenterConsoleWindow() {
+    RECT rectClient, rectWindow;
+    HWND hWnd = GetConsoleWindow();
+    GetClientRect(hWnd, &rectClient);
+    GetWindowRect(hWnd, &rectWindow);
+    int posx, posy;
+    posx = GetSystemMetrics(SM_CXSCREEN) / 2 - (rectClient.right - rectClient.left) / 2, 
+    posy = GetSystemMetrics(SM_CYSCREEN) / 2 - (rectClient.bottom - rectClient.top) / 2,
+
+    MoveWindow(hWnd, posx, posy, rectClient.right - rectClient.left, rectClient.bottom - rectClient.top, TRUE);
+}
 #endif // USERMANAGEMENT_HPP
