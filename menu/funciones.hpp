@@ -38,27 +38,42 @@ void pausa() {
     system("pause");
 }
 
+enum ConsoleColor {
+    Black = 0,
+    Blue = BACKGROUND_BLUE,
+    Green = BACKGROUND_GREEN,
+    Red = BACKGROUND_RED,
+    Intensity = BACKGROUND_INTENSITY,
+    White = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY,
+    };
+
+void setColor(ConsoleColor color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTextAttribute(hConsole, color);
+}
+
 void dibujarCuadro(int x, int y, int ancho, int alto) {
+
     for (int i = 0; i < ancho; i++) {
         gotoxy(x + i, y);
-        cout << char(205);
+        cout << "-";
         gotoxy(x + i, y + alto);
-        cout << char(205);
+        cout << "-";
     }
     for (int i = 0; i < alto; i++) {
         gotoxy(x, y + i);
-        cout << char(186);
+        cout << "|";
         gotoxy(x + ancho, y + i);
-        cout << char(186);
+        cout << "|";
     }
     gotoxy(x, y);
-    cout << char(201);
+    cout << "┌";
     gotoxy(x + ancho, y);
-    cout << char(187); 
+    cout << "┐"; 
     gotoxy(x, y + alto);
-    cout << char(200);
+    cout << "└";
     gotoxy(x + ancho, y + alto);
-    cout << char(188);
+    cout << "┘";
 }
 
 void dibujarTitulo(int x, int y, const string& titulo) {
@@ -69,13 +84,48 @@ void dibujarTitulo(int x, int y, const string& titulo) {
 
     // Imprime el título
     cout << titulo << endl;
+
 }
 
 void dibujarMenu(int x, int y, const vector<string>& opciones) {
-    for (int i = 0; i < static_cast<int>(opciones.size()); i++) {
-        gotoxy(x, y + i);
+    std::string::size_type maxWidth = 0;
+    for (const string& opcion : opciones) {
+        if (opcion.length() > maxWidth) {
+            maxWidth = opcion.length();
+        }
+    }
+
+    int menuWidth = maxWidth + 6; // Ancho del menú
+    int rectHeight = 2; // Altura del rectángulo individual
+    int separacionVertical = 1; // Separación vertical entre rectángulos
+
+    // Imprimir opciones dentro de rectángulos individuales
+    for (size_t i = 0; i < opciones.size(); ++i) {
+        // Aumentar la posición y para crear separación vertical
+        int posY = y + i * (rectHeight + separacionVertical);
+
+        // Dibujar rectángulo alrededor de la opción
+        dibujarCuadro(x - 2, posY - 1, menuWidth, rectHeight);
+
+        // Imprimir opción dentro del rectángulo correspondiente
+        gotoxy(x, posY);
         cout << i + 1 << ". " << opciones[i];
     }
+}
+
+void imprimirOpcion(const string& opcion, bool resaltado) {
+    // Cambiar el color del texto y el fondo según si está resaltado o no
+    if (resaltado) {
+        setColor(Intensity); // O cualquier otro color de texto y fondo que desees para resaltado
+    } else {
+        setColor(Green); // O cualquier otro color de texto y fondo que desees para no resaltado
+    }
+
+    // Imprimir el rectángulo con la opción dentro
+    cout << "   " << opcion << "   ";
+
+    // Restaurar el color original
+    setColor(Red); // O cualquier otro color predeterminado que desees
 }
 
 void cursorVisible(bool visible) {
@@ -92,19 +142,6 @@ void ocultarCursor() {
 
 void moverCursor(coordXY pos) {
     gotoxy(pos.x, pos.y);
-}
-
-enum ConsoleColor {
-    Black = 0,
-    Blue = BACKGROUND_BLUE,
-    Green = BACKGROUND_GREEN,
-    Red = BACKGROUND_RED,
-    Intensity = BACKGROUND_INTENSITY
-    };
-
-void setColor(ConsoleColor color) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, color);
 }
 
 void CenterConsoleWindow() {

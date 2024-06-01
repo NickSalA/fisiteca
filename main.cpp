@@ -9,29 +9,28 @@ using namespace std;
 
 int main() {
     CenterConsoleWindow();
-    setColor(Intensity);
+    setColor(White);
     int opc = 0;
     vector<string> opciones = {"Ingresar como Usuario", "Ingresar como Administrador", "Registrar Usuario", "Salir"};
-    coordXY pos = {13, 13};
+    coordXY pos = {40, 15};
     string titulo = R"(
-                ████░█░███░█░█████░████░████░█████
-                █░░░░█░█░░░█░░░█░░░█░░░░█░░░░█░░░█
-                █░░░░█░█░░░█░░░█░░░█░░░░█░░░░█░░░█
-                ███░░█░███░█░░░█░░░████░█░░░░█████
-                █░░░░█░░░█░█░░░█░░░█░░░░█░░░░█░░░█
-                █░░░░█░░░█░█░░░█░░░█░░░░█░░░░█░░░█
-                █░░░░█░███░█░░░█░░░████░████░█░░░█
+                                                Gestor de bibliotecas 
+
+                                          ████░█░███░█░█████░████░████░█████
+                                          █░░░░█░█░░░█░░░█░░░█░░░░█░░░░█░░░█
+                                          ███░░█░███░█░░░█░░░████░█░░░░█████
+                                          █░░░░█░░░█░█░░░█░░░█░░░░█░░░░█░░░█
+                                          █░░░░█░███░█░░░█░░░████░████░█░░░█   
 )";
     configurarConsolaUtf8();
     ocultarCursor();
 
     while (true) {
         limpiarPantalla();
-        dibujarTitulo(2, 2, titulo);
-        dibujarCuadro(pos.x-5, 1, 50,25 );
+        dibujarTitulo(2, 3, titulo);
+        dibujarCuadro(pos.x-8, 2, 50, 25);
         dibujarMenu(pos.x+3, pos.y, opciones);
-        moverCursor({pos.x + 1, pos.y + opc});
-
+        moverCursor({pos.x + 1, pos.y + opc * 3});
 
         cout << "=>";
 
