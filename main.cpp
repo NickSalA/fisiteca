@@ -52,7 +52,7 @@ int main() {
                     registrarUsuario();
                     break;
                 case 3: 
-                    cout << "Saliendo...";
+                    cout << "Saliendo... uwu";
                     return 0;
             }
         }
