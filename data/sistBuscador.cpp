@@ -410,16 +410,3 @@ void menuPrincipal(){
  
    } while(repite);	
 }
-
-int main() {
-    SetConsoleOutputCP(CP_UTF8);
-    SetConsoleCP(CP_UTF8);
-    string titulo = "BIENVENIDO AL SISTEMA DE BUSQUEDA DE LIBROS";
-    vector<string>opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menú principal"};
-    
-
-
-    menuPrincipal();
-    
-
-}
