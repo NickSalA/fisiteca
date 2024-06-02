@@ -46,29 +46,30 @@ void leerLibro(Libro libros[], int& n){
 }
 
 void agregarLibro(Libro libros[], int& n) {
+    limpiarPantalla();
     ofstream Grabacion("libros.txt", ios::app);
-    cout << "Sistema de pedido de libros" << endl;
-    cout << "Ingresar los datos del libro" << endl;
+    dibujarTitulo(50, 2, "AGREGAR LIBRO");
+    dibujarCuadro(10, 5, 100, 20);
+    dibujarTexto(20, 7, "Ingrese los datos del libro:");
     Libro newLibro;
-    cout << "Codigo: ";
+    dibujarTexto(20, 9, "Codigo: ");
     cin >> newLibro.codigo;
     fflush(stdin);
     cin.ignore();
-
-    cout << "Nombre: ";
+    dibujarTexto(20, 11, "Nombre: ");
     getline(cin, newLibro.nombre);
-    cout << "Genero: ";
+    dibujarTexto(20, 13, "Genero: ");
     getline(cin, newLibro.genero);
-    cout << "Autor: ";
+    dibujarTexto(20, 15, "Autor: ");
     getline(cin, newLibro.autor);
-    cout << "Año de publicacion: ";
+    dibujarTexto(20, 17, "Año de publicacion: ");
     cin >> newLibro.anoPublicacion;
     fflush(stdin);
     cin.ignore();
 
-    cout << "Sinopsis: ";
+    dibujarTexto(20, 19, "Sinopsis: ");
     getline(cin, newLibro.sinopsis);
-    cout << "Cantidad: "; // Pedimos la cantidad aquí
+    dibujarTexto(20, 21, "Cantidad: ");
     cin >> newLibro.cantidad;
     fflush(stdin);
     cin.ignore();
@@ -88,7 +89,9 @@ void agregarLibro(Libro libros[], int& n) {
         Grabacion << newLibro.cantidad << endl; // Guardamos la cantidad aquí
         Grabacion.close();
     }
+    dibujarTexto(20, 23, "Libro agregado exitosamente.");
 }
+
 void eliminarLibro(Libro libros[], int& n) {
     int numLibro;
     
@@ -239,8 +242,8 @@ int main (){
     setColor(White);
     configurarConsolaUtf8();
 
-    Libro libroa[100];  
+    Libro libros[100];  
     int n=0;
-    leerLibro(libroa,n);
-    editarLibro(libroa,n);
+    leerLibro(libros,n);
+    agregarLibro(libros,n);
 }
