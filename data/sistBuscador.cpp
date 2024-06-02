@@ -7,6 +7,10 @@
 #include <cstdlib>
 #include <windows.h>
 #include<locale>
+#include"../menu/funciones.hpp"
+#define ARRIBA VK_UP
+#define ABAJO VK_DOWN
+#define ENTER 13
 
 using namespace std;
 
@@ -17,7 +21,36 @@ struct Libro {
     string autor;
     int anoPublicacion;
     string sinopsis;
+    int cantidad;
 }; //incluir esto con las librerias para que funcione.
+
+char getch2() {
+    char c = 0;
+    DWORD contador;
+    HANDLE ih = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD irInputRecord; // Estructura para el registro de entrada
+
+    // Lee un evento de entrada del teclado
+    ReadConsoleInputA(ih, &irInputRecord, 1, &contador);
+
+    // Verifica si el evento es una tecla presionada
+    if (irInputRecord.EventType == KEY_EVENT && irInputRecord.Event.KeyEvent.bKeyDown) {
+        // Extrae el código virtual de la tecla
+        c = irInputRecord.Event.KeyEvent.wVirtualKeyCode;
+
+        // Convierte el código virtual a una de las teclas definidas (ARRIBA o ABAJO)
+        switch (c) {
+            case VK_UP:
+                c = ARRIBA;
+                break;
+            case VK_DOWN:
+                c = ABAJO;
+                break;
+        }
+    }
+
+    return c;
+}
 
 void esperaConMensaje(const string& mensaje) {
     cout << mensaje << endl;
@@ -38,6 +71,8 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
             archivo >> libro.anoPublicacion;
             archivo.ignore();
             getline(archivo, libro.sinopsis);
+            archivo>>libro.cantidad;
+            archivo.ignore();
             libros.push_back(libro);
         }
         archivo.close();
@@ -98,6 +133,7 @@ void mainBuscador_ti() {
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout<<"Cantidad: "<<libro.cantidad<<endl;
                 cout << endl;
             }
         }
@@ -156,6 +192,7 @@ void mainBuscador_gen() {
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout<<"Cantidad: "<<libro.cantidad<<endl;
                 cout << endl;
             }
         }
@@ -215,6 +252,7 @@ void mainBuscar_autor(){
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout<<"Cantidad: "<<libro.cantidad<<endl;
                 cout << endl;
             }
         }
@@ -270,6 +308,7 @@ void mainBuscar_anio() {
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout<<"Cantidad: "<<libro.cantidad<<endl;
                 cout << endl;
             }
         }
@@ -277,45 +316,97 @@ void mainBuscar_anio() {
     } while(true);
 }
 
+int menu(int n) {
+      setColor(White);    
+      int opcionSeleccionada = 1;  // Indica la opción seleccionada
+      int tecla;
+      string titulo = R"(    
+                                          ████░█░░░█░████░█████░░░█░░░░█░█████░████░░░███░
+                                          █░░█░█░░░█░█░░░░█░░░█░░░█░░░░█░█░░░░░█░░░█░█░░░█
+                                          ███░░█░░░█░░██░░█░░░█░░░█░░░░█░█████░█░░░█░█░░░█
+                                          █░░█░█░░░█░░░░█░█░░░█░░░█░░░░█░█░░░░░█░░░█░█████
+                                          ███░░░███░░████░██████░░░████░░█████░████░░█░░░█
+                                          ░░░░░░░░░░░░░░░░░░░░███░░░░░░░░░░░░░░░░░░░░░░░░░
+)";
+      vector<string>opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menú principal"};   
+      bool repite = true; // controla el bucle para regresar a la rutina que lo llamó, al presionar ENTER
+  
+      do {
+         system("cls");
+         CenterConsoleWindow();
+         dibujarTitulo(2, 3, titulo);
+         dibujarCuadro(35, 2, 60, 25);
+         dibujarCuadro(32, 0, 66, 29);
+         dibujarMenu(48,13,opciones);
+         gotoxy(42, 10 + opcionSeleccionada*3); cout << "=>" <<"\t\t\t\t\t\t"<<"<="<<endl;
+ 
+   
+         // Solo permite que se ingrese ARRIBA, ABAJO o ENTER
+         do {
+               tecla = getch2();
+         } while (tecla != ARRIBA && tecla != ABAJO && tecla != ENTER);
+   
+         switch (tecla) {
+               case ARRIBA:   // En caso de que se presione ARRIBA
+                  opcionSeleccionada--;
+                  if (opcionSeleccionada < 1) {
+                     opcionSeleccionada = n;
+                  }
+                  break;
+   
+               case ABAJO:
+                  opcionSeleccionada++;
+                  if (opcionSeleccionada > n) {
+                     opcionSeleccionada = 1;
+                  }
+                  break;
+   
+               case ENTER:
+                  repite = false;
+                  break;
+         }
 
-void escogerFiltro(){
+   
+        } while (repite);
+   
+      return opcionSeleccionada;
+   }
 
-    int opcion;
-    do{
-    
-    system("cls");
-    cout << "Bienvenido al sistema de búsqueda de libros." << endl;
-    cout << "1. Buscar por título" << endl;
-    cout << "2. Buscar por género" << endl;
-    cout << "3. Buscar por año de publicación" << endl;
-    cout << "4. Buscar por autor" << endl;
-    cout << "5. Regresar al menú principal" << endl;
-    cout << "Seleccione una opción: ";
-    cin >> opcion;
-    cin.ignore();
-    switch (opcion) {
-        case 1:
+void menuPrincipal(){
+	
+    bool repite = true;
+   int opcion;   
+
+   int n = 5;  // Numero de opciones
+   
+    do {
+      opcion = menu(n);
+ 
+      switch (opcion) {
+         case 1:
             mainBuscador_ti();
             break;
-        case 2:
+ 
+ 
+         case 2:
             mainBuscador_gen();
             break;
-        case 3:
+ 
+         case 3:
             mainBuscar_anio();
             break;
-        case 4:
+ 
+         case 4:
             mainBuscar_autor();
             break;
-        case 5:
-            exit(0);//debe ir un break pero eso es con el menú principal
+ 
+         case 5:
+           break;
+           
         default:
             cout << "Opción no válida." << endl;
             break;
-    }
-    }while(opcion != 5);
-}
-
-int main() {
-    setlocale(LC_ALL, "es_ES.UTF-8");
-    escogerFiltro();
+      }
+ 
+   } while(repite);	
 }

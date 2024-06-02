@@ -30,9 +30,13 @@ int main() {
         dibujarTitulo(2, 3, titulo);
         dibujarCuadro(pos.x-8, 2, 50, 25);
         dibujarMenu(pos.x+3, pos.y, opciones);
-        moverCursor({pos.x + 1, pos.y + opc * 3});
+        moverCursor({pos.x-2, pos.y + opc * 3});
 
         cout << "=>";
+
+        moverCursor({pos.x + 36, pos.y + opc * 3});
+
+        cout << "<=";
 
         char key = _getch();
         if (key == 72 && opc > 0) { // Flecha arriba
