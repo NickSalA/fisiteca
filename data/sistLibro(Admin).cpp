@@ -6,8 +6,10 @@
 #include <sstream>
 #include <windows.h>
 #include <limits>
+#include "../menu/funciones.hpp"
 
 using namespace std;
+
 string xcodigo,xano,xcantidad;
 struct Libro {
     int codigo;
@@ -137,61 +139,79 @@ void eliminarLibro(Libro libros[], int& n) {
 }
 
 void editarLibro(Libro libros[], int n) {
+    
+    mostrarBarraDeCarga(100,100,5000);
+
+    system("cls");
+
+    dibujarCuadro(10, 0, 100, 30);
+    dibujarTitulo(50, 2, "Editar libro");
     int numLibro;
     
     for (int i = 0; i < n; i++) {
-        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << " - Cantidad: " << libros[i].cantidad << endl;
+        dibujarTexto(20, 5 + i * 1, "Libro " + to_string(i + 1) + ": " + libros[i].nombre + " - Cantidad: " + to_string(libros[i].cantidad));
     }
-    
-    cout << "Seleccione el número del libro que desea editar: ";
+      
+        dibujarTeslaASCII(90, 15);
+
+    dibujarTexto(20, 6 + n * 1, "Seleccione el número del libro que desea editar: ");
     cin >> numLibro;
     cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     
+
+
+    system("cls");
+
     if (numLibro >= 1 && numLibro <= n) {
         int indiceLibro = numLibro - 1;
-        
-        cout << "\nEditar libro: " << libros[indiceLibro].nombre << endl;
-        cout << "1. Nombre: " << libros[indiceLibro].nombre << endl;
-        cout << "2. Genero: " << libros[indiceLibro].genero << endl;
-        cout << "3. Autor: " << libros[indiceLibro].autor << endl;
-        cout << "4. Año de publicación: " << libros[indiceLibro].anoPublicacion << endl;
-        cout << "5. Sinopsis: " << libros[indiceLibro].sinopsis << endl;
-        cout << "6. Cantidad: " << libros[indiceLibro].cantidad << endl; // Añadimos la opción de editar la cantidad
-        
+        dibujarCuadro(10, 0, 100, 20);
+        dibujarTexto(20, 2, "Editar libro: " + libros[indiceLibro].nombre);
+        dibujarTexto(20, 4, "1. Nombre: " + libros[indiceLibro].nombre);
+        dibujarTexto(20, 6, "2. Genero: " + libros[indiceLibro].genero);
+        dibujarTexto(20, 8, "3. Autor: " + libros[indiceLibro].autor);
+        dibujarTexto(20, 10, "4. Año de publicación: " + to_string(libros[indiceLibro].anoPublicacion));
+        dibujarTexto(20, 12, "5. Sinopsis: " + libros[indiceLibro].sinopsis);
+        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad)); // Añadimos la opción de editar la cantidad
         int opcion;
-        cout << "\nSeleccione el número del campo que desea editar (1-6): ";
+        dibujarTexto(20, 16, "Seleccione el número del campo que desea editar (1-6): ");
         cin >> opcion;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        
+
+        system("cls");
+        system("cls");
+
+        dibujarCuadro(10, 0, 100, 20);
+        dibujarTitulo(50, 2, "Editor de libros");
+        dibujarTeslaASCII(90, 15);
         switch (opcion) {
             case 1:
-                cout << "Ingrese el nuevo nombre del libro: ";
+                dibujarTexto(20, 10, "Ingrese el nuevo nombre del libro: ");
                 getline(cin, libros[indiceLibro].nombre);
                 break;
             case 2:
-                cout << "Ingrese el nuevo género del libro: ";
+                dibujarTexto(20, 10, "Ingrese el nuevo género del libro: ");
                 getline(cin, libros[indiceLibro].genero);
                 break;
             case 3:
-                cout << "Ingrese el nuevo autor del libro: ";
+                dibujarTexto(20, 10, "Ingrese el nuevo autor del libro: ");
                 getline(cin, libros[indiceLibro].autor);
                 break;
             case 4:
-                cout << "Ingrese el nuevo año de publicación del libro: ";
+                dibujarTexto(20, 10, "Ingrese el nuevo año de publicación del libro: ");
                 cin >> libros[indiceLibro].anoPublicacion;
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 break;
             case 5:
-                cout << "Ingrese la nueva sinopsis del libro: ";
+                dibujarTexto(20, 10, "Ingrese la nueva sinopsis del libro: ");
                 getline(cin, libros[indiceLibro].sinopsis);
                 break;
             case 6:
-                cout << "Ingrese la nueva cantidad del libro: ";
+                dibujarTexto(20, 10, "Ingrese la nueva cantidad del libro: ");
                 cin >> libros[indiceLibro].cantidad;
                 cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
                 break;
             default:
-                cout << "Opción no válida." << endl;
+                dibujarTexto(20, 10, "Opción no válida.");
                 break;
         }
         
@@ -211,4 +231,16 @@ void editarLibro(Libro libros[], int n) {
     } else {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
+}
+
+int main (){
+
+    Set_Console_Sizes(150, 100, false);
+    setColor(White);
+    configurarConsolaUtf8();
+
+    Libro libroa[100];  
+    int n=0;
+    leerLibro(libroa,n);
+    editarLibro(libroa,n);
 }

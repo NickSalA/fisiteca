@@ -7,6 +7,8 @@
 #include <conio.h>
 #include <limits>
 #include <locale>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 //Creditos: FisiCode
@@ -155,4 +157,65 @@ void CenterConsoleWindow() {
 
     MoveWindow(hWnd, posx, posy, rectClient.right - rectClient.left, rectClient.bottom - rectClient.top, TRUE);
 }
+
+void dibujarTexto(int x, int y, const string& texto) {
+    gotoxy(x, y);
+    cout << texto;
+}
+
+void ShowConsoleCursor(bool showFlag) {
+        HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+        CONSOLE_CURSOR_INFO cursorInfo;
+
+        GetConsoleCursorInfo(out, &cursorInfo);
+        cursorInfo.bVisible = showFlag; // set the cursor visibility
+        SetConsoleCursorInfo(out, &cursorInfo);
+    }
+
+void Set_Console_Sizes(const int consola_ancho,const int consola_alto,bool cursor) {
+        std::stringstream ss; ss << "MODE CON: COLS=" << consola_ancho << "LINES=" << consola_alto;
+        system(ss.str().c_str());
+        HWND consoleWindow = GetConsoleWindow();
+        SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+        CenterConsoleWindow();
+        ShowConsoleCursor(cursor);
+    }
+
+void dibujarTeslaASCII(int x, int y) {
+    gotoxy(x, y);
+    cout << "  /\\_/\\  ";
+    gotoxy(x, y + 1);
+    cout << " ( o.o ) ";
+    gotoxy(x, y + 2);
+    cout << "  > ^ <  ";
+}
+void dibujarTituloASCII(int x, int y, const string& titulo) {
+    // Mueve el cursor a la posición (x, y) en la consola
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    SetConsoleCursorPosition(hConsole, pos);
+
+    // Imprime el título
+    cout << titulo << endl;
+}
+
+void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50) {
+    gotoxy(x, y);
+    std::cout << "[";
+    for (int i = 0; i < tamano; ++i) {
+        std::cout << " ";
+    }
+    std::cout << "]\r";
+    gotoxy(x + 1, y); // Mueve el cursor dentro de la barra
+
+    for (int i = 0; i < tamano; ++i) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(duracion / tamano));
+        std::cout << "=";
+        std::cout.flush();
+    }
+
+    gotoxy(x + tamano + 1, y); // Mueve el cursor al final de la barra
+    std::cout << "]" << std::endl;
+}
+
 #endif // USERMANAGEMENT_HPP
