@@ -235,15 +235,3 @@ void editarLibro(Libro libros[], int n) {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
-
-int main (){
-
-    Set_Console_Sizes(150, 100, false);
-    setColor(White);
-    configurarConsolaUtf8();
-
-    Libro libros[100];  
-    int n=0;
-    leerLibro(libros,n);
-    agregarLibro(libros,n);
-}

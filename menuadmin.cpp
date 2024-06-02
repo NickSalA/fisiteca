@@ -3,15 +3,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
-#include "data/userManagement.hpp"
 #include "menu/funciones.hpp"
+#include "data/sistLibro(Admin).hpp"
 using namespace std;
 
 int main() {
     CenterConsoleWindow();
     setColor(White);
     int opc = 0;
-    vector<string> opciones = {"Agregar libro", "Eliminar libro", "Editar libro", "Retroceder"};
+    Libro libros[100];
+    int n = 0;
+    leerLibro(libros, n);
+    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro", "Retroceder"};
     coordXY pos = {40, 15};
     string titulo = R"(
 
@@ -25,8 +28,7 @@ int main() {
 )";
     configurarConsolaUtf8();
     ocultarCursor();
-    Libro libros[100];
-    int n = 0;
+    
 
     while (true) {
         limpiarPantalla();
@@ -49,16 +51,16 @@ int main() {
         } else if (key == '\r') { // Enter
             switch (opc) {
                 case 0: 
-                    
+                    agregarLibro(libros, n);
                     break;
                 case 1: 
-                    
+                    editarLibro(libros, n);
                     break;
                 case 2: 
-                   
+                   eliminarLibro(libros, n);
                     break;
                 case 3: 
-                    
+                    cout<<"Saliendo...";
                     return 0;
             }
         }

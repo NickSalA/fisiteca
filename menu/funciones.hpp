@@ -9,6 +9,7 @@
 #include <locale>
 #include <chrono>
 #include <thread>
+#include <sstream>
 
 using namespace std;
 //Creditos: FisiCode
