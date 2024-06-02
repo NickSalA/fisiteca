@@ -7,28 +7,30 @@
 #include <limits>
 #include "sistLibro(Admin).hpp"
 
-bool usuarioExiste(const std::string& usuario) {
-    std::ifstream archivo("credUsuario.txt");
-    std::string usuarioGuardado;
+using namespace std;
+
+bool usuarioExiste(const string& usuario) {
+    ifstream archivo("credUsuario.txt");
+    string usuarioGuardado;
     while (archivo >> usuarioGuardado) {
         if (usuarioGuardado == usuario) {
             archivo.close();
             return true;
         }
-        archivo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        archivo.ignore(numeric_limits<streamsize>::max(), '\n');
     }
     archivo.close();
     return false;
 }
 
-bool verificarCredencialesUsuario(const std::string& usuario, const std::string& contraseña) {
-    std::ifstream archivo("credUsuario.txt");
+bool verificarCredencialesUsuario(const string& usuario, const string& contraseña) {
+    ifstream archivo("credUsuario.txt");
     if (archivo.fail()) {
-        std::cout << "Error: No se pudo abrir el archivo 'credUsuario.txt'." << std::endl;
+        cout << "Error: No se pudo abrir el archivo 'credUsuario.txt'." << endl;
         return false;
     }
 
-    std::string usuarioGuardado, contraseñaGuardada;
+    string usuarioGuardado, contraseñaGuardada;
     while (archivo >> usuarioGuardado >> contraseñaGuardada) {
         if (usuarioGuardado == usuario && contraseñaGuardada == contraseña) {
             archivo.close();
@@ -40,14 +42,14 @@ bool verificarCredencialesUsuario(const std::string& usuario, const std::string&
     return false;
 }
 
-bool verificarCredencialesAdmin(const std::string& usuario, const std::string& contraseña) {
-    std::ifstream archivo("credAdmin.txt");
+bool verificarCredencialesAdmin(const string& usuario, const string& contraseña) {
+    ifstream archivo("credAdmin.txt");
     if (archivo.fail()) {
-        std::cout << "Error: No se pudo abrir el archivo 'credAdmin.txt'." << std::endl;
+        cout << "Error: No se pudo abrir el archivo 'credAdmin.txt'." << endl;
         return false;
     }
 
-    std::string usuarioGuardado, contraseñaGuardada;
+    string usuarioGuardado, contraseñaGuardada;
     while (archivo >> usuarioGuardado >> contraseñaGuardada) {
         if (usuarioGuardado == usuario && contraseñaGuardada == contraseña) {
             archivo.close();
@@ -60,81 +62,81 @@ bool verificarCredencialesAdmin(const std::string& usuario, const std::string& c
 }
 
 void registrarUsuario() {
-    std::string usuario, contrasena, confirmar_contrasena;
+    string usuario, contrasena, confirmar_contrasena;
     bool registrado = false;
 
     while (!registrado) {
-        std::cout << "Introduce tu nombre de usuario: ";
-        std::getline(std::cin, usuario);
+        cout << "Introduce tu nombre de usuario: ";
+        getline(cin, usuario);
 
         if (usuario.empty()) {
-            std::cout << "\nEl nombre de usuario no puede estar vacío. Inténtalo de nuevo." << std::endl << std::endl;
+            cout << "\nEl nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
             continue;
         }
 
         if (usuarioExiste(usuario)) {
-            std::cout << "\nEl usuario ya existe. Introduce un nombre de usuario diferente." << std::endl << std::endl;
+            cout << "\nEl usuario ya existe. Introduce un nombre de usuario diferente." << endl << endl;
             continue;
         }
 
-        std::cout << "Introduce tu contraseña: ";
-        std::getline(std::cin, contrasena);
+        cout << "Introduce tu contraseña: ";
+        getline(cin, contrasena);
 
         if (contrasena.empty()) {
-            std::cout << "\nLa contraseña no puede estar vacía. Inténtalo de nuevo." << std::endl << std::endl;
+            cout << "\nLa contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
             continue;
         }
 
-        std::cout << "Confirma tu contraseña: ";
-        std::getline(std::cin, confirmar_contrasena);
+        cout << "Confirma tu contraseña: ";
+        getline(cin, confirmar_contrasena);
 
         if (contrasena != confirmar_contrasena) {
-            std::cout << "\nLas contraseñas no coinciden. Inténtalo de nuevo." << std::endl << std::endl;
+            cout << "\nLas contraseñas no coinciden. Inténtalo de nuevo." << endl << endl;
             continue;
         }
 
-        std::ofstream archivo("credUsuario.txt", std::ios::app);
+        ofstream archivo("credUsuario.txt", ios::app);
         if (!archivo.is_open()) {
-            std::cout << "Error al abrir el archivo." << std::endl;
+            cout << "Error al abrir el archivo." << endl;
             return;
         }
 
-        archivo << usuario << std::endl << contrasena << std::endl;
+        archivo << usuario << endl << contrasena << endl;
         archivo.close();
 
         registrado = true;
-        std::cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << std::endl;
+        cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << endl;
     }
 }
 
 void menuUsuario() {
     while (true) {
-        std::cout << "Menu de Opciones" << std::endl;
-        std::cout << "1. Buscador de libros" << std::endl;
-        std::cout << "2. Donacion de libros" << std::endl;
-        std::cout << "3. Prestamo de libros" << std::endl;
-        std::cout << "4. Salir" << std::endl;
-        std::cout << "Seleccione una opción: ";
+        cout << "Menu de Opciones" << endl;
+        cout << "1. Buscador de libros" << endl;
+        cout << "2. Donacion de libros" << endl;
+        cout << "3. Prestamo de libros" << endl;
+        cout << "4. Salir" << endl;
+        cout << "Seleccione una opción: ";
 
         int opcion;
-        std::cin >> opcion;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
+        cin >> opcion;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore remaining input
 
         switch (opcion) {
             case 1:
-                std::cout << "Has seleccionado la Opción 1" << std::endl;
+                cout << "Has seleccionado la Opción 1" << endl;
                 break;
             case 2:
-                std::cout << "Has seleccionado la Opción 2" << std::endl;
+                cout << "Has seleccionado la Opción 2" << endl;
                 break;
             case 3:
-                std::cout << "Has seleccionado la Opción 3" << std::endl;
+                cout << "Has seleccionado la Opción 3" << endl;
                 break;
             case 4:
-                std::cout << "Saliendo..." << std::endl;
+                cout << "Saliendo..." << endl;
                 return;
             default:
-                std::cout << "Opción inválida. Intente de nuevo." << std::endl;
+                cout << "Opción inválida. Intente de nuevo." << endl;
                 break;
         }
     }
@@ -146,9 +148,9 @@ void menuAdmin() {
     leerLibro(libros, n);
     int opcion;
     do {
-        std::cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << std::endl;
-        std::cin >> opcion;
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Ignore remaining input
+        cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << endl;
+        cin >> opcion;
+        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore remaining input
         switch (opcion) {
             case 1:
                 agregarLibro(libros, n);
@@ -160,53 +162,53 @@ void menuAdmin() {
                 editarLibro(libros, n);
                 break;
             case 4:
-                std::cout << "Adios!" << std::endl;
+                cout << "Adios!" << endl;
                 return;
             default:
-                std::cout << "Opcion invalida" << std::endl;
+                cout << "Opcion invalida" << endl;
                 break;
         }
     } while (opcion != 4);
 }
 
 void ingresarUsuario() {
-    std::string usuarioIngresado, contraseñaIngresada;
+    string usuarioIngresado, contraseñaIngresada;
     bool credencialesCorrectas = false;
 
     do {
-        std::cout << "Ingrese su nombre de usuario: ";
-        std::getline(std::cin, usuarioIngresado);
+        cout << "Ingrese su nombre de usuario: ";
+        getline(cin, usuarioIngresado);
 
-        std::cout << "Ingrese su contraseña: ";
-        std::getline(std::cin, contraseñaIngresada);
+        cout << "Ingrese su contraseña: ";
+        getline(cin, contraseñaIngresada);
 
         if (verificarCredencialesUsuario(usuarioIngresado, contraseñaIngresada)) {
             credencialesCorrectas = true;
-            std::cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << std::endl;
+            cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl;
             menuUsuario();
         } else {
-            std::cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << std::endl;
+            cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl;
         }
     } while (!credencialesCorrectas);
 }
 
 void ingresarComoAdmin() {
-    std::string usuarioIngresado, contraseñaIngresada;
+    string usuarioIngresado, contraseñaIngresada;
     bool credencialesCorrectas = false;
 
     do {
-        std::cout << "Ingrese su nombre de usuario: ";
-        std::getline(std::cin, usuarioIngresado);
+        cout << "Ingrese su nombre de usuario: ";
+        getline(cin, usuarioIngresado);
 
-        std::cout << "Ingrese su contraseña: ";
-        std::getline(std::cin, contraseñaIngresada);
+        cout << "Ingrese su contraseña: ";
+        getline(cin, contraseñaIngresada);
 
         if (verificarCredencialesAdmin(usuarioIngresado, contraseñaIngresada)) {
             credencialesCorrectas = true;
-            std::cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << std::endl;
+            cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
             menuAdmin();
         } else {
-            std::cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << std::endl << std::endl;
+            cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl << endl;
         }
     } while (!credencialesCorrectas);
 }
