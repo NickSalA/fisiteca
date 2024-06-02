@@ -11,15 +11,17 @@ using namespace std;
 
 bool usuarioExiste(const string& usuario) {
     ifstream archivo("credUsuario.txt");
-    string usuarioGuardado;
-    while (archivo >> usuarioGuardado) {
-        if (usuarioGuardado == usuario) {
-            archivo.close();
+    if (!archivo.is_open()) {
+        cerr << "Error: No se pudo abrir el archivo 'credUsuario.txt'." << endl;
+        return false;
+    }
+
+    string linea;
+    while (getline(archivo, linea)) {
+        if (linea == usuario) {
             return true;
         }
-        archivo.ignore(numeric_limits<streamsize>::max(), '\n');
     }
-    archivo.close();
     return false;
 }
 
@@ -44,173 +46,256 @@ bool verificarCredencialesUsuario(const string& usuario, const string& contrase�
 
 bool verificarCredencialesAdmin(const string& usuario, const string& contraseña) {
     ifstream archivo("credAdmin.txt");
+    
     if (archivo.fail()) {
         cout << "Error: No se pudo abrir el archivo 'credAdmin.txt'." << endl;
         return false;
     }
-
-    string usuarioGuardado, contraseñaGuardada;
+    
+    string usuarioGuardado;
+    string contraseñaGuardada;
+    
     while (archivo >> usuarioGuardado >> contraseñaGuardada) {
         if (usuarioGuardado == usuario && contraseñaGuardada == contraseña) {
             archivo.close();
             return true;
         }
     }
-
+    
     archivo.close();
     return false;
 }
 
 void registrarUsuario() {
+    limpiarPantalla();
+    int anchoConsola, altoConsola;
+    obtenerDimensionConsola(anchoConsola, altoConsola);
+    int anchoInterfaz = 70;
+    int altoInterfaz = 15;
+    int x = (anchoConsola - anchoInterfaz) / 2;
+    int y = (altoConsola - altoInterfaz) / 2;
+
     string usuario, contrasena, confirmar_contrasena;
     bool registrado = false;
-
     while (!registrado) {
-        cout << "Introduce tu nombre de usuario: ";
-        getline(cin, usuario);
-
+        dibujarInterfazRegistrar(x, y, anchoInterfaz, altoInterfaz);
+        gotoxy(x + 36, y + 4); cout << "                    ";
+        gotoxy(x + 36, y + 4); getline(cin, usuario);
         if (usuario.empty()) {
-            cout << "\nEl nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
+            gotoxy(x + 2, y + 14); cout << "El nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
             continue;
         }
-
         if (usuarioExiste(usuario)) {
-            cout << "\nEl usuario ya existe. Introduce un nombre de usuario diferente." << endl << endl;
+            gotoxy(x + 2, y + 14); cout << "El usuario ya existe. Introduce un nombre de usuario diferente." << endl << endl;
             continue;
         }
-
-        cout << "Introduce tu contraseña: ";
-        getline(cin, contrasena);
-
+        gotoxy(x + 36, y + 7); cout << "                    ";
+        gotoxy(x + 36, y + 7); getline(cin, contrasena);
         if (contrasena.empty()) {
-            cout << "\nLa contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
+            gotoxy(x + 2, y + 14); cout << "La contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
             continue;
         }
-
-        cout << "Confirma tu contraseña: ";
-        getline(cin, confirmar_contrasena);
-
+        gotoxy(x + 36, y + 10); cout << "                    ";
+        gotoxy(x + 36, y + 10); getline(cin, confirmar_contrasena);
         if (contrasena != confirmar_contrasena) {
-            cout << "\nLas contraseñas no coinciden. Inténtalo de nuevo." << endl << endl;
+            gotoxy(x + 2, y + 14); cout << "Las contraseñas no coinciden. Inténtalo de nuevo." << endl << endl;
             continue;
         }
-
         ofstream archivo("credUsuario.txt", ios::app);
+
         if (!archivo.is_open()) {
-            cout << "Error al abrir el archivo." << endl;
-            return;
+            gotoxy(x + 2, y + 14); cout << "Error al abrir el archivo." << endl;
         }
-
         archivo << usuario << endl << contrasena << endl;
-        archivo.close();
-
         registrado = true;
-        cout << "\nRegistro exitoso. ¡Te has registrado correctamente!" << endl;
+        gotoxy(x + 2, y + 14); cout << "Registro exitoso. ¡Te has registrado correctamente!" << endl;
     }
 }
 
 void menuUsuario() {
+    CenterConsoleWindow();
+    setColor(White);
+    int opc = 0;
+    vector<string> opciones = {"Buscador de libros", "Donación de libros", "Prestamo de libros", "Salir"};
+    coordXY pos = {40, 15};
+    string titulo = R"(
+
+                                         ░█░░█░████░█░░█░████░████░█░████░
+                                         ░█░░█░█░░░░█░░█░█░░█░█░░█░█░█░░█░
+                                         ░█░░█░████░█░░█░████░████░█░█░░█░
+                                         ░█░░█░░░░█░█░░█░█░░█░███░░█░█░░█░
+                                         ░████░████░████░█░░█░█░██░█░████░
+
+                                    __________________________________________
+)";
+    configurarConsolaUtf8();
+    ocultarCursor();
+    
+
     while (true) {
-        cout << "Menu de Opciones" << endl;
-        cout << "1. Buscador de libros" << endl;
-        cout << "2. Donacion de libros" << endl;
-        cout << "3. Prestamo de libros" << endl;
-        cout << "4. Salir" << endl;
-        cout << "Seleccione una opción: ";
+        limpiarPantalla();
+        dibujarTitulo(2, 3, titulo);
+        dibujarCuadro(pos.x-8, 2, 50, 25);
+        dibujarMenu(pos.x+6, pos.y-1, opciones);
+        moverCursor({pos.x + 1, pos.y-1 + opc * 3});
 
-        int opcion;
-        cin >> opcion;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore remaining input
+        cout << "=>";
 
-        switch (opcion) {
-            case 1:
-                cout << "Has seleccionado la Opción 1" << endl;
-                break;
-            case 2:
-                cout << "Has seleccionado la Opción 2" << endl;
-                break;
-            case 3:
-                cout << "Has seleccionado la Opción 3" << endl;
-                break;
-            case 4:
-                cout << "Saliendo..." << endl;
-                return;
-            default:
-                cout << "Opción inválida. Intente de nuevo." << endl;
-                break;
+        moverCursor({pos.x + 31, pos.y-1 + opc * 3});
+
+        cout << "<=";
+
+        char key = _getch();
+        if (key == 72 && opc > 0) { // Flecha arriba
+            opc--;
+        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) { // Flecha abajo
+            opc++;
+        } else if (key == '\r') { // Enter
+            switch (opc) {
+                case 0: 
+                   
+                    break;
+                case 1: 
+                    
+                    break;
+                case 2: 
+                   
+                    break;
+                case 3: 
+                exit(1);
+            }
+        }
+    }
+}
+void menuAdmin() {
+    CenterConsoleWindow();
+    setColor(White);
+    int opc = 0;
+    Libro libros[100];
+    int n = 0;
+    leerLibro(libros, n);
+    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro", "Retroceder"};
+    coordXY pos = {40, 15};
+    string titulo = R"(
+
+                                            ░█████░█████░█████░█░███░█░
+                                            ░█░░░█░█░░░█░█░█░█░█░█░█░█░
+                                            ░█████░█░░░█░█░░░█░█░█░█░█░
+                                            ░█░░░█░█░░░█░█░░░█░█░█░█░█░
+                                            ░█░░░█░█████░█░░░█░█░█░███░
+
+                                    __________________________________________
+)";
+    configurarConsolaUtf8();
+    ocultarCursor();
+    
+
+    while (true) {
+        limpiarPantalla();
+        dibujarTitulo(2, 3, titulo);
+        dibujarCuadro(pos.x-8, 2, 50, 25);
+        dibujarMenu(pos.x+9, pos.y-1, opciones);
+        moverCursor({pos.x + 4, pos.y-1 + opc * 3});
+
+        cout << "=>";
+
+        moverCursor({pos.x + 29, pos.y-1 + opc * 3});
+
+        cout << "<=";
+
+        char key = _getch();
+        if (key == 72 && opc > 0) { // Flecha arriba
+            opc--;
+        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) { // Flecha abajo
+            opc++;
+        } else if (key == '\r') { // Enter
+            switch (opc) {
+                case 0: 
+                    agregarLibro(libros, n);
+                    break;
+                case 1: 
+                    editarLibro(libros, n);
+                    break;
+                case 2: 
+                   eliminarLibro(libros, n);
+                    break;
+                case 3: 
+                    exit(1);
+            }
         }
     }
 }
 
-void menuAdmin() {
-    Libro libros[100];
-    int n = 0;
-    leerLibro(libros, n);
-    int opcion;
-    do {
-        cout << "\n1. Agregar libro\n2. Eliminar libro\n3. Editar Libro\n4. Salir" << endl;
-        cin >> opcion;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore remaining input
-        switch (opcion) {
-            case 1:
-                agregarLibro(libros, n);
-                break;
-            case 2:
-                eliminarLibro(libros, n);
-                break;
-            case 3:
-                editarLibro(libros, n);
-                break;
-            case 4:
-                cout << "Adios!" << endl;
-                return;
-            default:
-                cout << "Opcion invalida" << endl;
-                break;
-        }
-    } while (opcion != 4);
-}
-
 void ingresarUsuario() {
+    limpiarPantalla();
+    int anchoConsola, altoConsola;
+    obtenerDimensionConsola(anchoConsola, altoConsola);
+    int anchoInterfaz = 70;
+    int altoInterfaz = 15;
+    int x = (anchoConsola - anchoInterfaz) / 2;
+    int y = (altoConsola - altoInterfaz) / 2;
+
     string usuarioIngresado, contraseñaIngresada;
     bool credencialesCorrectas = false;
-
     do {
-        cout << "Ingrese su nombre de usuario: ";
-        getline(cin, usuarioIngresado);
-
-        cout << "Ingrese su contraseña: ";
-        getline(cin, contraseñaIngresada);
-
-        if (verificarCredencialesUsuario(usuarioIngresado, contraseñaIngresada)) {
-            credencialesCorrectas = true;
-            cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl;
-            menuUsuario();
-        } else {
-            cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl;
+        dibujarInterfazUser(x, y, anchoInterfaz, altoInterfaz);
+        gotoxy(x + 36, y + 4); cout << "                    ";
+        gotoxy(x + 36, y + 4); getline(cin, usuarioIngresado);
+        if (usuarioIngresado.empty()) {
+            gotoxy(x + 2, y + 14); cout << "El nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
+            continue;
         }
+        gotoxy(x + 36, y + 7); cout << "                    ";
+        gotoxy(x + 36, y + 7); getline(cin, contraseñaIngresada);
+        if (contraseñaIngresada.empty()) {
+            gotoxy(x + 2, y + 14); cout << "La contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
+            continue;
+        }
+        if (!verificarCredencialesUsuario(usuarioIngresado, contraseñaIngresada)) {
+            gotoxy(x + 2, y + 14); cout << "Error: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl << endl;
+            continue;
+        }
+        credencialesCorrectas = true;
+        gotoxy(x + 7, y + 10); cout << "¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl << endl;
+
     } while (!credencialesCorrectas);
+    menuUsuario();
 }
 
 void ingresarComoAdmin() {
+    limpiarPantalla();
+    int anchoConsola, altoConsola;
+    obtenerDimensionConsola(anchoConsola, altoConsola);
+    int anchoInterfaz = 70;
+    int altoInterfaz = 15;
+    int x = (anchoConsola - anchoInterfaz) / 2;
+    int y = (altoConsola - altoInterfaz) / 2;
+
     string usuarioIngresado, contraseñaIngresada;
     bool credencialesCorrectas = false;
-
     do {
-        cout << "Ingrese su nombre de usuario: ";
-        getline(cin, usuarioIngresado);
-
-        cout << "Ingrese su contraseña: ";
-        getline(cin, contraseñaIngresada);
-
-        if (verificarCredencialesAdmin(usuarioIngresado, contraseñaIngresada)) {
-            credencialesCorrectas = true;
-            cout << "\n¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl;
-            menuAdmin();
-        } else {
-            cout << "\nError: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl << endl;
+        dibujarInterfazUser(x, y, anchoInterfaz, altoInterfaz);
+        gotoxy(x + 36, y + 4); cout << "                    ";
+        gotoxy(x + 36, y + 4); getline(cin, usuarioIngresado);
+        if (usuarioIngresado.empty()) {
+            gotoxy(x + 2, y + 14); cout << "El nombre de usuario no puede estar vacío. Inténtalo de nuevo." << endl << endl;
+            continue;
         }
+        gotoxy(x + 36, y + 7); cout << "                    ";
+        gotoxy(x + 36, y + 7); getline(cin, contraseñaIngresada);
+        if (contraseñaIngresada.empty()) {
+            gotoxy(x + 2, y + 14); cout << "La contraseña no puede estar vacía. Inténtalo de nuevo." << endl << endl;
+            continue;
+        }
+        if (!verificarCredencialesAdmin(usuarioIngresado, contraseñaIngresada)) {
+            gotoxy(x + 2, y + 14); cout << "Error: Nombre de usuario o contraseña incorrectos. Intente de nuevo." << endl << endl;
+            continue;
+        }
+        credencialesCorrectas = true;
+        gotoxy(x + 2, y + 10); cout << "¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente como administrador." << endl << endl;
+
     } while (!credencialesCorrectas);
+    menuAdmin();
 }
 
 #endif // USERMANAGEMENT_HPP

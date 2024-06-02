@@ -5,6 +5,7 @@
 #include <conio.h>
 #include "data/userManagement.hpp"
 #include "menu/funciones.hpp"
+
 using namespace std;
 
 int main() {
@@ -46,10 +47,10 @@ int main() {
         } else if (key == '\r') { // Enter
             switch (opc) {
                 case 0: 
-                    menuUsuario();
+                    ingresarUsuario();
                     break;
                 case 1: 
-                    menuAdmin();
+                    ingresarComoAdmin();
                     break;
                 case 2: 
                     registrarUsuario();

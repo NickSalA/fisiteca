@@ -219,4 +219,50 @@ void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50) {
     std::cout << "]" << std::endl;
 }
 
+void obtenerDimensionConsola(int& ancho, int& alto) {
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    ancho = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+    alto = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
+}
+
+void dibujarInterfazRegistrar(int x, int y, int ancho, int alto) {
+    for (int i = 0; i <= ancho; i++) {
+        gotoxy(x + i, y); cout << "-";
+        gotoxy(x + i, y + alto); cout << "-";
+    }
+    for (int i = 0; i <= alto; i++) {
+        gotoxy(x, y + i); cout << "|";
+        gotoxy(x + ancho, y + i); cout << "|";
+    }
+    gotoxy(x, y); cout << "┌";
+    gotoxy(x + ancho, y); cout << "┐";
+    gotoxy(x, y + alto); cout << "└";
+    gotoxy(x + ancho, y + alto); cout << "┘";
+    gotoxy(x + 12, y + 4); cout << "CREAR USUARIO:";
+    gotoxy(x + 36, y + 4); cout << "____________________";
+    gotoxy(x + 12, y + 7); cout << "CREAR CONTRASEÑA:";
+    gotoxy(x + 36, y + 7); cout << "____________________";
+    gotoxy(x + 12, y + 10); cout << "CONFIRMAR CONTRASEÑA:";
+    gotoxy(x + 36, y + 10); cout << "____________________";
+}
+
+void dibujarInterfazUser(int x, int y, int ancho, int alto) {
+    for (int i = 0; i <= ancho; i++) {
+        gotoxy(x + i, y); cout << "-";
+        gotoxy(x + i, y + alto); cout << "-";
+    }
+    for (int i = 0; i <= alto; i++) {
+        gotoxy(x, y + i); cout << "|";
+        gotoxy(x + ancho, y + i); cout << "|";
+    }
+    gotoxy(x, y); cout << "┌";
+    gotoxy(x + ancho, y); cout << "┐";
+    gotoxy(x, y + alto); cout << "└";
+    gotoxy(x + ancho, y + alto); cout << "┘";
+    gotoxy(x + 12, y + 4); cout << "USUARIO:";
+    gotoxy(x + 36, y + 4); cout << "____________________";
+    gotoxy(x + 12, y + 7); cout << "CONTRASEÑA:";
+    gotoxy(x + 36, y + 7); cout << "____________________";
+}
 #endif // USERMANAGEMENT_HPP
