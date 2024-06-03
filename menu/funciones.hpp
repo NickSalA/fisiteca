@@ -310,4 +310,6 @@ void dibujarInterfazUser(int x, int y, int ancho, int alto) {
     gotoxy(x + 12, y + 7); cout << "CONTRASEÑA:";
     gotoxy(x + 36, y + 7); cout << "____________________";
 }
-#endif // USERMANAGEMENT_HPP
+
+
+#endif // FUNCIONES_HPP
