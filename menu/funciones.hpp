@@ -10,6 +10,8 @@
 #include <chrono>
 #include <thread>
 #include <sstream>
+#include <unordered_set>
+#include <algorithm>
 #define ARRIBA VK_UP
 #define ABAJO VK_DOWN
 #define ENTER 13
@@ -309,6 +311,10 @@ void dibujarInterfazUser(int x, int y, int ancho, int alto) {
     gotoxy(x + 36, y + 4); cout << "____________________";
     gotoxy(x + 12, y + 7); cout << "CONTRASEÑA:";
     gotoxy(x + 36, y + 7); cout << "____________________";
+}
+
+bool esNumero(const string& s) {
+    return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
 }
 
 

@@ -157,7 +157,7 @@ void menuUsuario() {
                    BuscarLibro();
                     break;
                 case 1: 
-                    
+                    donarLibro();
                     break;
                 case 2: 
                    prestarLibro();
