@@ -176,7 +176,7 @@ void menuAdmin() {
     Libro libros[100];
     int n = 0;
     leerLibro(libros, n);
-    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro", "Retroceder"};
+    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro", "Menu principal"};
     coordXY pos = {40, 15};
     string titulo = R"(
 
