@@ -117,7 +117,7 @@ void menuUsuario() {
     CenterConsoleWindow();
     setColor(White);
     int opc = 0;
-    vector<string> opciones = {"Buscador de libros", "Donación de libros", "Prestamo de libros", "Salir"};
+    vector<string> opciones = {"Buscador de libros", "Donación de libros", "Prestamo de libros", "Menu principal"};
     coordXY pos = {40, 15};
     string titulo = R"(
 
