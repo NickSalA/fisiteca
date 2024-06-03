@@ -357,7 +357,7 @@ void BuscarLibro(){
             break;
  
          case 5:
-           break;
+           repite = false;
            
         default:
             cout << "Opción no válida." << endl;
