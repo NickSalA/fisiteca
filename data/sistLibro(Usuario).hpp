@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -239,7 +240,7 @@ void mainBuscar_anio() {
         system("cls");
 
         cout<<"0.Regresar\n";
-        cout << "\t\tIngrese el anio a buscar: ";
+        cout << "\t\tIngrese el año a buscar: ";
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -285,7 +286,7 @@ int menu(int n) {
 
 
 )";
-      vector<string>opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menú principal"};   
+      vector<string>opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};   
       bool repite = true; // controla el bucle para regresar a la rutina que lo llamó, al presionar ENTER
   
       do {
