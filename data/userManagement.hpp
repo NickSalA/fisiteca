@@ -160,7 +160,7 @@ void menuUsuario() {
                     
                     break;
                 case 2: 
-                   
+                   prestarLibro();
                     break;
                 case 3: 
                 exit(1);
