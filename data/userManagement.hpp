@@ -154,7 +154,7 @@ void menuUsuario() {
         } else if (key == '\r') { // Enter
             switch (opc) {
                 case 0: 
-                   buscarLibro();
+                   BuscarLibro();
                     break;
                 case 1: 
                     

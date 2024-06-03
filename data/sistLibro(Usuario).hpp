@@ -329,7 +329,7 @@ int menu(int n) {
       return opcionSeleccionada;
    }
 
-void buscarLibro(){
+void BuscarLibro(){
 	
     bool repite = true;
    int opcion;   
