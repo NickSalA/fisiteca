@@ -10,9 +10,21 @@
 #include <chrono>
 #include <thread>
 #include <sstream>
+#define ARRIBA VK_UP
+#define ABAJO VK_DOWN
+#define ENTER 13
 
 using namespace std;
 //Creditos: FisiCode
+struct Libro {
+    int codigo;
+    string nombre;
+    string genero;
+    string autor;
+    int anoPublicacion;
+    string sinopsis;
+    int cantidad;
+};
 struct coordXY {
         int x;
         int y;
@@ -26,6 +38,39 @@ void gotoxy (int x, int y) {
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void esperaConMensaje(const string& mensaje) {
+    cout << mensaje << endl;
+    _getwch();
+}
+
+char getch2() {
+    char c = 0;
+    DWORD contador;
+    HANDLE ih = GetStdHandle(STD_INPUT_HANDLE);
+    INPUT_RECORD irInputRecord; // Estructura para el registro de entrada
+
+    // Lee un evento de entrada del teclado
+    ReadConsoleInputA(ih, &irInputRecord, 1, &contador);
+
+    // Verifica si el evento es una tecla presionada
+    if (irInputRecord.EventType == KEY_EVENT && irInputRecord.Event.KeyEvent.bKeyDown) {
+        // Extrae el código virtual de la tecla
+        c = irInputRecord.Event.KeyEvent.wVirtualKeyCode;
+
+        // Convierte el código virtual a una de las teclas definidas (ARRIBA o ABAJO)
+        switch (c) {
+            case VK_UP:
+                c = ARRIBA;
+                break;
+            case VK_DOWN:
+                c = ABAJO;
+                break;
+        }
+    }
+
+    return c;
 }
 
 void configurarConsolaUtf8() {

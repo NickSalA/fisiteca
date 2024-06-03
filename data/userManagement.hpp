@@ -6,6 +6,7 @@
 #include <locale>
 #include <limits>
 #include "sistLibro(Admin).hpp"
+#include "sistLibro(Usuario).hpp"
 
 using namespace std;
 
@@ -153,7 +154,7 @@ void menuUsuario() {
         } else if (key == '\r') { // Enter
             switch (opc) {
                 case 0: 
-                   
+                   buscarLibro();
                     break;
                 case 1: 
                     

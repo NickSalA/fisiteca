@@ -11,15 +11,6 @@
 using namespace std;
 
 string xcodigo,xano,xcantidad;
-struct Libro {
-    int codigo;
-    string nombre;
-    string genero;
-	string autor;
-	int anoPublicacion;
-	string sinopsis;
-    int cantidad; // Añadimos la cantidad aquí
-};
 
 void leerLibro(Libro libros[], int& n){
     ifstream Leer("libros.txt", ios::in);
@@ -142,8 +133,6 @@ void eliminarLibro(Libro libros[], int& n) {
 }
 
 void editarLibro(Libro libros[], int n) {
-    
-    mostrarBarraDeCarga(100,100,5000);
 
     system("cls");
 
