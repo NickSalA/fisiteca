@@ -25,7 +25,6 @@ int main() {
 )";
     configurarConsolaUtf8();
     ocultarCursor();
-
     while (true) {
         limpiarPantalla();
         dibujarTitulo(2, 3, titulo);

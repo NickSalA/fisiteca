@@ -132,8 +132,8 @@ void menuUsuario() {
     configurarConsolaUtf8();
     ocultarCursor();
     
-
-    while (true) {
+    bool iterador=true;
+    while (iterador) {
         limpiarPantalla();
         dibujarTitulo(2, 3, titulo);
         dibujarCuadro(pos.x-8, 2, 50, 25);
@@ -163,7 +163,8 @@ void menuUsuario() {
                    prestarLibro();
                     break;
                 case 3: 
-                exit(1);
+                    iterador=false;
+                    break;
             }
         }
     }
@@ -190,8 +191,8 @@ void menuAdmin() {
     configurarConsolaUtf8();
     ocultarCursor();
     
-
-    while (true) {
+    bool iterador = true;
+    while (iterador) {
         limpiarPantalla();
         dibujarTitulo(2, 3, titulo);
         dibujarCuadro(pos.x-8, 2, 50, 25);
@@ -221,7 +222,7 @@ void menuAdmin() {
                    eliminarLibro(libros, n);
                     break;
                 case 3: 
-                    exit(1);
+                    iterador = false;
             }
         }
     }
