@@ -37,7 +37,6 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
     return libros;
 }
 
-
 vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
 
@@ -55,6 +54,7 @@ vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& 
 
     return coincidencias;
 }
+
 void mainBuscador_ti() {
     string nombreArchivo = "libros.txt";
 
@@ -96,7 +96,6 @@ void mainBuscador_ti() {
     } while(true);
 }
 
-
 vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
 
@@ -114,6 +113,7 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string&
 
     return coincidencias;
 }
+
 void mainBuscador_gen() {
     string nombreArchivo = "libros.txt";
 
@@ -155,7 +155,6 @@ void mainBuscador_gen() {
     } while(true);
 }
 
-
 vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
 
@@ -172,7 +171,8 @@ vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const strin
     }
 
     return coincidencias;
-}             
+}
+
 void mainBuscar_autor(){
         
      string nombreArchivo = "libros.txt";
@@ -215,7 +215,6 @@ void mainBuscar_autor(){
     } while(true);
 }
 
-
 vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string& busqueda) {
     vector<Libro> coincidencias;
 
@@ -229,6 +228,7 @@ vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string
 
     return coincidencias;
 }
+
 void mainBuscar_anio() {
                 
     string nombreArchivo = "libros.txt";
