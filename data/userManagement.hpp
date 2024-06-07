@@ -117,7 +117,7 @@ void menuUsuario() {
     CenterConsoleWindow();
     setColor(White);
     int opc = 0;
-    int lastOpc = -1; // Variable para almacenar la última opción seleccionada
+    int lastOpc = -1;
     vector<string> opciones = {"Buscador de libros", "Donación de libros", "Prestamo de libros", "Menu principal"};
     coordXY pos = {40, 15};
     string titulo = R"(
@@ -142,14 +142,12 @@ void menuUsuario() {
     while (iterador) {
         if (lastOpc != opc) {
             if (lastOpc != -1) {
-                // Borrar flechas en la última opción seleccionada
                 moverCursor({pos.x + 1, pos.y-1 + lastOpc * 3});
                 cout << "  ";
                 moverCursor({pos.x + 31, pos.y-1 + lastOpc * 3});
                 cout << "  ";
             }
 
-            // Dibujar flechas en la nueva opción seleccionada
             moverCursor({pos.x + 1, pos.y-1 + opc * 3});
             cout << "=>";
             moverCursor({pos.x + 31, pos.y-1 + opc * 3});
@@ -159,11 +157,11 @@ void menuUsuario() {
         }
 
         char key = _getch();
-        if (key == 72 && opc > 0) { // Flecha arriba
+        if (key == 72 && opc > 0) {
             opc--;
-        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) { // Flecha abajo
+        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) {
             opc++;
-        } else if (key == '\r') { // Enter
+        } else if (key == '\r') {
             limpiarPantalla();
             switch (opc) {
                 case 0: 
@@ -183,7 +181,7 @@ void menuUsuario() {
             dibujarTitulo(2, 3, titulo);
             dibujarCuadro(pos.x-8, 2, 50, 25);
             dibujarMenu(pos.x+6, pos.y-1, opciones);
-            lastOpc = -1; // Reiniciar la última opción seleccionada
+            lastOpc = -1;
         }
     }
 }
@@ -192,7 +190,7 @@ void menuAdmin() {
     CenterConsoleWindow();
     setColor(White);
     int opc = 0;
-    int lastOpc = -1; // Variable para almacenar la última opción seleccionada
+    int lastOpc = -1;
     Libro libros[100];
     int n = 0;
     leerLibro(libros, n);
@@ -220,14 +218,12 @@ void menuAdmin() {
     while (iterador) {
         if (lastOpc != opc) {
             if (lastOpc != -1) {
-                // Borrar flechas en la última opción seleccionada
                 moverCursor({pos.x + 4, pos.y-1 + lastOpc * 3});
                 cout << "  ";
                 moverCursor({pos.x + 29, pos.y-1 + lastOpc * 3});
                 cout << "  ";
             }
 
-            // Dibujar flechas en la nueva opción seleccionada
             moverCursor({pos.x + 4, pos.y-1 + opc * 3});
             cout << "=>";
             moverCursor({pos.x + 29, pos.y-1 + opc * 3});
@@ -237,11 +233,11 @@ void menuAdmin() {
         }
 
         char key = _getch();
-        if (key == 72 && opc > 0) { // Flecha arriba
+        if (key == 72 && opc > 0) {
             opc--;
-        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) { // Flecha abajo
+        } else if (key == 80 && opc < static_cast<int>(opciones.size() - 1)) {
             opc++;
-        } else if (key == '\r') { // Enter
+        } else if (key == '\r') {
             limpiarPantalla();
             switch (opc) {
                 case 0: 
@@ -261,7 +257,7 @@ void menuAdmin() {
             dibujarTitulo(2, 3, titulo);
             dibujarCuadro(pos.x-8, 2, 50, 25);
             dibujarMenu(pos.x+9, pos.y-1, opciones);
-            lastOpc = -1; // Reiniciar la última opción seleccionada
+            lastOpc = -1;
         }
     }
 }
