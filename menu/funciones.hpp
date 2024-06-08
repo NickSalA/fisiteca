@@ -27,6 +27,7 @@ struct Libro {
     string sinopsis;
     int cantidad;
 };
+
 struct coordXY {
         int x;
         int y;
@@ -35,6 +36,7 @@ struct coordXY {
         coordXY operator + (const coordXY& vec) { return { x + vec.x, y + vec.y }; }
         coordXY operator - (const coordXY& vec) { return { x - vec.x, y - vec.y }; }
     };
+
 void gotoxy (int x, int y) {
     COORD coord;
     coord.X = x;
@@ -237,6 +239,7 @@ void dibujarTeslaASCII(int x, int y) {
     gotoxy(x, y + 2);
     cout << "  > ^ <  ";
 }
+
 void dibujarTituloASCII(int x, int y, const string& titulo) {
     // Mueve el cursor a la posición (x, y) en la consola
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -316,6 +319,5 @@ void dibujarInterfazUser(int x, int y, int ancho, int alto) {
 bool esNumero(const string& s) {
     return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
 }
-
 
 #endif // FUNCIONES_HPP
