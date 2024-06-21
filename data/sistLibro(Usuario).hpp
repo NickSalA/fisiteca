@@ -472,8 +472,8 @@ int contarLibrosPrestados(const string& usuario) {
     return count;
 }
 
-void prestamoLibro(vector<Libro>& libros, const string& filename, const string& usuario) {
-    if (contarLibrosPrestados(usuario) >= 3) {
+void prestamoLibro(vector<Libro> libros, const string& filename, string& usuarioIngresado) {
+    if (contarLibrosPrestados(usuarioIngresado) >= 3) {
         cout << "Ya has pedido prestado el máximo de 3 libros.\n";
         return;
     }
@@ -482,7 +482,7 @@ void prestamoLibro(vector<Libro>& libros, const string& filename, const string& 
     cout << "Ingresa el código del libro que quieres pedir prestado: ";
     cin >> codigo;
 
-    if (usuarioYaTieneLibroPrestado(usuario, codigo)) {
+    if (usuarioYaTieneLibroPrestado(usuarioIngresado, codigo)) {
         cout << "Ya has pedido prestado este libro.\n";
         return;
     }
@@ -509,7 +509,7 @@ void prestamoLibro(vector<Libro>& libros, const string& filename, const string& 
                 libros[i].cantidad--;
 
                 ofstream Escribir("libros(pedidos).txt", ios::app);
-                Escribir << usuario << "\n"
+                Escribir << usuarioIngresado << "\n"
                          << libros[i].codigo << "\n"
                          << libros[i].nombre << "\n";
                 Escribir.close();
@@ -524,7 +524,7 @@ void prestamoLibro(vector<Libro>& libros, const string& filename, const string& 
     }
 }
 
-void prestarLibro(){
+void prestarLibro(string& usuarioIngresado){
     limpiarPantalla();
     vector<Libro> libros;
     cargarLibros(libros, "libros.txt");
@@ -533,16 +533,7 @@ void prestarLibro(){
         cout << "No hay libros disponibles para prestar.\n";
     }
 
-    string usuario;
-    ifstream credUsuario("credUsuario.txt");
-    if (credUsuario.is_open()) {
-        getline(credUsuario, usuario);
-        credUsuario.close();
-    } else {
-        cout << "No se pudo abrir el archivo credUsuario.txt\n";
-    }
-
-    prestamoLibro(libros, "libros.txt", usuario);
+    prestamoLibro(libros, "libros.txt", usuarioIngresado);
 
 }
 

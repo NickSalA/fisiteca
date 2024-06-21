@@ -1,27 +1,3 @@
-david
-20
-El Señor de los Anillos
-david
-20
-El Juego de Ender
-david
-10
-Harry Potter y la piedra filosofal
 nick
-50
+3
 El Señor de los Anillos
-nick
-30
-El Juego de Ender
-chris
-30
-Harry Potter y la piedra filosofal
-gian
-50
-El Señor de los Anillos
-tarqui
-80
-El Juego de Ender
-tarqui
-90
-Harry Potter y la piedra filosofal

@@ -113,7 +113,7 @@ void registrarUsuario() {
     }
 }
 
-void menuUsuario() {
+void menuUsuario(string& usuarioIngresado) {
     CenterConsoleWindow();
     setColor(White);
     int opc = 0;
@@ -171,7 +171,7 @@ void menuUsuario() {
                     donarLibro();
                     break;
                 case 2: 
-                    prestarLibro();
+                    prestarLibro(usuarioIngresado);
                     break;
                 case 3: 
                     iterador = false;
@@ -295,7 +295,7 @@ void ingresarUsuario() {
         gotoxy(x + 7, y + 10); cout << "¡Bienvenido, " << usuarioIngresado << "! Has ingresado correctamente." << endl << endl;
 
     } while (!credencialesCorrectas);
-    menuUsuario();
+    menuUsuario(usuarioIngresado);
 }
 
 void ingresarComoAdmin() {
