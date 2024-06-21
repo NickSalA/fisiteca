@@ -357,12 +357,13 @@ void BuscarLibro(){
             mainBuscar_autor();
             break;
  
-         case 5:
+        case 5:
            repite = false;
+           break;
            
         default:
-            cout << "Opción no válida." << endl;
-            break;
+           cout << "Opcion no valida." << endl;
+           break;
       }
  
    } while(repite);	

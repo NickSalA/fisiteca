@@ -17,8 +17,9 @@
 #define ENTER 13
 
 using namespace std;
-//Creditos: FisiCode
-struct Libro {
+// Creditos: FisiCode
+struct Libro
+{
     int codigo;
     string nombre;
     string genero;
@@ -28,28 +29,32 @@ struct Libro {
     int cantidad;
 };
 
-struct coordXY {
-        int x;
-        int y;
-        bool operator == (const coordXY& vec) { return (x == vec.x && y == vec.y); }
-        bool operator != (const coordXY& vec) { return !(*this == vec); }
-        coordXY operator + (const coordXY& vec) { return { x + vec.x, y + vec.y }; }
-        coordXY operator - (const coordXY& vec) { return { x - vec.x, y - vec.y }; }
-    };
+struct coordXY
+{
+    int x;
+    int y;
+    bool operator==(const coordXY &vec) { return (x == vec.x && y == vec.y); }
+    bool operator!=(const coordXY &vec) { return !(*this == vec); }
+    coordXY operator+(const coordXY &vec) { return {x + vec.x, y + vec.y}; }
+    coordXY operator-(const coordXY &vec) { return {x - vec.x, y - vec.y}; }
+};
 
-void gotoxy (int x, int y) {
+void gotoxy(int x, int y)
+{
     COORD coord;
     coord.X = x;
     coord.Y = y;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-void esperaConMensaje(const string& mensaje) {
+void esperaConMensaje(const string &mensaje)
+{
     cout << mensaje << endl;
     _getwch();
 }
 
-char getch2() {
+char getch2()
+{
     char c = 0;
     DWORD contador;
     HANDLE ih = GetStdHandle(STD_INPUT_HANDLE);
@@ -59,60 +64,70 @@ char getch2() {
     ReadConsoleInputA(ih, &irInputRecord, 1, &contador);
 
     // Verifica si el evento es una tecla presionada
-    if (irInputRecord.EventType == KEY_EVENT && irInputRecord.Event.KeyEvent.bKeyDown) {
+    if (irInputRecord.EventType == KEY_EVENT && irInputRecord.Event.KeyEvent.bKeyDown)
+    {
         // Extrae el código virtual de la tecla
         c = irInputRecord.Event.KeyEvent.wVirtualKeyCode;
 
         // Convierte el código virtual a una de las teclas definidas (ARRIBA o ABAJO)
-        switch (c) {
-            case VK_UP:
-                c = ARRIBA;
-                break;
-            case VK_DOWN:
-                c = ABAJO;
-                break;
+        switch (c)
+        {
+        case VK_UP:
+            c = ARRIBA;
+            break;
+        case VK_DOWN:
+            c = ABAJO;
+            break;
         }
     }
 
     return c;
 }
 
-void configurarConsolaUtf8() {
+void configurarConsolaUtf8()
+{
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 }
 
-void limpiarPantalla() {
+void limpiarPantalla()
+{
     system("cls");
 }
 
-void pausa() {
+void pausa()
+{
     system("pause");
 }
 
-enum ConsoleColor {
+enum ConsoleColor
+{
     Black = 0,
     Blue = BACKGROUND_BLUE,
     Green = BACKGROUND_GREEN,
     Red = BACKGROUND_RED,
     Intensity = BACKGROUND_INTENSITY,
     White = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY,
-    };
+};
 
-void setColor(ConsoleColor color) {
+void setColor(ConsoleColor color)
+{
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, color);
 }
 
-void dibujarCuadro(int x, int y, int ancho, int alto) {
+void dibujarCuadro(int x, int y, int ancho, int alto)
+{
 
-    for (int i = 0; i < ancho; i++) {
+    for (int i = 0; i < ancho; i++)
+    {
         gotoxy(x + i, y);
         cout << "-";
         gotoxy(x + i, y + alto);
         cout << "-";
     }
-    for (int i = 0; i < alto; i++) {
+    for (int i = 0; i < alto; i++)
+    {
         gotoxy(x, y + i);
         cout << "|";
         gotoxy(x + ancho, y + i);
@@ -121,38 +136,42 @@ void dibujarCuadro(int x, int y, int ancho, int alto) {
     gotoxy(x, y);
     cout << "┌";
     gotoxy(x + ancho, y);
-    cout << "┐"; 
+    cout << "┐";
     gotoxy(x, y + alto);
     cout << "└";
     gotoxy(x + ancho, y + alto);
     cout << "┘";
 }
 
-void dibujarTitulo(int x, int y, const string& titulo) {
+void dibujarTitulo(int x, int y, const string &titulo)
+{
     // Mueve el cursor a la posición (x, y) en la consola
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    COORD pos = {static_cast<SHORT>(x), static_cast<SHORT>(y)};
     SetConsoleCursorPosition(hConsole, pos);
 
     // Imprime el título
     cout << titulo << endl;
-
 }
 
-void dibujarMenu(int x, int y, const vector<string>& opciones) {
+void dibujarMenu(int x, int y, const vector<string> &opciones)
+{
     std::string::size_type maxWidth = 0;
-    for (const string& opcion : opciones) {
-        if (opcion.length() > maxWidth) {
+    for (const string &opcion : opciones)
+    {
+        if (opcion.length() > maxWidth)
+        {
             maxWidth = opcion.length();
         }
     }
 
     int menuWidth = maxWidth + 6; // Ancho del menú
-    int rectHeight = 2; // Altura del rectángulo individual
-    int separacionVertical = 1; // Separación vertical entre rectángulos
+    int rectHeight = 2;           // Altura del rectángulo individual
+    int separacionVertical = 1;   // Separación vertical entre rectángulos
 
     // Imprimir opciones dentro de rectángulos individuales
-    for (size_t i = 0; i < opciones.size(); ++i) {
+    for (size_t i = 0; i < opciones.size(); ++i)
+    {
         // Aumentar la posición y para crear separación vertical
         int posY = y + i * (rectHeight + separacionVertical);
 
@@ -165,11 +184,15 @@ void dibujarMenu(int x, int y, const vector<string>& opciones) {
     }
 }
 
-void imprimirOpcion(const string& opcion, bool resaltado) {
+void imprimirOpcion(const string &opcion, bool resaltado)
+{
     // Cambiar el color del texto y el fondo según si está resaltado o no
-    if (resaltado) {
+    if (resaltado)
+    {
         setColor(Intensity); // O cualquier otro color de texto y fondo que desees para resaltado
-    } else {
+    }
+    else
+    {
         setColor(Green); // O cualquier otro color de texto y fondo que desees para no resaltado
     }
 
@@ -180,7 +203,8 @@ void imprimirOpcion(const string& opcion, bool resaltado) {
     setColor(Red); // O cualquier otro color predeterminado que desees
 }
 
-void cursorVisible(bool visible) {
+void cursorVisible(bool visible)
+{
     HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
     CONSOLE_CURSOR_INFO lpCursor;
     lpCursor.bVisible = visible;
@@ -188,50 +212,58 @@ void cursorVisible(bool visible) {
     SetConsoleCursorInfo(console, &lpCursor);
 }
 
-void ocultarCursor() {
+void ocultarCursor()
+{
     cursorVisible(false);
 }
 
-void moverCursor(coordXY pos) {
+void moverCursor(coordXY pos)
+{
     gotoxy(pos.x, pos.y);
 }
 
-void CenterConsoleWindow() {
+void CenterConsoleWindow()
+{
     RECT rectClient, rectWindow;
     HWND hWnd = GetConsoleWindow();
     GetClientRect(hWnd, &rectClient);
     GetWindowRect(hWnd, &rectWindow);
     int posx, posy;
-    posx = GetSystemMetrics(SM_CXSCREEN) / 2 - (rectClient.right - rectClient.left) / 2, 
+    posx = GetSystemMetrics(SM_CXSCREEN) / 2 - (rectClient.right - rectClient.left) / 2,
     posy = GetSystemMetrics(SM_CYSCREEN) / 2 - (rectClient.bottom - rectClient.top) / 2,
 
     MoveWindow(hWnd, posx, posy, rectClient.right - rectClient.left, rectClient.bottom - rectClient.top, TRUE);
 }
 
-void dibujarTexto(int x, int y, const string& texto) {
+void dibujarTexto(int x, int y, const string &texto)
+{
     gotoxy(x, y);
     cout << texto;
 }
 
-void ShowConsoleCursor(bool showFlag) {
-        HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
-        CONSOLE_CURSOR_INFO cursorInfo;
+void ShowConsoleCursor(bool showFlag)
+{
+    HANDLE out = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_CURSOR_INFO cursorInfo;
 
-        GetConsoleCursorInfo(out, &cursorInfo);
-        cursorInfo.bVisible = showFlag; // set the cursor visibility
-        SetConsoleCursorInfo(out, &cursorInfo);
-    }
+    GetConsoleCursorInfo(out, &cursorInfo);
+    cursorInfo.bVisible = showFlag; // set the cursor visibility
+    SetConsoleCursorInfo(out, &cursorInfo);
+}
 
-void Set_Console_Sizes(const int consola_ancho,const int consola_alto,bool cursor) {
-        std::stringstream ss; ss << "MODE CON: COLS=" << consola_ancho << "LINES=" << consola_alto;
-        system(ss.str().c_str());
-        HWND consoleWindow = GetConsoleWindow();
-        SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
-        CenterConsoleWindow();
-        ShowConsoleCursor(cursor);
-    }
+void Set_Console_Sizes(const int consola_ancho, const int consola_alto, bool cursor)
+{
+    std::stringstream ss;
+    ss << "MODE CON: COLS=" << consola_ancho << "LINES=" << consola_alto;
+    system(ss.str().c_str());
+    HWND consoleWindow = GetConsoleWindow();
+    SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+    CenterConsoleWindow();
+    ShowConsoleCursor(cursor);
+}
 
-void dibujarTeslaASCII(int x, int y) {
+void dibujarTeslaASCII(int x, int y)
+{
     gotoxy(x, y);
     cout << "  /\\_/\\  ";
     gotoxy(x, y + 1);
@@ -240,26 +272,30 @@ void dibujarTeslaASCII(int x, int y) {
     cout << "  > ^ <  ";
 }
 
-void dibujarTituloASCII(int x, int y, const string& titulo) {
+void dibujarTituloASCII(int x, int y, const string &titulo)
+{
     // Mueve el cursor a la posición (x, y) en la consola
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    COORD pos = { static_cast<SHORT>(x), static_cast<SHORT>(y) };
+    COORD pos = {static_cast<SHORT>(x), static_cast<SHORT>(y)};
     SetConsoleCursorPosition(hConsole, pos);
 
     // Imprime el título
     cout << titulo << endl;
 }
 
-void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50) {
+void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50)
+{
     gotoxy(x, y);
     std::cout << "[";
-    for (int i = 0; i < tamano; ++i) {
+    for (int i = 0; i < tamano; ++i)
+    {
         std::cout << " ";
     }
     std::cout << "]\r";
     gotoxy(x + 1, y); // Mueve el cursor dentro de la barra
 
-    for (int i = 0; i < tamano; ++i) {
+    for (int i = 0; i < tamano; ++i)
+    {
         std::this_thread::sleep_for(std::chrono::milliseconds(duracion / tamano));
         std::cout << "=";
         std::cout.flush();
@@ -269,55 +305,129 @@ void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50) {
     std::cout << "]" << std::endl;
 }
 
-void obtenerDimensionConsola(int& ancho, int& alto) {
+void obtenerDimensionConsola(int &ancho, int &alto)
+{
     CONSOLE_SCREEN_BUFFER_INFO csbi;
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
     ancho = csbi.srWindow.Right - csbi.srWindow.Left + 1;
     alto = csbi.srWindow.Bottom - csbi.srWindow.Top + 1;
 }
 
-void dibujarInterfazRegistrar(int x, int y, int ancho, int alto) {
-    for (int i = 0; i <= ancho; i++) {
-        gotoxy(x + i, y); cout << "-";
-        gotoxy(x + i, y + alto); cout << "-";
+void dibujarInterfazRegistrar(int x, int y, int ancho, int alto)
+{
+    for (int i = 0; i <= ancho; i++)
+    {
+        gotoxy(x + i, y);
+        cout << "-";
+        gotoxy(x + i, y + alto);
+        cout << "-";
     }
-    for (int i = 0; i <= alto; i++) {
-        gotoxy(x, y + i); cout << "|";
-        gotoxy(x + ancho, y + i); cout << "|";
+    for (int i = 0; i <= alto; i++)
+    {
+        gotoxy(x, y + i);
+        cout << "|";
+        gotoxy(x + ancho, y + i);
+        cout << "|";
     }
-    gotoxy(x, y); cout << "┌";
-    gotoxy(x + ancho, y); cout << "┐";
-    gotoxy(x, y + alto); cout << "└";
-    gotoxy(x + ancho, y + alto); cout << "┘";
-    gotoxy(x + 12, y + 4); cout << "CREAR USUARIO:";
-    gotoxy(x + 36, y + 4); cout << "____________________";
-    gotoxy(x + 12, y + 7); cout << "CREAR CONTRASEÑA:";
-    gotoxy(x + 36, y + 7); cout << "____________________";
-    gotoxy(x + 12, y + 10); cout << "CONFIRMAR CONTRASEÑA:";
-    gotoxy(x + 36, y + 10); cout << "____________________";
+    gotoxy(x, y);
+    cout << "┌";
+    gotoxy(x + ancho, y);
+    cout << "┐";
+    gotoxy(x, y + alto);
+    cout << "└";
+    gotoxy(x + ancho, y + alto);
+    cout << "┘";
+    gotoxy(x + 12, y + 4);
+    cout << "CREAR USUARIO:";
+    gotoxy(x + 36, y + 4);
+    cout << "____________________";
+    gotoxy(x + 12, y + 7);
+    cout << "CREAR CONTRASEÑA:";
+    gotoxy(x + 36, y + 7);
+    cout << "____________________";
+    gotoxy(x + 12, y + 10);
+    cout << "CONFIRMAR CONTRASEÑA:";
+    gotoxy(x + 36, y + 10);
+    cout << "____________________";
 }
 
-void dibujarInterfazUser(int x, int y, int ancho, int alto) {
-    for (int i = 0; i <= ancho; i++) {
-        gotoxy(x + i, y); cout << "-";
-        gotoxy(x + i, y + alto); cout << "-";
+void dibujarInterfazUser(int x, int y, int ancho, int alto)
+{
+    for (int i = 0; i <= ancho; i++)
+    {
+        gotoxy(x + i, y);
+        cout << "-";
+        gotoxy(x + i, y + alto);
+        cout << "-";
     }
-    for (int i = 0; i <= alto; i++) {
-        gotoxy(x, y + i); cout << "|";
-        gotoxy(x + ancho, y + i); cout << "|";
+    for (int i = 0; i <= alto; i++)
+    {
+        gotoxy(x, y + i);
+        cout << "|";
+        gotoxy(x + ancho, y + i);
+        cout << "|";
     }
-    gotoxy(x, y); cout << "┌";
-    gotoxy(x + ancho, y); cout << "┐";
-    gotoxy(x, y + alto); cout << "└";
-    gotoxy(x + ancho, y + alto); cout << "┘";
-    gotoxy(x + 12, y + 4); cout << "USUARIO:";
-    gotoxy(x + 36, y + 4); cout << "____________________";
-    gotoxy(x + 12, y + 7); cout << "CONTRASEÑA:";
-    gotoxy(x + 36, y + 7); cout << "____________________";
+    gotoxy(x, y);
+    cout << "┌";
+    gotoxy(x + ancho, y);
+    cout << "┐";
+    gotoxy(x, y + alto);
+    cout << "└";
+    gotoxy(x + ancho, y + alto);
+    cout << "┘";
+    gotoxy(x + 12, y + 4);
+    cout << "USUARIO:";
+    gotoxy(x + 36, y + 4);
+    cout << "____________________";
+    gotoxy(x + 12, y + 7);
+    cout << "CONTRASEÑA:";
+    gotoxy(x + 36, y + 7);
+    cout << "____________________";
 }
 
-bool esNumero(const string& s) {
+bool esNumero(const string &s)
+{
     return !s.empty() && all_of(s.begin(), s.end(), ::isdigit);
 }
-
+string obteneFechaHora()
+{
+    SYSTEMTIME localTime;
+    GetLocalTime(&localTime);
+    stringstream ss;
+    ss << localTime.wDay << "/" << localTime.wMonth << "/" << localTime.wYear;
+    return ss.str();
+}
+string obtenerFechaPlazo()
+{
+    stringstream sS;
+    int dayinMonth;
+    SYSTEMTIME localTime;
+    GetLocalTime(&localTime);
+    if (localTime.wMonth == 1 || localTime.wMonth == 3 || localTime.wMonth == 5 || localTime.wMonth == 7 || localTime.wMonth == 8 || localTime.wMonth == 10 || localTime.wMonth == 12)
+    {
+        return dayinMonth = 31;
+    }
+    else if (localTime.wMonth == 4 || localTime.wMonth == 6 || localTime.wMonth == 9 || localTime.wMonth == 11)
+    {
+        return dayinMonth = 30;
+    }
+    else if (localTime.wMonth == 2)
+    {
+        if ((localTime.wYear % 4 == 0 && localTime.wYear % 100 != 0) || localTime.wYear % 400 == 0)
+        {
+            return dayinMonth = 29;
+        }
+        else
+        {
+            return dayinMonth = 28;
+        }
+    }
+    int diaPlazo = localTime.wDay + 7;
+    if (diaPlazo > dayinMonth())
+    {
+        diaPlazo -= dayinMonth();
+    }
+    sS << diaPlazo << "/" << localTime.wMonth << "/" << localTime.wYear;
+    return sS.str();
+}
 #endif // FUNCIONES_HPP
