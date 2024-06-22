@@ -337,22 +337,22 @@ void BuscarLibro()
     ocultarCursor();
     limpiarPantalla();
     dibujarTitulo(2, 3, titulo);
-    dibujarCuadro(pos.x-8, 2, 60, 25);
-    dibujarMenu(pos.x+9, pos.y-1, opciones);
+    dibujarCuadro(pos.x-10, 2, 60, 25);
+    dibujarMenu(pos.x+3, pos.y-2, opciones);
     bool repite = true; 
 
     while (repite){
         if (lastopcionSeleccionada != opcionSeleccionada) {
             if (lastopcionSeleccionada != -1) {
-                moverCursor({pos.x-2, pos.y + lastopcionSeleccionada * 3});
+                moverCursor({pos.x-2, pos.y-2 + lastopcionSeleccionada * 3});
                 cout << "  ";
-                moverCursor({pos.x + 36, pos.y + lastopcionSeleccionada * 3});
+                moverCursor({pos.x + 41, pos.y-2 + lastopcionSeleccionada * 3});
                 cout << "  ";
             }
 
-            moverCursor({pos.x-2, pos.y + opcionSeleccionada * 3});
+            moverCursor({pos.x-2, pos.y-2 + opcionSeleccionada * 3});
             cout << "=>";
-            moverCursor({pos.x + 36, pos.y + opcionSeleccionada * 3});
+            moverCursor({pos.x + 41, pos.y-2 + opcionSeleccionada * 3});
             cout << "<=";
             
             lastopcionSeleccionada = opcionSeleccionada;
@@ -390,7 +390,6 @@ void BuscarLibro()
         }
     }
 }
-
 
 void cargarLibros(vector<Libro> &libros, const string &filename)
 {
