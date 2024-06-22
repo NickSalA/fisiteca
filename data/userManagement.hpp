@@ -193,8 +193,8 @@ void menuAdmin() {
     int lastOpc = -1;
     Libro libros[100];
     int n = 0;
-    leerLibro(libros, n);
-    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro", "Menu principal"};
+    leerLibro(libros,"libros.txt", n);
+    vector<string> opciones = {"Agregar libro", "Editar libro", "Eliminar libro","Aceptar Libro", "Menu principal"};
     coordXY pos = {40, 15};
     string titulo = R"(
 
@@ -249,7 +249,10 @@ void menuAdmin() {
                 case 2: 
                     eliminarLibro(libros, n);
                     break;
-                case 3: 
+                case 3:
+                    aceptarLibroDonado(libros, n);
+                    break;
+                case 4: 
                     iterador = false;
                     break;
             }

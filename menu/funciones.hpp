@@ -397,36 +397,33 @@ string obteneFechaHora()
     ss << localTime.wDay << "/" << localTime.wMonth << "/" << localTime.wYear;
     return ss.str();
 }
-string obtenerFechaPlazo()
-{
+string obtenerFechaPlazo() {
     stringstream sS;
-    int dayinMonth;
+    int daysInMonth;
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
-    if (localTime.wMonth == 1 || localTime.wMonth == 3 || localTime.wMonth == 5 || localTime.wMonth == 7 || localTime.wMonth == 8 || localTime.wMonth == 10 || localTime.wMonth == 12)
-    {
-        return dayinMonth = 31;
-    }
-    else if (localTime.wMonth == 4 || localTime.wMonth == 6 || localTime.wMonth == 9 || localTime.wMonth == 11)
-    {
-        return dayinMonth = 30;
-    }
-    else if (localTime.wMonth == 2)
-    {
-        if ((localTime.wYear % 4 == 0 && localTime.wYear % 100 != 0) || localTime.wYear % 400 == 0)
-        {
-            return dayinMonth = 29;
-        }
-        else
-        {
-            return dayinMonth = 28;
+
+    // Determinar la cantidad de días en el mes actual
+    if (localTime.wMonth == 1 || localTime.wMonth == 3 || localTime.wMonth == 5 || localTime.wMonth == 7 || localTime.wMonth == 8 || localTime.wMonth == 10 || localTime.wMonth == 12) {
+        daysInMonth = 31;
+    } else if (localTime.wMonth == 4 || localTime.wMonth == 6 || localTime.wMonth == 9 || localTime.wMonth == 11) {
+        daysInMonth = 30;
+    } else if (localTime.wMonth == 2) {
+        if ((localTime.wYear % 4 == 0 && localTime.wYear % 100 != 0) || localTime.wYear % 400 == 0) {
+            daysInMonth = 29; // Año bisiesto
+        } else {
+            daysInMonth = 28;
         }
     }
+
     int diaPlazo = localTime.wDay + 7;
-    if (diaPlazo > dayinMonth())
-    {
-        diaPlazo -= dayinMonth();
+
+    // Ajustar el mes y el año si la suma de días excede el número de días en el mes actual
+    while (diaPlazo > daysInMonth) {
+        diaPlazo -= daysInMonth;
+        localTime.wMonth++;
     }
+
     sS << diaPlazo << "/" << localTime.wMonth << "/" << localTime.wYear;
     return sS.str();
 }

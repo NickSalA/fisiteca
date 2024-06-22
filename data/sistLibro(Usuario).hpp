@@ -1,4 +1,5 @@
-
+#ifndef SISTLIBROUSUARIO_HPP
+#define SISTLIBROUSUARIO_HPP
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,16 +9,19 @@
 #include <cstdlib>
 #include <windows.h>
 #include <locale>
-#include"../menu/funciones.hpp"
+#include "../menu/funciones.hpp"
 
 using namespace std;
 
-vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
+vector<Libro> cargarLibrosDesdeArchivo_ti(const string &nombreArchivo)
+{
     vector<Libro> libros;
     ifstream archivo(nombreArchivo.c_str(), ios::in);
-    if (archivo.is_open()) {
+    if (archivo.is_open())
+    {
         Libro libro;
-        while (archivo >> libro.codigo) {
+        while (archivo >> libro.codigo)
+        {
 
             archivo.ignore();
             getline(archivo, libro.nombre);
@@ -26,28 +30,33 @@ vector<Libro> cargarLibrosDesdeArchivo_ti(const string& nombreArchivo) {
             archivo >> libro.anoPublicacion;
             archivo.ignore();
             getline(archivo, libro.sinopsis);
-            archivo>>libro.cantidad;
+            archivo >> libro.cantidad;
             archivo.ignore();
             libros.push_back(libro);
         }
         archivo.close();
-    } else {
+    }
+    else
+    {
         cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
     }
     return libros;
 }
 
-vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& busqueda) {
+vector<Libro> buscarCoincidencias_ti(const vector<Libro> &libros, const string &busqueda)
+{
     vector<Libro> coincidencias;
 
     string busquedaLower = busqueda;
     transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
 
-    for (const Libro& libro : libros) {
+    for (const Libro &libro : libros)
+    {
         string tituloLower = libro.nombre;
         transform(tituloLower.begin(), tituloLower.end(), tituloLower.begin(), ::tolower);
 
-        if (tituloLower.find(busquedaLower) != string::npos) {
+        if (tituloLower.find(busquedaLower) != string::npos)
+        {
             coincidencias.push_back(libro);
         }
     }
@@ -55,58 +64,68 @@ vector<Libro> buscarCoincidencias_ti(const vector<Libro>& libros, const string& 
     return coincidencias;
 }
 
-void mainBuscador_ti() {
+void mainBuscador_ti()
+{
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
     string busqueda;
-    do {
+    do
+    {
         system("cls");
-        
-        cout<<"0.Regresar\n";
+
+        cout << "0.Regresar\n";
         cout << "\t\tIngrese el titulo a buscar: ";
         getline(cin, busqueda);
-        
+
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
 
-        if(busqueda == to_string(0)){
+        if (busqueda == to_string(0))
+        {
 
-            cout<<"Regresando....";
+            cout << "Regresando....";
             Sleep(2000);
             break;
         }
 
-        if (coincidencias.empty()) {
+        if (coincidencias.empty())
+        {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
-        } else {
+        }
+        else
+        {
             cout << "Coincidencias encontradas:\n";
-            for (const Libro& libro : coincidencias) {
+            for (const Libro &libro : coincidencias)
+            {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
                 cout << "Género: " << libro.genero << endl;
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout<<"Cantidad: "<<libro.cantidad<<endl;
+                cout << "Cantidad: " << libro.cantidad << endl;
                 cout << endl;
             }
         }
         esperaConMensaje("Presione una tecla para volver a buscar...");
-    } while(true);
+    } while (true);
 }
 
-vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string& busqueda) {
+vector<Libro> buscarCoincidencias_gen(const vector<Libro> &libros, const string &busqueda)
+{
     vector<Libro> coincidencias;
 
     string busquedaLower = busqueda;
     transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
 
-    for (const Libro& libro : libros) {
+    for (const Libro &libro : libros)
+    {
         string generoLower = libro.genero;
         transform(generoLower.begin(), generoLower.end(), generoLower.begin(), ::tolower);
 
-        if (generoLower.find(busquedaLower) != string::npos) {
+        if (generoLower.find(busquedaLower) != string::npos)
+        {
             coincidencias.push_back(libro);
         }
     }
@@ -114,169 +133,197 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro>& libros, const string&
     return coincidencias;
 }
 
-void mainBuscador_gen() {
+void mainBuscador_gen()
+{
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
     string busqueda;
-    do {
+    do
+    {
         system("cls");
 
-        cout<<"0.Regresar\n";
+        cout << "0.Regresar\n";
         cout << "\t\tIngrese el genero a buscar: ";
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
 
-        if(busqueda == to_string(0)){
+        if (busqueda == to_string(0))
+        {
 
-            cout<<"Regresando....";
+            cout << "Regresando....";
             Sleep(2000);
             break;
         }
 
-        if (coincidencias.empty()) {
+        if (coincidencias.empty())
+        {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
-        } else {
+        }
+        else
+        {
             cout << "Coincidencias encontradas:\n";
-            for (const Libro& libro : coincidencias) {
+            for (const Libro &libro : coincidencias)
+            {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
                 cout << "Género: " << libro.genero << endl;
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout<<"Cantidad: "<<libro.cantidad<<endl;
+                cout << "Cantidad: " << libro.cantidad << endl;
                 cout << endl;
             }
         }
         esperaConMensaje("Presione una tecla para volver a buscar...");
-    } while(true);
+    } while (true);
 }
 
-vector<Libro> buscarCoincidencias_autor(const vector<Libro>& libros, const string& busqueda) {
+vector<Libro> buscarCoincidencias_autor(const vector<Libro> &libros, const string &busqueda)
+{
     vector<Libro> coincidencias;
 
     string busquedaLower = busqueda;
     transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
 
-    for (const Libro& libro : libros) {
+    for (const Libro &libro : libros)
+    {
         string autorLower = libro.autor;
         transform(autorLower.begin(), autorLower.end(), autorLower.begin(), ::tolower);
 
-        if (autorLower.find(busquedaLower) != string::npos) {
-        coincidencias.push_back(libro);
+        if (autorLower.find(busquedaLower) != string::npos)
+        {
+            coincidencias.push_back(libro);
         }
     }
 
     return coincidencias;
 }
 
-void mainBuscar_autor(){
-        
-     string nombreArchivo = "libros.txt";
+void mainBuscar_autor()
+{
 
-    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
-
-    string busqueda;
-    do {
-        system("cls");
-
-        cout<<"0.Regresar\n";
-        cout << "\t\tIngrese el autor a buscar: ";
-        getline(cin, busqueda);
-
-        vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
-
-        if(busqueda == to_string(0)){
-
-            cout<<"Regresando....";
-            Sleep(2000);
-            break;
-        }
-
-        if (coincidencias.empty()) {
-            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
-        } else {
-            cout << "Coincidencias encontradas:\n";
-            for (const Libro& libro : coincidencias) {
-                cout << "Código: " << libro.codigo << endl;
-                cout << "Nombre: " << libro.nombre << endl;
-                cout << "Género: " << libro.genero << endl;
-                cout << "Autor: " << libro.autor << endl;
-                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout<<"Cantidad: "<<libro.cantidad<<endl;
-                cout << endl;
-            }
-        }
-        esperaConMensaje("Presione una tecla para volver a buscar...");
-    } while(true);
-}
-
-vector<Libro> buscarCoincidencias_anio(const vector<Libro>& libros, const string& busqueda) {
-    vector<Libro> coincidencias;
-
-    for (const Libro& libro : libros) {
-        string anoPublicacionStr = to_string(libro.anoPublicacion);
-
-        if (anoPublicacionStr.find(busqueda) != string::npos) {
-                            coincidencias.push_back(libro);
-        }
-    }
-
-    return coincidencias;
-}
-
-void mainBuscar_anio() {
-                
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
     string busqueda;
-    do {
+    do
+    {
         system("cls");
 
-        cout<<"0.Regresar\n";
-        cout << "\t\tIngrese el año a buscar: ";
+        cout << "0.Regresar\n";
+        cout << "\t\tIngrese el autor a buscar: ";
         getline(cin, busqueda);
 
-        vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
+        vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
 
-        if(busqueda == to_string(0)){
+        if (busqueda == to_string(0))
+        {
 
-            cout<<"Regresando....";
+            cout << "Regresando....";
             Sleep(2000);
             break;
         }
 
-        if (coincidencias.empty()) {
+        if (coincidencias.empty())
+        {
             cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
-        } else {
+        }
+        else
+        {
             cout << "Coincidencias encontradas:\n";
-            for (const Libro& libro : coincidencias) {
+            for (const Libro &libro : coincidencias)
+            {
                 cout << "Código: " << libro.codigo << endl;
                 cout << "Nombre: " << libro.nombre << endl;
                 cout << "Género: " << libro.genero << endl;
                 cout << "Autor: " << libro.autor << endl;
                 cout << "Año de Publicación: " << libro.anoPublicacion << endl;
                 cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout<<"Cantidad: "<<libro.cantidad<<endl;
+                cout << "Cantidad: " << libro.cantidad << endl;
                 cout << endl;
             }
         }
         esperaConMensaje("Presione una tecla para volver a buscar...");
-    } while(true);
+    } while (true);
 }
 
-int menu(int n) {
-      setColor(White);
-      configurarConsolaUtf8();    
-      int opcionSeleccionada = 1;  // Indica la opción seleccionada
-      int tecla;
-      string titulo = R"(
+vector<Libro> buscarCoincidencias_anio(const vector<Libro> &libros, const string &busqueda)
+{
+    vector<Libro> coincidencias;
+
+    for (const Libro &libro : libros)
+    {
+        string anoPublicacionStr = to_string(libro.anoPublicacion);
+
+        if (anoPublicacionStr.find(busqueda) != string::npos)
+        {
+            coincidencias.push_back(libro);
+        }
+    }
+
+    return coincidencias;
+}
+
+void mainBuscar_anio()
+{
+
+    string nombreArchivo = "libros.txt";
+
+    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
+
+    string busqueda;
+    do
+    {
+        system("cls");
+
+        cout << "0.Regresar\n";
+        cout << "\t\tIngrese el año a buscar: ";
+        getline(cin, busqueda);
+
+        vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
+
+        if (busqueda == to_string(0))
+        {
+
+            cout << "Regresando....";
+            Sleep(2000);
+            break;
+        }
+
+        if (coincidencias.empty())
+        {
+            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
+        }
+        else
+        {
+            cout << "Coincidencias encontradas:\n";
+            for (const Libro &libro : coincidencias)
+            {
+                cout << "Código: " << libro.codigo << endl;
+                cout << "Nombre: " << libro.nombre << endl;
+                cout << "Género: " << libro.genero << endl;
+                cout << "Autor: " << libro.autor << endl;
+                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
+                cout << "Sinopsis: " << libro.sinopsis << endl;
+                cout << "Cantidad: " << libro.cantidad << endl;
+                cout << endl;
+            }
+        }
+        esperaConMensaje("Presione una tecla para volver a buscar...");
+    } while (true);
+}
+
+int menu(int n)
+{
+    setColor(White);
+    configurarConsolaUtf8();
+    int opcionSeleccionada = 1; // Indica la opción seleccionada
+    int tecla;
+    string titulo = R"(
 
                                         ░░████░█░░█░███░███░░█░░█░███░████░████░
                                         ░░█░░█░█░░█░█░░░█░█░░█░░█░█░░░█░░█░█░░█░
@@ -286,102 +333,113 @@ int menu(int n) {
 
 
 )";
-      vector<string>opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};   
-      bool repite = true; // controla el bucle para regresar a la rutina que lo llamó, al presionar ENTER
-  
-      do {
-         system("cls");
-         CenterConsoleWindow();
-         dibujarTitulo(2, 3, titulo);
-         dibujarCuadro(30, 2, 60, 25);
-         dibujarCuadro(27, 0, 66, 29);
-         dibujarMenu(43,13,opciones);
-         gotoxy(37, 10 + opcionSeleccionada*3); cout << "=>" <<"\t\t\t\t\t\t"<<"<="<<endl;
- 
-   
-         // Solo permite que se ingrese ARRIBA, ABAJO o ENTER
-         do {
-               tecla = getch2();
-         } while (tecla != ARRIBA && tecla != ABAJO && tecla != ENTER);
-   
-         switch (tecla) {
-               case ARRIBA:   // En caso de que se presione ARRIBA
-                  opcionSeleccionada--;
-                  if (opcionSeleccionada < 1) {
-                     opcionSeleccionada = n;
-                  }
-                  break;
-   
-               case ABAJO:
-                  opcionSeleccionada++;
-                  if (opcionSeleccionada > n) {
-                     opcionSeleccionada = 1;
-                  }
-                  break;
-   
-               case ENTER:
-                  repite = false;
-                  break;
-         }
+    vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
+    bool repite = true; // controla el bucle para regresar a la rutina que lo llamó, al presionar ENTER
 
-   
-        } while (repite);
-   
-      return opcionSeleccionada;
-   }
+    do
+    {
+        system("cls");
+        CenterConsoleWindow();
+        dibujarTitulo(2, 3, titulo);
+        dibujarCuadro(30, 2, 60, 25);
+        dibujarCuadro(27, 0, 66, 29);
+        dibujarMenu(43, 13, opciones);
+        gotoxy(37, 10 + opcionSeleccionada * 3);
+        cout << "=>" << "\t\t\t\t\t\t" << "<=" << endl;
 
-void BuscarLibro(){
-	
-    bool repite = true;
-   int opcion;   
+        // Solo permite que se ingrese ARRIBA, ABAJO o ENTER
+        do
+        {
+            tecla = getch2();
+        } while (tecla != ARRIBA && tecla != ABAJO && tecla != ENTER);
 
-   int n = 5;  // Numero de opciones
-   
-    do {
-      opcion = menu(n);
- 
-      switch (opcion) {
-         case 1:
-            mainBuscador_ti();
+        switch (tecla)
+        {
+        case ARRIBA: // En caso de que se presione ARRIBA
+            opcionSeleccionada--;
+            if (opcionSeleccionada < 1)
+            {
+                opcionSeleccionada = n;
+            }
             break;
- 
-         case 2:
-            mainBuscador_gen();
+
+        case ABAJO:
+            opcionSeleccionada++;
+            if (opcionSeleccionada > n)
+            {
+                opcionSeleccionada = 1;
+            }
             break;
- 
-         case 3:
-            mainBuscar_anio();
+
+        case ENTER:
+            repite = false;
             break;
- 
-         case 4:
-            mainBuscar_autor();
-            break;
- 
-        case 5:
-           repite = false;
-           break;
-           
-        default:
-           cout << "Opcion no valida." << endl;
-           break;
-      }
- 
-   } while(repite);	
+        }
+
+    } while (repite);
+
+    return opcionSeleccionada;
 }
 
-void cargarLibros(vector<Libro>& libros, const string& filename) {
+void BuscarLibro()
+{
+
+    bool repite = true;
+    int opcion;
+
+    int n = 5; // Numero de opciones
+
+    do
+    {
+        opcion = menu(n);
+
+        switch (opcion)
+        {
+        case 1:
+            mainBuscador_ti();
+            break;
+
+        case 2:
+            mainBuscador_gen();
+            break;
+
+        case 3:
+            mainBuscar_anio();
+            break;
+
+        case 4:
+            mainBuscar_autor();
+            break;
+
+        case 5:
+            repite = false;
+            break;
+
+        default:
+            cout << "Opcion no valida." << endl;
+            break;
+        }
+
+    } while (repite);
+}
+
+void cargarLibros(vector<Libro> &libros, const string &filename)
+{
     ifstream archivo(filename);
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo " << filename << "\n";
         return;
     }
 
-    while (!archivo.eof()) {
+    while (!archivo.eof())
+    {
         Libro libro;
         string linea;
 
         getline(archivo, linea);
-        if (linea.empty()) break;
+        if (linea.empty())
+            break;
         libro.codigo = stoi(linea);
         getline(archivo, libro.nombre);
         getline(archivo, libro.genero);
@@ -396,23 +454,29 @@ void cargarLibros(vector<Libro>& libros, const string& filename) {
     archivo.close();
 }
 
-int buscarLibro(const vector<Libro>& libros, int codigo) {
-    for (size_t i = 0; i < libros.size(); i++) {
-        if (libros[i].codigo == codigo) {
+int buscarLibro(const vector<Libro> &libros, int codigo)
+{
+    for (size_t i = 0; i < libros.size(); i++)
+    {
+        if (libros[i].codigo == codigo)
+        {
             return i;
         }
     }
     return -1;
 }
 
-void actualizarArchivoLibros(const vector<Libro>& libros, const string& filename) {
+void actualizarArchivoLibros(const vector<Libro> &libros, const string &filename)
+{
     ofstream archivo(filename);
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo " << filename << "\n";
         return;
     }
 
-    for (const auto& libro : libros) {
+    for (const auto &libro : libros)
+    {
         archivo << libro.codigo << "\n"
                 << libro.nombre << "\n"
                 << libro.genero << "\n"
@@ -424,24 +488,30 @@ void actualizarArchivoLibros(const vector<Libro>& libros, const string& filename
     archivo.close();
 }
 
-bool usuarioYaTieneLibroPrestado(const string& usuario, int codigo) {
+bool usuarioYaTieneLibroPrestado(const string &usuario, int codigo)
+{
     ifstream archivo("libros(pedidos).txt");
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo libros(pedidos).txt\n";
         return false;
     }
 
     string linea;
-    while (getline(archivo, linea)) {
-        if (linea.find("Usuario: " + usuario) != string::npos) {
+    while (getline(archivo, linea))
+    {
+        if (linea.find("Usuario: " + usuario) != string::npos)
+        {
             getline(archivo, linea); // Leer la línea del código
-            if (linea.find("Código: " + to_string(codigo)) != string::npos) {
+            if (linea.find("Código: " + to_string(codigo)) != string::npos)
+            {
                 archivo.close();
                 return true;
             }
         }
         // Saltar las siguientes líneas del libro prestado
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; ++i)
+        {
             getline(archivo, linea);
         }
     }
@@ -450,21 +520,26 @@ bool usuarioYaTieneLibroPrestado(const string& usuario, int codigo) {
     return false;
 }
 
-int contarLibrosPrestados(const string& usuario) {
+int contarLibrosPrestados(const string &usuario)
+{
     ifstream archivo("libros(pedidos).txt");
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo libros(pedidos).txt\n";
         return 0;
     }
 
     int count = 0;
     string linea;
-    while (getline(archivo, linea)) {
-        if (linea.find("Usuario: " + usuario) != string::npos) {
+    while (getline(archivo, linea))
+    {
+        if (linea.find("Usuario: " + usuario) != string::npos)
+        {
             count++;
         }
         // Saltar las siguientes líneas del libro prestado
-        for (int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; ++i)
+        {
             getline(archivo, linea);
         }
     }
@@ -473,8 +548,10 @@ int contarLibrosPrestados(const string& usuario) {
     return count;
 }
 
-void prestamoLibro(vector<Libro> libros, const string& filename, string& usuarioIngresado) {
-    if (contarLibrosPrestados(usuarioIngresado) >= 3) {
+void prestamoLibro(vector<Libro> libros, const string &filename, string &usuarioIngresado)
+{
+    if (contarLibrosPrestados(usuarioIngresado) >= 3)
+    {
         cout << "Ya has pedido prestado el máximo de 3 libros.\n";
         return;
     }
@@ -483,18 +560,25 @@ void prestamoLibro(vector<Libro> libros, const string& filename, string& usuario
     cout << "Ingresa el código del libro que quieres pedir prestado: ";
     cin >> codigo;
 
-    if (usuarioYaTieneLibroPrestado(usuarioIngresado, codigo)) {
+    if (usuarioYaTieneLibroPrestado(usuarioIngresado, codigo))
+    {
         cout << "Ya has pedido prestado este libro.\n";
         return;
     }
 
     int i = buscarLibro(libros, codigo);
-    if (i == -1) {
+    if (i == -1)
+    {
         cout << "\nLo siento, ese libro no está disponible.\n";
-    } else {
-        if (libros[i].cantidad == 0) {
+    }
+    else
+    {
+        if (libros[i].cantidad == 0)
+        {
             cout << "\nLo siento, ese libro está agotado.\n";
-        } else {
+        }
+        else
+        {
             cout << "\nInformación del libro:\n"
                  << "Código: " << libros[i].codigo << "\n"
                  << "Nombre: " << libros[i].nombre << "\n"
@@ -506,7 +590,8 @@ void prestamoLibro(vector<Libro> libros, const string& filename, string& usuario
             char respuesta;
             cout << "\n¿Estás seguro de que quieres pedir prestado este libro? (S/N): ";
             cin >> respuesta;
-            if (respuesta == 's' || respuesta == 'S') {
+            if (respuesta == 's' || respuesta == 'S')
+            {
                 libros[i].cantidad--;
 
                 ofstream Escribir("libros(pedidos).txt", ios::app);
@@ -518,29 +603,34 @@ void prestamoLibro(vector<Libro> libros, const string& filename, string& usuario
                 actualizarArchivoLibros(libros, filename);
 
                 cout << "\nHas pedido prestado el libro " << libros[i].nombre << ".\n";
-            } else {
+            }
+            else
+            {
                 cout << "\nHas decidido no pedir prestado el libro.\n";
             }
         }
     }
 }
 
-void prestarLibro(string& usuarioIngresado){
+void prestarLibro(string &usuarioIngresado)
+{
     limpiarPantalla();
     vector<Libro> libros;
     cargarLibros(libros, "libros.txt");
 
-    if (libros.empty()) {
+    if (libros.empty())
+    {
         cout << "No hay libros disponibles para prestar.\n";
     }
 
     prestamoLibro(libros, "libros.txt", usuarioIngresado);
-
 }
 
-void CargarLibros(vector<Libro>& libros, const string& filename, unordered_set<int>& codigos, unordered_set<string>& nombres) {
+void CargarLibros(vector<Libro> &libros, const string &filename, unordered_set<int> &codigos, unordered_set<string> &nombres)
+{
     ifstream archivo(filename);
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo " << filename << "\n";
         return;
     }
@@ -549,19 +639,24 @@ void CargarLibros(vector<Libro>& libros, const string& filename, unordered_set<i
     int contador = 0;
     Libro libro;
 
-    while (getline(archivo, linea)) {
-        if ((contador % 7 == 0 || contador % 7 == 4 || contador % 7 == 6) && !esNumero(linea)) {
+    while (getline(archivo, linea))
+    {
+        if ((contador % 7 == 0 || contador % 7 == 4 || contador % 7 == 6) && !esNumero(linea))
+        {
             cerr << "Error: se esperaba un número en la línea " << contador + 1 << ", pero se encontró '" << linea << "'.\n";
             return;
         }
-        if (contador % 7 == 1) {
+        if (contador % 7 == 1)
+        {
             libro.nombre = linea;
-            if (nombres.find(libro.nombre) != nombres.end()) {
+            if (nombres.find(libro.nombre) != nombres.end())
+            {
                 cerr << "El nombre '" << libro.nombre << "' está duplicado en el archivo.\n";
                 cout << "Este libro ya existe. ¿Deseas añadir más cantidad al libro existente? (S/N): ";
                 char respuesta;
                 cin >> respuesta;
-                if (respuesta == 'S' || respuesta == 's') {
+                if (respuesta == 'S' || respuesta == 's')
+                {
                     cout << "Ingresa la cantidad que deseas añadir: ";
                     int cantidad;
                     cin >> cantidad;
@@ -570,29 +665,44 @@ void CargarLibros(vector<Libro>& libros, const string& filename, unordered_set<i
                     actualizarArchivoLibros(libros, filename);
                     cout << "Cantidad actualizada exitosamente.\n";
                     return;
-                } else {
+                }
+                else
+                {
                     cout << "No se agregó ningún libro.\n";
                     return;
                 }
             }
             nombres.insert(libro.nombre);
-        } else if (contador % 7 == 0) {
+        }
+        else if (contador % 7 == 0)
+        {
             libro.codigo = stoi(linea);
-            if (codigos.find(libro.codigo) != codigos.end()) {
+            if (codigos.find(libro.codigo) != codigos.end())
+            {
                 cerr << "El código " << libro.codigo << " está duplicado en el archivo.\n";
                 contador = 0;
                 continue;
             }
             codigos.insert(libro.codigo);
-        } else if (contador % 7 == 2) {
+        }
+        else if (contador % 7 == 2)
+        {
             libro.genero = linea;
-        } else if (contador % 7 == 3) {
+        }
+        else if (contador % 7 == 3)
+        {
             libro.autor = linea;
-        } else if (contador % 7 == 4) {
+        }
+        else if (contador % 7 == 4)
+        {
             libro.anoPublicacion = stoi(linea);
-        } else if (contador % 7 == 5) {
+        }
+        else if (contador % 7 == 5)
+        {
             libro.sinopsis = linea;
-        } else if (contador % 7 == 6) {
+        }
+        else if (contador % 7 == 6)
+        {
             libro.cantidad = stoi(linea);
             libros.push_back(libro); // Se agrega el libro después de que todos sus campos hayan sido leídos y asignados
         }
@@ -602,17 +712,19 @@ void CargarLibros(vector<Libro>& libros, const string& filename, unordered_set<i
     archivo.close();
 }
 
-void donacionLibro(vector<Libro>& libros, vector<Libro>& librosDonados, const string& filename) {
+void donacionLibro(vector<Libro> &libros, vector<Libro> &librosDonados, const string &filename)
+{
     Libro libro;
-    cout << "Ingresa el código del libro que quieres donar: ";
-    cin >> libro.codigo;
-
-    int i = buscarLibro(libros, libro.codigo);
-    if (i != -1) {
-        cout << "Este libro ya existe. ¿Deseas añadir más cantidad al libro existente? (S/N): ";
-        char respuesta;
-        cin >> respuesta;
-        if (respuesta == 'S' || respuesta == 's') {
+    char respuesta;
+    cout << "¿Desea donar un libro existente o uno nuevo? (E/N): ";
+    cin >> respuesta;
+    if (respuesta == 'E' || respuesta == 'e')
+    {
+        cout << "Ingresa el código del libro que quieres donar: ";
+        cin >> libro.codigo;
+        int i = buscarLibro(libros, libro.codigo);
+        if (i != -1)
+        {
             cout << "Ingresa la cantidad que deseas añadir: ";
             int cantidad;
             cin >> cantidad;
@@ -620,58 +732,75 @@ void donacionLibro(vector<Libro>& libros, vector<Libro>& librosDonados, const st
             actualizarArchivoLibros(libros, filename);
             cout << "Cantidad actualizada exitosamente.\n";
             return;
-        } else {
+        }
+        else
+        {
             cout << "No se agregó ningún libro.\n";
             return;
         }
     }
+    if (respuesta == 'N' || respuesta == 'n')
+    {   
+        cout << "Ingresa el código del libro que quieres donar: ";
+        cin >> libro.codigo;
+        cout << "Ingresa el nombre del libro: ";
+        cin.ignore();
+        getline(cin, libro.nombre);
 
-    cout << "Ingresa el nombre del libro: ";
-    cin.ignore();
-    getline(cin, libro.nombre);
-
-    for (size_t i = 0; i < librosDonados.size(); i++) {
-        if (librosDonados[i].nombre == libro.nombre) {
-            cout << "Este libro ya existe. ¿Deseas añadir más cantidad al libro existente? (S/N): ";
-            char respuesta;
-            cin >> respuesta;
-            if (respuesta == 'S' || respuesta == 's') {
-                cout << "Ingresa la cantidad que deseas añadir: ";
-                int cantidad;
-                cin >> cantidad;
-                librosDonados[i].cantidad += cantidad; // Actualiza la cantidad del libro existente
-                actualizarArchivoLibros(librosDonados, "libros(donativo).txt"); // Actualiza el archivo "libros(donativo).txt" con los libros donados
-                cout << "Cantidad actualizada exitosamente.\n";
-                return;
-            } else {
-                cout << "No se agregó ningún libro.\n";
-                return;
+        for (size_t i = 0; i < librosDonados.size(); i++)
+        {
+            if (librosDonados[i].nombre == libro.nombre)
+            {
+                cout << "Este libro ya existe. ¿Deseas añadir más cantidad al libro existente? (S/N): ";
+                char respuesta;
+                cin >> respuesta;
+                if (respuesta == 'S' || respuesta == 's')
+                {
+                    cout << "Ingresa la cantidad que deseas añadir: ";
+                    int cantidad;
+                    cin >> cantidad;
+                    librosDonados[i].cantidad += cantidad;
+                    actualizarArchivoLibros(librosDonados, "libros(donativo).txt");
+                    cout << "Cantidad actualizada exitosamente.\n";
+                    return;
+                }
+                else
+                {
+                    cout << "No se agregó ningún libro.\n";
+                    return;
+                }
             }
         }
+
+        cout << "Ingresa el género del libro: ";
+        getline(cin, libro.genero);
+
+        cout << "Ingresa el autor del libro: ";
+        getline(cin, libro.autor);
+
+        cout << "Ingresa el año de publicación del libro: ";
+        cin >> libro.anoPublicacion;
+        cout << "Ingresa la sinopsis del libro: ";
+        cin.ignore();
+        getline(cin, libro.sinopsis);
+
+        cout << "Ingresa la cantidad del libro: ";
+        cin >> libro.cantidad;
+
+        libros.push_back(libro);
+        librosDonados.push_back(libro);                                 // Agrega el libro donado al vector de libros donados
+        actualizarArchivoLibros(librosDonados, "libros(donativo).txt"); // Actualiza el archivo "libros(donativo).txt" con los libros donados
+        cout << "Libro donado exitosamente.\n";
     }
-
-    cout << "Ingresa el género del libro: ";
-    getline(cin, libro.genero);
-
-    cout << "Ingresa el autor del libro: ";
-    getline(cin, libro.autor);
-
-    cout << "Ingresa el año de publicación del libro: ";
-    cin >> libro.anoPublicacion;
-    cout << "Ingresa la sinopsis del libro: ";
-    cin.ignore();
-    getline(cin, libro.sinopsis);
-
-    cout << "Ingresa la cantidad del libro: ";
-    cin >> libro.cantidad;
-
-    libros.push_back(libro);
-    librosDonados.push_back(libro); // Agrega el libro donado al vector de libros donados
-    actualizarArchivoLibros(librosDonados, "libros(donativo).txt"); // Actualiza el archivo "libros(donativo).txt" con los libros donados
-    cout << "Libro donado exitosamente.\n";
+    else
+    {
+        cerr << "Respuesta no válida.\n";
+        return;
+    }
 }
 
-void donarLibro() {
+void donarLibro()
+{
     limpiarPantalla();
     vector<Libro> libros;
     vector<Libro> librosDonados; // Vector para almacenar los libros donados
@@ -679,5 +808,5 @@ void donarLibro() {
     unordered_set<string> nombres;
     CargarLibros(libros, "libros.txt", codigos, nombres);
     donacionLibro(libros, librosDonados, "libros.txt");
-
 }
+#endif // SISTLIBROUSUARIO_HPP

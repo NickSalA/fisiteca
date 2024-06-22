@@ -18,14 +18,14 @@ Distopia
 George Orwell
 1949
 En un mundo totalitario, un hombre lucha contra el régimen opresivo mientras busca la verdad y la libertad.
-10
+60
 5
 Harry Potter y la piedra filosofal
 Fantasia
 J.K. Rowling
 1997
 Un niño descubre que es un mago y comienza su aventura en el mundo mágico de Hogwarts.
-10
+110
 6
 Cronicas marcianas
 Ciencia ficcion
@@ -130,4 +130,18 @@ Novela
 Dan Brown
 2003
 Una trama de intriga que involucra al famoso pintor renacentista Leonardo da Vinci y secretos del Vaticano.
+10
+49
+dasdas
+dda
+dasda
+500
+dasda dasd
+40
+12
+adsdsd
+adsads
+adsdsd
+50
+adsads
 10
