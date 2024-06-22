@@ -317,12 +317,13 @@ void mainBuscar_anio()
     } while (true);
 }
 
-int menu(int n)
+void BuscarLibro()
 {
-    setColor(White);
     configurarConsolaUtf8();
     int opcionSeleccionada = 1; // Indica la opción seleccionada
-    int tecla;
+    int lastopcionSeleccionada = -1; 
+    vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
+    coordXY pos = {40, 15};
     string titulo = R"(
 
                                         ░░████░█░░█░███░███░░█░░█░███░████░████░
@@ -333,95 +334,63 @@ int menu(int n)
 
 
 )";
-    vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
-    bool repite = true; // controla el bucle para regresar a la rutina que lo llamó, al presionar ENTER
+    ocultarCursor();
+    limpiarPantalla();
+    dibujarTitulo(2, 3, titulo);
+    dibujarCuadro(pos.x-8, 2, 60, 25);
+    dibujarMenu(pos.x+9, pos.y-1, opciones);
+    bool repite = true; 
 
-    do
-    {
-        system("cls");
-        CenterConsoleWindow();
-        dibujarTitulo(2, 3, titulo);
-        dibujarCuadro(30, 2, 60, 25);
-        dibujarCuadro(27, 0, 66, 29);
-        dibujarMenu(43, 13, opciones);
-        gotoxy(37, 10 + opcionSeleccionada * 3);
-        cout << "=>" << "\t\t\t\t\t\t" << "<=" << endl;
+    while (repite){
+        if (lastopcionSeleccionada != opcionSeleccionada) {
+            if (lastopcionSeleccionada != -1) {
+                moverCursor({pos.x-2, pos.y + lastopcionSeleccionada * 3});
+                cout << "  ";
+                moverCursor({pos.x + 36, pos.y + lastopcionSeleccionada * 3});
+                cout << "  ";
+            }
 
-        // Solo permite que se ingrese ARRIBA, ABAJO o ENTER
-        do
-        {
-            tecla = getch2();
-        } while (tecla != ARRIBA && tecla != ABAJO && tecla != ENTER);
+            moverCursor({pos.x-2, pos.y + opcionSeleccionada * 3});
+            cout << "=>";
+            moverCursor({pos.x + 36, pos.y + opcionSeleccionada * 3});
+            cout << "<=";
+            
+            lastopcionSeleccionada = opcionSeleccionada;
+        }
 
-        switch (tecla)
-        {
-        case ARRIBA: // En caso de que se presione ARRIBA
+        char key = _getch();
+        if (key == 72 && opcionSeleccionada > 0) {
             opcionSeleccionada--;
-            if (opcionSeleccionada < 1)
-            {
-                opcionSeleccionada = n;
-            }
-            break;
-
-        case ABAJO:
+        } else if (key == 80 && opcionSeleccionada < static_cast<int>(opciones.size() - 1)) {
             opcionSeleccionada++;
-            if (opcionSeleccionada > n)
-            {
-                opcionSeleccionada = 1;
+        } else if (key == '\r') {
+            limpiarPantalla();
+            switch (opcionSeleccionada) {
+                case 0: 
+                    mainBuscador_ti();
+                    break;
+                case 1: 
+                    mainBuscador_gen();
+                    break;
+                case 2: 
+                    mainBuscar_autor();
+                    break;
+                case 3: 
+                    mainBuscar_anio();
+                    break;
+                case 4: 
+                    repite = false;
+                    break;
             }
-            break;
-
-        case ENTER:
-            repite = false;
-            break;
+            limpiarPantalla();
+            dibujarTitulo(2, 3, titulo);
+            dibujarCuadro(pos.x-8, 2, 50, 25);
+            dibujarMenu(pos.x+9, pos.y-1, opciones);
+            lastopcionSeleccionada = -1;
         }
-
-    } while (repite);
-
-    return opcionSeleccionada;
+    }
 }
 
-void BuscarLibro()
-{
-
-    bool repite = true;
-    int opcion;
-
-    int n = 5; // Numero de opciones
-
-    do
-    {
-        opcion = menu(n);
-
-        switch (opcion)
-        {
-        case 1:
-            mainBuscador_ti();
-            break;
-
-        case 2:
-            mainBuscador_gen();
-            break;
-
-        case 3:
-            mainBuscar_anio();
-            break;
-
-        case 4:
-            mainBuscar_autor();
-            break;
-
-        case 5:
-            repite = false;
-            break;
-
-        default:
-            cout << "Opcion no valida." << endl;
-            break;
-        }
-
-    } while (repite);
-}
 
 void cargarLibros(vector<Libro> &libros, const string &filename)
 {
@@ -740,9 +709,33 @@ void donacionLibro(vector<Libro> &libros, vector<Libro> &librosDonados, const st
         }
     }
     if (respuesta == 'N' || respuesta == 'n')
-    {   
+    {
         cout << "Ingresa el código del libro que quieres donar: ";
         cin >> libro.codigo;
+        for (size_t i = 0; i < librosDonados.size(); i++)
+        {
+            if (librosDonados[i].codigo == libro.codigo)
+            {
+                cout << "Este libro ya existe. ¿Deseas añadir más cantidad al libro existente? (S/N): ";
+                char respuesta;
+                cin >> respuesta;
+                if (respuesta == 'S' || respuesta == 's')
+                {
+                    cout << "Ingresa la cantidad que deseas añadir: ";
+                    int cantidad;
+                    cin >> cantidad;
+                    librosDonados[i].cantidad += cantidad;
+                    actualizarArchivoLibros(librosDonados, "libros(donativo).txt");
+                    cout << "Cantidad actualizada exitosamente.\n";
+                    return;
+                }
+                else
+                {
+                    cout << "No se agregó ningún libro.\n";
+                    return;
+                }
+            }
+        }
         cout << "Ingresa el nombre del libro: ";
         cin.ignore();
         getline(cin, libro.nombre);
