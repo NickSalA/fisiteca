@@ -725,11 +725,14 @@ void donarLibro(string &usuarioIngresado) {
                 archivo << nuevoLibro.cantidad << endl;
                 archivo.close();
                 cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
+                Sleep(2000);
             } else {
                 cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
+                Sleep(2000);
             }
         } else {
             cout << "No se han añadido existencias adicionales en donaciones." << endl;
+            Sleep(2000);
         }
     } else {
         cout << "Ingrese el género del libro: ";
@@ -762,8 +765,10 @@ void donarLibro(string &usuarioIngresado) {
             archivo << nuevoLibro.cantidad << endl;
             archivo.close();
             cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
+            Sleep(2000);
         } else {
             cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
+            Sleep(2000);
         }
     }
 }
