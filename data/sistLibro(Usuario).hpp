@@ -680,107 +680,93 @@ void CargarLibros(vector<Libro> &libros, const string &filename, unordered_set<i
     archivo.close();
 }
 
-void donarLibro(string &usuarioIngresado)
-{
-    Libro libroos[100];
-    int n = 0;
-    char opcion;
-    leerLibro(libroos, "libros.txt", n); // Leer los libros existentes
-    cout << "¿Desea donar un libro existente o nuevo?(E/N): ";
-    cin >> opcion;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer de entrada
+void donarLibro(string &usuarioIngresado) {
+    string nombreArchivo = "libros.txt";
+    string archivoDonativos = "libros(donativo).txt";
+    vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
-    if (toupper(opcion) == 'E')
-    {
-        int codigo, cantidad;
-        cout << "Ingrese el codigo del libro que desea donar: ";
-        cin >> codigo;
-        cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-        cout<< "Ingrese la cantidad de libros a donar: "; cin >> cantidad;
-        bool found = false;
-        for (int i = 0; i < n; i++)
-        {
-            if (libroos[i].codigo == codigo)
-            {
-                found = true;
-                Libro libroDonado = libroos[i]; //copiamos el libro encontrado
-                libroDonado.cantidad = cantidad; //Actualizamos la cantidad donada
-            }
-        }
-        if (found)
-        {
-            ofstream Grabacion("libros.txt");
-            if (Grabacion.fail())
-            {
-                cout << "Error en el archivo..." << endl;
-                Sleep(2000);
-            }
-            else
-            {
-                for (int i = 0; i < n; ++i)
-                {
-                    Grabacion << usuarioIngresado << endl; // Guardamos el usuario
-                    Grabacion << libroos[i].codigo << endl;
-                    Grabacion << libroos[i].nombre << endl;
-                    Grabacion << libroos[i].genero << endl;
-                    Grabacion << libroos[i].autor << endl;
-                    Grabacion << libroos[i].anoPublicacion << endl;
-                    Grabacion << libroos[i].sinopsis << endl;
-                    Grabacion << libroos[i].cantidad << endl; // Guardamos la cantidad aquí
+    Libro nuevoLibro;
+    cout << "Ingrese el código del libro: ";
+    cin >> nuevoLibro.codigo;
+    cin.ignore(); // Limpiar el buffer
+
+    cout << "Ingrese el nombre del libro: ";
+    getline(cin, nuevoLibro.nombre);
+
+    auto it = find_if(libros.begin(), libros.end(), [&](const Libro &libro) {
+        return libro.codigo == nuevoLibro.codigo || libro.nombre == nuevoLibro.nombre;
+    });
+
+    if (it != libros.end()) {
+        char respuesta;
+        cout << "El libro ya existe en la biblioteca.\n";
+        cout << "¿Desea añadir más existencias del libro? (S/N): ";
+        cin >> respuesta;
+        cin.ignore(); // Limpiar el buffer
+
+        if (respuesta == 'S' || respuesta == 's') {
+            cout << "Ingrese la cantidad de existencias adicionales: ";
+            int cantidadAdicional;
+            cin >> cantidadAdicional;
+            cin.ignore(); // Limpiar el buffer
+
+            it->cantidad += cantidadAdicional;
+
+            // Guardar cambios en el archivo de libros
+            ofstream archivo(nombreArchivo.c_str(), ios::out);
+            if (archivo.is_open()) {
+                for (const Libro &libro : libros) {
+                    archivo << libro.codigo << endl;
+                    archivo << libro.nombre << endl;
+                    archivo << libro.genero << endl;
+                    archivo << libro.autor << endl;
+                    archivo << libro.anoPublicacion << endl;
+                    archivo << libro.sinopsis << endl;
+                    archivo << libro.cantidad << endl;
                 }
-                Grabacion.close();
+                archivo.close();
+            } else {
+                cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
             }
+            cout << "Se han añadido las existencias adicionales." << endl;
+        } else {
+            cout << "No se han añadido existencias adicionales." << endl;
         }
-        else
-        {
-            cout << "Libro no encontrado\n";
-        }
-    }
-    else if (toupper(opcion) == 'N')
-    {
-        ofstream archivo("libros(donativo).txt", ios::app);
-        if (archivo.fail())
-        {
-            cout << "Error en el archivo..." << endl;
-            Sleep(2000);
-        }
-        else
-        {
-            Libro newLibro;
-            cout << "Ingrese los datos del libro a donar:" << endl;
-            cout << "Codigo: ";
-            cin >> newLibro.codigo;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Titulo: ";
-            getline(cin, newLibro.nombre);
-            cout << "Genero: ";
-            getline(cin, newLibro.genero);
-            cout << "Año de publicacion: ";
-            cin >> newLibro.anoPublicacion;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << "Autor: ";
-            getline(cin, newLibro.autor);
-            cout << "Sinopsis: ";
-            getline(cin, newLibro.sinopsis);
-            cout << "Cantidad: ";
-            cin >> newLibro.cantidad;
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            archivo << usuarioIngresado << endl;
-            archivo << newLibro.codigo << endl;
-            archivo << newLibro.nombre << endl;
-            archivo << newLibro.genero << endl;
-            archivo << newLibro.autor << endl;
-            archivo << newLibro.anoPublicacion << endl;
-            archivo << newLibro.sinopsis << endl;
-            archivo << newLibro.cantidad << endl;
+    } else {
+        cout << "Ingrese el género del libro: ";
+        getline(cin, nuevoLibro.genero);
 
+        cout << "Ingrese el autor del libro: ";
+        getline(cin, nuevoLibro.autor);
+
+        cout << "Ingrese el año de publicación del libro: ";
+        cin >> nuevoLibro.anoPublicacion;
+        cin.ignore(); // Limpiar el buffer
+
+        cout << "Ingrese la sinopsis del libro: ";
+        getline(cin, nuevoLibro.sinopsis);
+
+        cout << "Ingrese la cantidad de libros: ";
+        cin >> nuevoLibro.cantidad;
+        cin.ignore(); // Limpiar el buffer
+
+        // Guardar el nuevo libro en libros(donativos).txt
+        ofstream archivo(archivoDonativos.c_str(), ios::app);
+        if (archivo.is_open()) {
+            archivo << usuarioIngresado << endl;
+            archivo << nuevoLibro.codigo << endl;
+            archivo << nuevoLibro.nombre << endl;
+            archivo << nuevoLibro.genero << endl;
+            archivo << nuevoLibro.autor << endl;
+            archivo << nuevoLibro.anoPublicacion << endl;
+            archivo << nuevoLibro.sinopsis << endl;
+            archivo << nuevoLibro.cantidad << endl;
             archivo.close();
-            cout << "Donacion exitosa\n";
+            cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
+        } else {
+            cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
         }
-    }
-    else
-    {
-        cout << "Opcion no valida\n";
     }
 }
+
 #endif // SISTLIBROUSUARIO_HPP
