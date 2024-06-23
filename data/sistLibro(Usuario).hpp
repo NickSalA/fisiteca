@@ -700,37 +700,36 @@ void donarLibro(string &usuarioIngresado) {
     if (it != libros.end()) {
         char respuesta;
         cout << "El libro ya existe en la biblioteca.\n";
-        cout << "¿Desea añadir más existencias del libro? (S/N): ";
+        cout << "¿Desea añadir más existencias del libro en donaciones? (S/N): ";
         cin >> respuesta;
         cin.ignore(); // Limpiar el buffer
 
         if (respuesta == 'S' || respuesta == 's') {
-            cout << "Ingrese la cantidad de existencias adicionales: ";
+            cout << "Ingrese la cantidad de existencias adicionales para la donación: ";
             int cantidadAdicional;
             cin >> cantidadAdicional;
             cin.ignore(); // Limpiar el buffer
 
-            it->cantidad += cantidadAdicional;
+            nuevoLibro.cantidad = cantidadAdicional;
 
-            // Guardar cambios en el archivo de libros
-            ofstream archivo(nombreArchivo.c_str(), ios::out);
+            // Guardar el libro en libro(donativo).txt junto con el nombre del usuario
+            ofstream archivo(archivoDonativos.c_str(), ios::app);
             if (archivo.is_open()) {
-                for (const Libro &libro : libros) {
-                    archivo << libro.codigo << endl;
-                    archivo << libro.nombre << endl;
-                    archivo << libro.genero << endl;
-                    archivo << libro.autor << endl;
-                    archivo << libro.anoPublicacion << endl;
-                    archivo << libro.sinopsis << endl;
-                    archivo << libro.cantidad << endl;
-                }
+                archivo << usuarioIngresado << endl;
+                archivo << nuevoLibro.codigo << endl;
+                archivo << nuevoLibro.nombre << endl;
+                archivo << it->genero << endl;
+                archivo << it->autor << endl;
+                archivo << it->anoPublicacion << endl;
+                archivo << it->sinopsis << endl;
+                archivo << nuevoLibro.cantidad << endl;
                 archivo.close();
+                cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
             } else {
-                cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
+                cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
             }
-            cout << "Se han añadido las existencias adicionales." << endl;
         } else {
-            cout << "No se han añadido existencias adicionales." << endl;
+            cout << "No se han añadido existencias adicionales en donaciones." << endl;
         }
     } else {
         cout << "Ingrese el género del libro: ";
@@ -750,7 +749,7 @@ void donarLibro(string &usuarioIngresado) {
         cin >> nuevoLibro.cantidad;
         cin.ignore(); // Limpiar el buffer
 
-        // Guardar el nuevo libro en libros(donativos).txt
+        // Guardar el nuevo libro en libro(donativo).txt junto con el nombre del usuario
         ofstream archivo(archivoDonativos.c_str(), ios::app);
         if (archivo.is_open()) {
             archivo << usuarioIngresado << endl;
