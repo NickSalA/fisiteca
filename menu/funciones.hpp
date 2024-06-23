@@ -28,7 +28,34 @@ struct Libro
     string sinopsis;
     int cantidad;
 };
+string xcodigo, xano, xcantidad;
 
+void leerLibro(Libro libros[], string libro, int &n)
+{
+    ifstream Leer(libro, ios::in);
+    if (Leer.fail())
+    {
+        cout << "Error en el archivo..." << endl;
+        exit(1);
+    }
+    int i = 0;
+    while (!Leer.eof())
+    {
+        getline(Leer, xcodigo);
+        getline(Leer, libros[i].nombre);
+        getline(Leer, libros[i].genero);
+        getline(Leer, libros[i].autor);
+        getline(Leer, xano);
+        getline(Leer, libros[i].sinopsis);
+        getline(Leer, xcantidad); // Leemos la cantidad aquí
+        istringstream(xcodigo) >> libros[i].codigo;
+        istringstream(xano) >> libros[i].anoPublicacion;
+        istringstream(xcantidad) >> libros[i].cantidad; // Convertimos la cantidad a int
+        n++;
+        i++;
+    }
+    Leer.close();
+}
 struct coordXY
 {
     int x;
@@ -397,21 +424,30 @@ string obteneFechaHora()
     ss << localTime.wDay << "/" << localTime.wMonth << "/" << localTime.wYear;
     return ss.str();
 }
-string obtenerFechaPlazo() {
+string obtenerFechaPlazo()
+{
     stringstream sS;
     int daysInMonth;
     SYSTEMTIME localTime;
     GetLocalTime(&localTime);
 
     // Determinar la cantidad de días en el mes actual
-    if (localTime.wMonth == 1 || localTime.wMonth == 3 || localTime.wMonth == 5 || localTime.wMonth == 7 || localTime.wMonth == 8 || localTime.wMonth == 10 || localTime.wMonth == 12) {
+    if (localTime.wMonth == 1 || localTime.wMonth == 3 || localTime.wMonth == 5 || localTime.wMonth == 7 || localTime.wMonth == 8 || localTime.wMonth == 10 || localTime.wMonth == 12)
+    {
         daysInMonth = 31;
-    } else if (localTime.wMonth == 4 || localTime.wMonth == 6 || localTime.wMonth == 9 || localTime.wMonth == 11) {
+    }
+    else if (localTime.wMonth == 4 || localTime.wMonth == 6 || localTime.wMonth == 9 || localTime.wMonth == 11)
+    {
         daysInMonth = 30;
-    } else if (localTime.wMonth == 2) {
-        if ((localTime.wYear % 4 == 0 && localTime.wYear % 100 != 0) || localTime.wYear % 400 == 0) {
+    }
+    else if (localTime.wMonth == 2)
+    {
+        if ((localTime.wYear % 4 == 0 && localTime.wYear % 100 != 0) || localTime.wYear % 400 == 0)
+        {
             daysInMonth = 29; // Año bisiesto
-        } else {
+        }
+        else
+        {
             daysInMonth = 28;
         }
     }
@@ -419,7 +455,8 @@ string obtenerFechaPlazo() {
     int diaPlazo = localTime.wDay + 7;
 
     // Ajustar el mes y el año si la suma de días excede el número de días en el mes actual
-    while (diaPlazo > daysInMonth) {
+    while (diaPlazo > daysInMonth)
+    {
         diaPlazo -= daysInMonth;
         localTime.wMonth++;
     }

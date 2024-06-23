@@ -1,3 +1,5 @@
+#ifndef SISTLIBROADMIN_HPP
+#define SISTLIBROADMIN_HPP
 #include <iostream>
 #include <stdlib.h>
 #include <fstream>
@@ -9,35 +11,6 @@
 #include "../menu/funciones.hpp"
 
 using namespace std;
-
-string xcodigo, xano, xcantidad;
-
-void leerLibro(Libro libros[], string libro, int &n)
-{
-    ifstream Leer(libro, ios::in);
-    if (Leer.fail())
-    {
-        cout << "Error en el archivo..." << endl;
-        exit(1);
-    }
-    int i = 0;
-    while (!Leer.eof())
-    {
-        getline(Leer, xcodigo);
-        getline(Leer, libros[i].nombre);
-        getline(Leer, libros[i].genero);
-        getline(Leer, libros[i].autor);
-        getline(Leer, xano);
-        getline(Leer, libros[i].sinopsis);
-        getline(Leer, xcantidad); // Leemos la cantidad aquí
-        istringstream(xcodigo) >> libros[i].codigo;
-        istringstream(xano) >> libros[i].anoPublicacion;
-        istringstream(xcantidad) >> libros[i].cantidad; // Convertimos la cantidad a int
-        n++;
-        i++;
-    }
-    Leer.close();
-}
 
 void agregarLibro(Libro libros[], int &n)
 {
@@ -252,7 +225,7 @@ void aceptarLibroDonado(Libro libros[], int n)
     Libro librosDonativos[100];
     leerLibro(librosDonativos, "libros(donativo).txt", nDonativos);
     limpiarPantalla();
-    
+
     cout << "Seleccione el libro que desea aceptar:" << endl;
     for (int i = 0; i < nDonativos; i++)
     {
@@ -321,3 +294,4 @@ void aceptarLibroDonado(Libro libros[], int n)
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
+#endif // SISTLIBROADMIN_HPP
