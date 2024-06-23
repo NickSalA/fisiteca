@@ -680,7 +680,7 @@ void CargarLibros(vector<Libro> &libros, const string &filename, unordered_set<i
     archivo.close();
 }
 
-void donarLibro()
+void donarLibro(string &usuarioIngresado)
 {
     Libro libroos[100];
     int n = 0;
@@ -702,10 +702,9 @@ void donarLibro()
         {
             if (libroos[i].codigo == codigo)
             {
-                libroos[i].cantidad+=cantidad;
                 found = true;
-                cout << "Donacion exitosa\n";
-                break;
+                Libro libroDonado = libroos[i]; //copiamos el libro encontrado
+                libroDonado.cantidad = cantidad; //Actualizamos la cantidad donada
             }
         }
         if (found)
@@ -720,6 +719,7 @@ void donarLibro()
             {
                 for (int i = 0; i < n; ++i)
                 {
+                    Grabacion << usuarioIngresado << endl; // Guardamos el usuario
                     Grabacion << libroos[i].codigo << endl;
                     Grabacion << libroos[i].nombre << endl;
                     Grabacion << libroos[i].genero << endl;
@@ -765,6 +765,7 @@ void donarLibro()
             cout << "Cantidad: ";
             cin >> newLibro.cantidad;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            archivo << usuarioIngresado << endl;
             archivo << newLibro.codigo << endl;
             archivo << newLibro.nombre << endl;
             archivo << newLibro.genero << endl;
@@ -782,5 +783,4 @@ void donarLibro()
         cout << "Opcion no valida\n";
     }
 }
-#endif // SISTLIBROUSUARIO_HPP
 #endif // SISTLIBROUSUARIO_HPP

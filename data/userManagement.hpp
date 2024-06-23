@@ -168,7 +168,7 @@ void menuUsuario(string& usuarioIngresado) {
                     BuscarLibro();
                     break;
                 case 1: 
-                    donarLibro();
+                    donarLibro(usuarioIngresado);
                     break;
                 case 2: 
                     prestarLibro(usuarioIngresado);
