@@ -685,21 +685,16 @@ void donarLibro(string &usuarioIngresado) {
     string archivoDonativos = "libros(donativo).txt";
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
-    Libro nuevoLibro;
-    cout << "Ingrese el código del libro: ";
-    cin >> nuevoLibro.codigo;
-    cin.ignore(); // Limpiar el buffer
-
+    string nombreLibro;
     cout << "Ingrese el nombre del libro: ";
-    getline(cin, nuevoLibro.nombre);
+    getline(cin, nombreLibro);
 
-    auto it = find_if(libros.begin(), libros.end(), [&](const Libro &libro) {
-        return libro.codigo == nuevoLibro.codigo || libro.nombre == nuevoLibro.nombre;
-    });
+    // Buscar coincidencias del nombre del libro
+    vector<Libro> coincidencias = buscarCoincidencias_ti(libros, nombreLibro);
 
-    if (it != libros.end()) {
-        char respuesta;
+    if (!coincidencias.empty()) {
         cout << "El libro ya existe en la biblioteca.\n";
+        char respuesta;
         cout << "¿Desea añadir más existencias del libro en donaciones? (S/N): ";
         cin >> respuesta;
         cin.ignore(); // Limpiar el buffer
@@ -710,19 +705,20 @@ void donarLibro(string &usuarioIngresado) {
             cin >> cantidadAdicional;
             cin.ignore(); // Limpiar el buffer
 
-            nuevoLibro.cantidad = cantidadAdicional;
+            // Tomar el primer libro encontrado para usar sus detalles existentes
+            const Libro &libroExistente = coincidencias[0];
 
             // Guardar el libro en libro(donativo).txt junto con el nombre del usuario
             ofstream archivo(archivoDonativos.c_str(), ios::app);
             if (archivo.is_open()) {
                 archivo << usuarioIngresado << endl;
-                archivo << nuevoLibro.codigo << endl;
-                archivo << nuevoLibro.nombre << endl;
-                archivo << it->genero << endl;
-                archivo << it->autor << endl;
-                archivo << it->anoPublicacion << endl;
-                archivo << it->sinopsis << endl;
-                archivo << nuevoLibro.cantidad << endl;
+                archivo << libroExistente.codigo << endl;
+                archivo << libroExistente.nombre << endl;
+                archivo << libroExistente.genero << endl;
+                archivo << libroExistente.autor << endl;
+                archivo << libroExistente.anoPublicacion << endl;
+                archivo << libroExistente.sinopsis << endl;
+                archivo << cantidadAdicional << endl;
                 archivo.close();
                 cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
                 Sleep(2000);
@@ -735,24 +731,35 @@ void donarLibro(string &usuarioIngresado) {
             Sleep(2000);
         }
     } else {
+        // Si no hay coincidencias, el libro no existe en la biblioteca
+        cout << "El libro no existe en la biblioteca. Por favor, ingrese los datos del libro para donarlo." << endl;
+
+        // Solicitar todos los demás datos del libro para agregarlo
+        Libro nuevoLibro;
+        nuevoLibro.nombre = nombreLibro;
+        
+        cout << "Ingrese el código del libro: ";
+        cin >> nuevoLibro.codigo;
+        cin.ignore(); // Limpiar el buffer
+        
         cout << "Ingrese el género del libro: ";
         getline(cin, nuevoLibro.genero);
-
+        
         cout << "Ingrese el autor del libro: ";
         getline(cin, nuevoLibro.autor);
-
+        
         cout << "Ingrese el año de publicación del libro: ";
         cin >> nuevoLibro.anoPublicacion;
         cin.ignore(); // Limpiar el buffer
-
+        
         cout << "Ingrese la sinopsis del libro: ";
         getline(cin, nuevoLibro.sinopsis);
-
-        cout << "Ingrese la cantidad de libros: ";
+        
+        cout << "Ingrese la cantidad de existencias para la donación: ";
         cin >> nuevoLibro.cantidad;
         cin.ignore(); // Limpiar el buffer
 
-        // Guardar el nuevo libro en libro(donativo).txt junto con el nombre del usuario
+        // Guardar el nuevo libro en libros(donativo).txt junto con el nombre del usuario
         ofstream archivo(archivoDonativos.c_str(), ios::app);
         if (archivo.is_open()) {
             archivo << usuarioIngresado << endl;
