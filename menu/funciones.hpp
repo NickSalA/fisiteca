@@ -35,6 +35,7 @@ struct Libro
     string sinopsis;
     int cantidad;
 };
+
 string xcodigo, xano, xcantidad;
 
 void leerLibro(Libro libros[], string libro, int &n)

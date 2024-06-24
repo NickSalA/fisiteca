@@ -758,7 +758,7 @@ void donarLibro(string &usuarioIngresado) {
         while (codigoRepetido) {
             cout << "Ingrese el código del libro: ";
             cin >> codigoLibro;
-            cin.ignore(); // Limpiar el buffer
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             // Verificar si el código ya existe en libros.txt
              if (buscarcoincidencia_cod(codigoLibro)) {
@@ -776,19 +776,18 @@ void donarLibro(string &usuarioIngresado) {
         
         cout << "Ingrese el año de publicación del libro: ";
         cin >> nuevoLibro.anoPublicacion;
-        cin.ignore(); // Limpiar el buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         
         cout << "Ingrese la sinopsis del libro: ";
         getline(cin, nuevoLibro.sinopsis);
         
         cout << "Ingrese la cantidad de existencias para la donación: ";
         cin >> nuevoLibro.cantidad;
-        cin.ignore(); // Limpiar el buffer
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         // Guardar el nuevo libro en libros(donativo).txt junto con el nombre del usuario
         ofstream archivo(archivoDonativos.c_str(), ios::app);
         if (archivo.is_open()) {
-            archivo << usuarioIngresado << endl;
             archivo << nuevoLibro.codigo << endl;
             archivo << nuevoLibro.nombre << endl;
             archivo << nuevoLibro.genero << endl;

@@ -211,16 +211,13 @@ void editarLibro(Libro libros[], int n)
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
-void aceptarLibroDonado(Libro libros[], int n)
-{
+void aceptarLibroDonado(Libro libros[], int &n) {
     int nDonativos = 0;
     Libro librosDonativos[100];
     leerLibro(librosDonativos, "libros(donativo).txt", nDonativos);
     limpiarPantalla();
-
     cout << "Seleccione el libro que desea aceptar:" << endl;
-    for (int i = 0; i < nDonativos - 1; i++)
-    {
+    for (int i = 0; i < nDonativos; i++) {
         cout << "\nLibro " << i + 1 << endl;
         cout << "Codigo: " << librosDonativos[i].codigo << endl;
         cout << "Nombre: " << librosDonativos[i].nombre << endl;
@@ -230,27 +227,16 @@ void aceptarLibroDonado(Libro libros[], int n)
         cout << "Sinopsis: " << librosDonativos[i].sinopsis << endl;
         cout << "Cantidad: " << librosDonativos[i].cantidad << endl;
     }
-
     int seleccion;
     cout << "Ingrese el número del libro que desea aceptar: ";
     cin >> seleccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    if (seleccion >= 1 && seleccion <= nDonativos)
-    {
+    if (seleccion >= 1 && seleccion <= nDonativos) {
         int indice = seleccion - 1;
-
         libros[n] = librosDonativos[indice];
         n++;
-
         ofstream Grabacion("libros.txt", ios::app);
-        if (Grabacion.fail())
-        {
-            cout << "Error en el archivo..." << endl;
-            Sleep(2000);
-        }
-        else
-        {
+        if (Grabacion.is_open()) {
             Grabacion << librosDonativos[indice].codigo << endl;
             Grabacion << librosDonativos[indice].nombre << endl;
             Grabacion << librosDonativos[indice].genero << endl;
@@ -259,32 +245,32 @@ void aceptarLibroDonado(Libro libros[], int n)
             Grabacion << librosDonativos[indice].sinopsis << endl;
             Grabacion << librosDonativos[indice].cantidad << endl;
             Grabacion.close();
+            cout << "Libro aceptado exitosamente." << endl;
+        } else {
+            cout << "Error al abrir el archivo para guardar los cambios." << endl;
         }
-
-        cout << "Libro aceptado exitosamente." << endl;
-
-        for (int i = indice; i < nDonativos - 1; ++i)
-        {
+        for (int i = indice; i < nDonativos - 1; ++i) {
             librosDonativos[i] = librosDonativos[i + 1];
         }
         --nDonativos;
-
         ofstream GrabacionDonativo("libros(donativo).txt");
-        for (int i = 0; i < nDonativos; ++i)
-        {
-            GrabacionDonativo << librosDonativos[i].codigo << endl;
-            GrabacionDonativo << librosDonativos[i].nombre << endl;
-            GrabacionDonativo << librosDonativos[i].genero << endl;
-            GrabacionDonativo << librosDonativos[i].autor << endl;
-            GrabacionDonativo << librosDonativos[i].anoPublicacion << endl;
-            GrabacionDonativo << librosDonativos[i].sinopsis << endl;
-            GrabacionDonativo << librosDonativos[i].cantidad << endl;
+        if (GrabacionDonativo.is_open()) {
+            for (int i = 0; i < nDonativos; ++i) {
+                GrabacionDonativo << librosDonativos[i].codigo << endl;
+                GrabacionDonativo << librosDonativos[i].nombre << endl;
+                GrabacionDonativo << librosDonativos[i].genero << endl;
+                GrabacionDonativo << librosDonativos[i].autor << endl;
+                GrabacionDonativo << librosDonativos[i].anoPublicacion << endl;
+                GrabacionDonativo << librosDonativos[i].sinopsis << endl;
+                GrabacionDonativo << librosDonativos[i].cantidad << endl;
+            }
+            GrabacionDonativo.close();
+        } else {
+            cerr << "No se pudo abrir el archivo libros(donativo).txt para escritura." << endl;
         }
-        GrabacionDonativo.close();
-    }
-    else
-    {
+    } else {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
+
 #endif // SISTLIBROADMIN_HPP
