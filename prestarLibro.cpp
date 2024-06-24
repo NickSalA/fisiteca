@@ -5,6 +5,7 @@
 #include <windows.h> // Para limpiar pantalla y mover el cursor
 #include <sstream>
 #include "menu/funciones.hpp"
+#include "data/userManagement.hpp"
 
 using namespace std;
 
@@ -18,43 +19,70 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
     }
 }
 
-void pedirPrestado(Libro libros[], int n, int seleccion, const string &usuario)
+void pedirPrestado(Libro libros[], int n, int seleccion, const string &usuarioIngresado)
 {
     if (libros[seleccion].cantidad > 0)
     {
         libros[seleccion].cantidad--;
 
+        // Leer todos los libros del archivo libros.txt en un vector de estructuras
+        vector<Libro> librosActualizados;
+        ifstream Leer("libros.txt");
+        if (Leer.fail())
+        {
+            cerr << "Error al abrir el archivo para leer..." << endl;
+            return;
+        }
+        Libro libroTemp;
+        while (Leer >> libroTemp.codigo)
+        {
+            // Leer el resto de los datos del libro
+            getline(Leer >> ws, libroTemp.nombre);
+            getline(Leer, libroTemp.genero);
+            getline(Leer, libroTemp.autor);
+            Leer >> libroTemp.anoPublicacion;
+            getline(Leer >> ws, libroTemp.sinopsis);
+            Leer >> libroTemp.cantidad;
+
+            // Si el código del libro coincide con el seleccionado, actualizar la cantidad
+            if (libroTemp.codigo == libros[seleccion].codigo)
+            {
+                libroTemp.cantidad = libros[seleccion].cantidad;
+            }
+
+            librosActualizados.push_back(libroTemp);
+        }
+        Leer.close();
+
+        // Escribir todos los libros actualizados en el archivo
         ofstream Escribir("libros.txt");
         if (!Escribir.is_open())
         {
             cerr << "Error al abrir el archivo para escribir..." << endl;
             return;
         }
-
-        for (int i = 0; i < n; ++i)
+        for (const auto &libro : librosActualizados)
         {
-            Escribir << libros[i].codigo << endl
-                     << libros[i].nombre << endl
-                     << libros[i].genero << endl
-                     << libros[i].autor << endl
-                     << libros[i].anoPublicacion << endl
-                     << libros[i].sinopsis << endl
-                     << libros[i].cantidad << endl;
+            Escribir << libro.codigo << endl
+                     << libro.nombre << endl
+                     << libro.genero << endl
+                     << libro.autor << endl
+                     << libro.anoPublicacion << endl
+                     << libro.sinopsis << endl
+                     << libro.cantidad << endl;
         }
-
         Escribir.close();
 
+        // Registrar el préstamo en el archivo de pedidos
         ofstream EscribirPedido("libros(pedidos).txt", ios::app);
         if (!EscribirPedido.is_open())
         {
             cerr << "Error al abrir el archivo de pedidos..." << endl;
             return;
         }
-
-        EscribirPedido << usuario << endl
+        EscribirPedido << usuarioIngresado << endl
                        << libros[seleccion].codigo << endl
                        << libros[seleccion].nombre << endl;
-
         EscribirPedido.close();
 
         cout << "¡Has pedido prestado el libro: " << libros[seleccion].nombre << "!" << endl;
@@ -73,8 +101,6 @@ int main()
     int n = 0;
     string archivoLibros = "libros.txt";
     leerLibro(libros, archivoLibros, n);
-
-    string usuarioIngresado = "usuario_demo";
 
     int seleccion = 0;
     char tecla;
