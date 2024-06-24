@@ -64,6 +64,65 @@ vector<Libro> buscarCoincidencias_ti(const vector<Libro> &libros, const string &
     return coincidencias;
 }
 
+vector<Libro> buscarCoincidencias_gen(const vector<Libro> &libros, const string &busqueda)
+{
+    vector<Libro> coincidencias;
+
+    string busquedaLower = busqueda;
+    transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
+
+    for (const Libro &libro : libros)
+    {
+        string generoLower = libro.genero;
+        transform(generoLower.begin(), generoLower.end(), generoLower.begin(), ::tolower);
+
+        if (generoLower.find(busquedaLower) != string::npos)
+        {
+            coincidencias.push_back(libro);
+        }
+    }
+
+    return coincidencias;
+}
+
+vector<Libro> buscarCoincidencias_autor(const vector<Libro> &libros, const string &busqueda)
+{
+    vector<Libro> coincidencias;
+
+    string busquedaLower = busqueda;
+    transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
+
+    for (const Libro &libro : libros)
+    {
+        string autorLower = libro.autor;
+        transform(autorLower.begin(), autorLower.end(), autorLower.begin(), ::tolower);
+
+        if (autorLower.find(busquedaLower) != string::npos)
+        {
+            coincidencias.push_back(libro);
+        }
+    }
+
+    return coincidencias;
+}
+
+vector<Libro> buscarCoincidencias_anio(const vector<Libro> &libros, const string &busqueda)
+{
+    vector<Libro> coincidencias;
+
+    for (const Libro &libro : libros)
+    {
+        string anoPublicacionStr = to_string(libro.anoPublicacion);
+
+        if (anoPublicacionStr.find(busqueda) != string::npos)
+        {
+            coincidencias.push_back(libro);
+        }
+    }
+
+    return coincidencias;
+}
+
 void mainBuscador_ti()
 {
     string nombreArchivo = "libros.txt";
@@ -110,27 +169,6 @@ void mainBuscador_ti()
         }
         esperaConMensaje("Presione una tecla para volver a buscar...");
     } while (true);
-}
-
-vector<Libro> buscarCoincidencias_gen(const vector<Libro> &libros, const string &busqueda)
-{
-    vector<Libro> coincidencias;
-
-    string busquedaLower = busqueda;
-    transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
-
-    for (const Libro &libro : libros)
-    {
-        string generoLower = libro.genero;
-        transform(generoLower.begin(), generoLower.end(), generoLower.begin(), ::tolower);
-
-        if (generoLower.find(busquedaLower) != string::npos)
-        {
-            coincidencias.push_back(libro);
-        }
-    }
-
-    return coincidencias;
 }
 
 bool buscarcoincidencia_cod(const std::string& codigo) {
@@ -204,27 +242,6 @@ void mainBuscador_gen()
     } while (true);
 }
 
-vector<Libro> buscarCoincidencias_autor(const vector<Libro> &libros, const string &busqueda)
-{
-    vector<Libro> coincidencias;
-
-    string busquedaLower = busqueda;
-    transform(busquedaLower.begin(), busquedaLower.end(), busquedaLower.begin(), ::tolower);
-
-    for (const Libro &libro : libros)
-    {
-        string autorLower = libro.autor;
-        transform(autorLower.begin(), autorLower.end(), autorLower.begin(), ::tolower);
-
-        if (autorLower.find(busquedaLower) != string::npos)
-        {
-            coincidencias.push_back(libro);
-        }
-    }
-
-    return coincidencias;
-}
-
 void mainBuscar_autor()
 {
 
@@ -272,23 +289,6 @@ void mainBuscar_autor()
         }
         esperaConMensaje("Presione una tecla para volver a buscar...");
     } while (true);
-}
-
-vector<Libro> buscarCoincidencias_anio(const vector<Libro> &libros, const string &busqueda)
-{
-    vector<Libro> coincidencias;
-
-    for (const Libro &libro : libros)
-    {
-        string anoPublicacionStr = to_string(libro.anoPublicacion);
-
-        if (anoPublicacionStr.find(busqueda) != string::npos)
-        {
-            coincidencias.push_back(libro);
-        }
-    }
-
-    return coincidencias;
 }
 
 void mainBuscar_anio()
