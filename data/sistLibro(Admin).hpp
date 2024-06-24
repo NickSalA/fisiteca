@@ -227,9 +227,10 @@ void aceptarLibroDonado(Libro libros[], int n)
     limpiarPantalla();
 
     cout << "Seleccione el libro que desea aceptar:" << endl;
-    for (int i = 0; i < nDonativos; i++)
+    for (int i = 0; i < nDonativos - 1; i++)
     {
         cout << "\nLibro " << i + 1 << endl;
+        cout << "Codigo: " << librosDonativos[i].codigo << endl;
         cout << "Nombre: " << librosDonativos[i].nombre << endl;
         cout << "Genero: " << librosDonativos[i].genero << endl;
         cout << "Autor: " << librosDonativos[i].autor << endl;
