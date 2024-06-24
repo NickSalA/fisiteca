@@ -6,16 +6,20 @@
 
 using namespace std;
 
-void mostrarPrestamosUsuario(const string& usuario) {
+void mostrarPrestamosUsuario(const string &usuario)
+{
     ifstream archivo("libros(pedidos).txt");
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo libros(pedidos).txt\n";
         return;
     }
 
     string linea;
-    while (getline(archivo, linea)) {
-        if (linea == usuario) {
+    while (getline(archivo, linea))
+    {
+        if (linea == usuario)
+        {
             getline(archivo, linea);
             cout << "Código de libro: " << linea << "\n"; // Código del libro
             getline(archivo, linea);
@@ -26,8 +30,10 @@ void mostrarPrestamosUsuario(const string& usuario) {
     archivo.close();
 }
 
-void mostrarMenu(vector<string>& usuarios) {
-    for (size_t i = 0; i < usuarios.size(); ++i) {
+void mostrarMenu(vector<string> &usuarios)
+{
+    for (size_t i = 0; i < usuarios.size(); ++i)
+    {
         cout << i + 1 << ". " << usuarios[i] << "\n";
     }
 
@@ -36,9 +42,12 @@ void mostrarMenu(vector<string>& usuarios) {
     cin >> opcion;
     cout << endl;
 
-    if (opcion > 0 && opcion <= usuarios.size()) {
+    if (opcion > 0 && opcion <= usuarios.size())
+    {
         mostrarPrestamosUsuario(usuarios[opcion - 1]);
-    } else {
+    }
+    else
+    {
         cout << "Opción inválida.\n";
     }
 
@@ -46,30 +55,37 @@ void mostrarMenu(vector<string>& usuarios) {
     cin >> opcion;
     cout << endl;
 
-    if (opcion == 0) {
+    if (opcion == 0)
+    {
         limpiarPantalla();
         mostrarMenu(usuarios);
-    } else if (opcion != 1) {
+    }
+    else if (opcion != 1)
+    {
         cout << "Opción inválida.\n";
     }
 }
 
-int main() {
+int main()
+{
 
     configurarConsolaUtf8();
 
     vector<string> usuarios;
     ifstream archivo("credUsuario.txt");
-    if (!archivo.is_open()) {
+    if (!archivo.is_open())
+    {
         cerr << "No se pudo abrir el archivo credUsuario.txt\n";
         return 1;
     }
 
     string linea;
     int contador = 0;
-    while (getline(archivo, linea)) {
+    while (getline(archivo, linea))
+    {
         // Solo guarda las líneas impares (nombres de usuario)
-        if (contador % 2 == 0) {
+        if (contador % 2 == 0)
+        {
             usuarios.push_back(linea);
         }
         contador++;
