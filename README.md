@@ -13,12 +13,6 @@ Sigue estos pasos para instalar y configurar el proyecto en tu máquina local.
 - Compilar ya sea en una IDE de C++ o en el cmd, en caso de que sea cmd:
   - Compilar usando el siguiente comando:
   - g++ -o fisiteca main.cpp
-## Integrantes:
-- Salcedo Alfaro, Nick Emanuel
-- Piñarreta Rojas David
-- Tarqui Soncco Nicolas Inti
-- Arancivia Salas, Christian Gabriel
-- Villavicencio Davila, Giancarlo Yamil
 ## Clonar el repositorio
 - https://github.com/NickSalA/fisiteca.git
 ## Funcionalidades
@@ -32,7 +26,12 @@ Sigue estos pasos para instalar y configurar el proyecto en tu máquina local.
 - Búsqueda de libros
 - Préstamo de libros
 - Donación de libros
-
+## Integrantes:
+- Salcedo Alfaro, Nick Emanuel
+- Piñarreta Rojas David
+- Tarqui Soncco Nicolas Inti
+- Arancivia Salas, Christian Gabriel
+- Villavicencio Davila, Giancarlo Yamil
 ## Créditos
 Agradecimientos a nuestro docente:
 - Juan Tapia
