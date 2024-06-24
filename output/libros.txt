@@ -11,7 +11,7 @@ Fantasia epica
 J.R.R. Tolkien
 1954
 Un hobbit llamado Frodo emprende un viaje para destruir un anillo maligno y salvar su mundo de la oscuridad.
-10
+9
 3
 1984
 Distopia
@@ -25,7 +25,7 @@ Fantasia
 J.K. Rowling
 1997
 Un niño descubre que es un mago y comienza su aventura en el mundo mágico de Hogwarts.
-10
+9
 5
 Cronicas marcianas
 Ciencia ficcion
@@ -60,14 +60,14 @@ Novela de caballería
 Miguel de Cervantes
 1605
 Las aventuras de un hidalgo que se vuelve loco leyendo libros de caballería y sale en busca de aventuras.
-10
+9
 10
 Los juegos del hambre
 Distopia
 Suzanne Collins
 2008
 En un futuro distópico, adolescentes son obligados a luchar hasta la muerte en un reality show televisado.
-10
+9
 11
 El nombre del viento
 Fantasia epica
