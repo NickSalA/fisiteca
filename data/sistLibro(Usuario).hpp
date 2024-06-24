@@ -407,8 +407,8 @@ void BuscarLibro()
             }
             limpiarPantalla();
             dibujarTitulo(2, 3, titulo);
-            dibujarCuadro(pos.x-8, 2, 50, 25);
-            dibujarMenu(pos.x+9, pos.y-1, opciones);
+            dibujarCuadro(pos.x-10, 2, 60, 25);
+            dibujarMenu(pos.x+3, pos.y-2, opciones);
             lastopcionSeleccionada = -1;
         }
     }
