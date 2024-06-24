@@ -1,10 +1,5 @@
 #ifndef USERMANAGEMENT_HPP
 #define USERMANAGEMENT_HPP
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <locale>
-#include <limits>
 #include "sistLibro(Admin).hpp"
 #include "sistLibro(Usuario).hpp"
 

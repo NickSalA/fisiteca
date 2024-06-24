@@ -1,13 +1,5 @@
 #ifndef SISTLIBROADMIN_HPP
 #define SISTLIBROADMIN_HPP
-#include <iostream>
-#include <stdlib.h>
-#include <fstream>
-#include <time.h>
-#include <string>
-#include <sstream>
-#include <windows.h>
-#include <limits>
 #include "../menu/funciones.hpp"
 
 using namespace std;

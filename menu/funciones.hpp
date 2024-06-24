@@ -12,6 +12,13 @@
 #include <sstream>
 #include <unordered_set>
 #include <algorithm>
+#include <time.h>
+#include <fstream>
+#include <stdlib.h>
+#include <sstream>
+#include <cstdlib>
+#include <algorithm>
+
 #define ARRIBA VK_UP
 #define ABAJO VK_DOWN
 #define ENTER 13

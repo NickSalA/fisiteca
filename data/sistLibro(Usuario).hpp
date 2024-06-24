@@ -1,14 +1,5 @@
 #ifndef SISTLIBROUSUARIO_HPP
 #define SISTLIBROUSUARIO_HPP
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <limits>
-#include <cstdlib>
-#include <windows.h>
-#include <locale>
 #include "../menu/funciones.hpp"
 
 using namespace std;

@@ -1,7 +1,3 @@
-#include <windows.h>
-#include <iostream>
-#include <vector>
-#include <conio.h>
 #include "data/userManagement.hpp"
 #include "menu/funciones.hpp"
 
