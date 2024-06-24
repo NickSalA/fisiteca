@@ -46,6 +46,11 @@ void leerLibro(Libro libros[], string libro, int &n)
         cout << "Error en el archivo..." << endl;
         exit(1);
     }
+    if (Leer.peek() == ifstream::traits_type::eof())
+    {
+        Leer.close();
+        return;
+    }
     int i = 0;
     while (!Leer.eof())
     {
@@ -55,10 +60,10 @@ void leerLibro(Libro libros[], string libro, int &n)
         getline(Leer, libros[i].autor);
         getline(Leer, xano);
         getline(Leer, libros[i].sinopsis);
-        getline(Leer, xcantidad); // Leemos la cantidad aquí
+        getline(Leer, xcantidad); 
         istringstream(xcodigo) >> libros[i].codigo;
         istringstream(xano) >> libros[i].anoPublicacion;
-        istringstream(xcantidad) >> libros[i].cantidad; // Convertimos la cantidad a int
+        istringstream(xcantidad) >> libros[i].cantidad;
         n++;
         i++;
     }

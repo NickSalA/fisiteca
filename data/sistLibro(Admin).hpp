@@ -83,25 +83,56 @@ void eliminarLibro(Libro libros[], int &n)
 
         if (confirmacion == 'S')
         {
+            // Elimina el libro del arreglo
             for (int i = indiceLibro; i < n - 1; ++i)
             {
                 libros[i] = libros[i + 1];
             }
             --n;
-            cout << "Libro eliminado exitosamente." << endl;
 
-            ofstream Grabacion("libros.txt");
+            // Lee todos los libros del archivo
+            vector<Libro> librosActualizados;
+            ifstream Leer("libros.txt");
+            if (Leer.fail())
+            {
+                cerr << "Error al abrir el archivo para leer..." << endl;
+                return;
+            }
+            Libro libroTemp;
+            while (Leer >> libroTemp.codigo)
+            {
+                // Lee el resto de los datos del libro
+                getline(Leer >> ws, libroTemp.nombre);
+                getline(Leer, libroTemp.genero);
+                getline(Leer, libroTemp.autor);
+                Leer >> libroTemp.anoPublicacion;
+                getline(Leer >> ws, libroTemp.sinopsis);
+                Leer >> libroTemp.cantidad;
+
+                librosActualizados.push_back(libroTemp);
+            }
+            Leer.close();
+
+            // Escribe todos los libros actualizados en el archivo
+            ofstream Escribir("libros.txt");
+            if (!Escribir.is_open())
+            {
+                cerr << "Error al abrir el archivo para escribir..." << endl;
+                return;
+            }
             for (int i = 0; i < n; ++i)
             {
-                Grabacion << libros[i].codigo << endl;
-                Grabacion << libros[i].nombre << endl;
-                Grabacion << libros[i].genero << endl;
-                Grabacion << libros[i].autor << endl;
-                Grabacion << libros[i].anoPublicacion << endl;
-                Grabacion << libros[i].sinopsis << endl;
-                Grabacion << libros[i].cantidad << endl; // Guardamos la cantidad aquí
+                Escribir << libros[i].codigo << endl
+                         << libros[i].nombre << endl
+                         << libros[i].genero << endl
+                         << libros[i].autor << endl
+                         << libros[i].anoPublicacion << endl
+                         << libros[i].sinopsis << endl
+                         << libros[i].cantidad << endl;
             }
-            Grabacion.close();
+            Escribir.close();
+
+            cout << "Libro eliminado exitosamente." << endl;
         }
         else
         {
@@ -146,7 +177,7 @@ void editarLibro(Libro libros[], int n)
         dibujarTexto(20, 8, "3. Autor: " + libros[indiceLibro].autor);
         dibujarTexto(20, 10, "4. Año de publicación: " + to_string(libros[indiceLibro].anoPublicacion));
         dibujarTexto(20, 12, "5. Sinopsis: " + libros[indiceLibro].sinopsis);
-        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad)); // Añadimos la opción de editar la cantidad
+        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad)); 
         int opcion;
         dibujarTexto(20, 16, "Seleccione el número del campo que desea editar (1-6): ");
         cin >> opcion;
@@ -200,7 +231,7 @@ void editarLibro(Libro libros[], int n)
             Grabacion << libros[i].autor << endl;
             Grabacion << libros[i].anoPublicacion << endl;
             Grabacion << libros[i].sinopsis << endl;
-            Grabacion << libros[i].cantidad << endl; // Guardamos la cantidad aquí
+            Grabacion << libros[i].cantidad << endl; 
         }
         Grabacion.close();
 
@@ -211,13 +242,23 @@ void editarLibro(Libro libros[], int n)
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
-void aceptarLibroDonado(Libro libros[], int &n) {
+void aceptarLibroDonado(Libro libros[], int &n)
+{
     int nDonativos = 0;
     Libro librosDonativos[100];
     leerLibro(librosDonativos, "libros(donativo).txt", nDonativos);
+
+    if (nDonativos == 0)
+    {
+        cout << "No hay libros donados para aceptar." << endl;
+        Sleep(1000);
+        return;
+    }
+
     limpiarPantalla();
     cout << "Seleccione el libro que desea aceptar:" << endl;
-    for (int i = 0; i < nDonativos; i++) {
+    for (int i = 0; i < nDonativos; i++)
+    {
         cout << "\nLibro " << i + 1 << endl;
         cout << "Codigo: " << librosDonativos[i].codigo << endl;
         cout << "Nombre: " << librosDonativos[i].nombre << endl;
@@ -227,48 +268,62 @@ void aceptarLibroDonado(Libro libros[], int &n) {
         cout << "Sinopsis: " << librosDonativos[i].sinopsis << endl;
         cout << "Cantidad: " << librosDonativos[i].cantidad << endl;
     }
+
     int seleccion;
     cout << "Ingrese el número del libro que desea aceptar: ";
     cin >> seleccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    if (seleccion >= 1 && seleccion <= nDonativos) {
+
+    if (seleccion >= 1 && seleccion <= nDonativos)
+    {
         int indice = seleccion - 1;
+
         libros[n] = librosDonativos[indice];
         n++;
+
         ofstream Grabacion("libros.txt", ios::app);
-        if (Grabacion.is_open()) {
-            Grabacion << librosDonativos[indice].codigo << endl;
-            Grabacion << librosDonativos[indice].nombre << endl;
-            Grabacion << librosDonativos[indice].genero << endl;
-            Grabacion << librosDonativos[indice].autor << endl;
-            Grabacion << librosDonativos[indice].anoPublicacion << endl;
-            Grabacion << librosDonativos[indice].sinopsis << endl;
-            Grabacion << librosDonativos[indice].cantidad << endl;
-            Grabacion.close();
-            cout << "Libro aceptado exitosamente." << endl;
-        } else {
-            cout << "Error al abrir el archivo para guardar los cambios." << endl;
+        if (!Grabacion.is_open())
+        {
+            cerr << "Error al abrir el archivo para escribir..." << endl;
+            return;
         }
-        for (int i = indice; i < nDonativos - 1; ++i) {
+        Grabacion << librosDonativos[indice].codigo << endl
+                  << librosDonativos[indice].nombre << endl
+                  << librosDonativos[indice].genero << endl
+                  << librosDonativos[indice].autor << endl
+                  << librosDonativos[indice].anoPublicacion << endl
+                  << librosDonativos[indice].sinopsis << endl
+                  << librosDonativos[indice].cantidad << endl;
+        Grabacion.close();
+
+        cout << "Libro aceptado exitosamente." << endl;
+
+        for (int i = indice; i < nDonativos - 1; ++i)
+        {
             librosDonativos[i] = librosDonativos[i + 1];
         }
         --nDonativos;
+
         ofstream GrabacionDonativo("libros(donativo).txt");
-        if (GrabacionDonativo.is_open()) {
-            for (int i = 0; i < nDonativos; ++i) {
-                GrabacionDonativo << librosDonativos[i].codigo << endl;
-                GrabacionDonativo << librosDonativos[i].nombre << endl;
-                GrabacionDonativo << librosDonativos[i].genero << endl;
-                GrabacionDonativo << librosDonativos[i].autor << endl;
-                GrabacionDonativo << librosDonativos[i].anoPublicacion << endl;
-                GrabacionDonativo << librosDonativos[i].sinopsis << endl;
-                GrabacionDonativo << librosDonativos[i].cantidad << endl;
-            }
-            GrabacionDonativo.close();
-        } else {
+        if (!GrabacionDonativo.is_open())
+        {
             cerr << "No se pudo abrir el archivo libros(donativo).txt para escritura." << endl;
+            return;
         }
-    } else {
+        for (int i = 0; i < nDonativos; ++i)
+        {
+            GrabacionDonativo << librosDonativos[i].codigo << endl
+                              << librosDonativos[i].nombre << endl
+                              << librosDonativos[i].genero << endl
+                              << librosDonativos[i].autor << endl
+                              << librosDonativos[i].anoPublicacion << endl
+                              << librosDonativos[i].sinopsis << endl
+                              << librosDonativos[i].cantidad << endl;
+        }
+        GrabacionDonativo.close();
+    }
+    else
+    {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
