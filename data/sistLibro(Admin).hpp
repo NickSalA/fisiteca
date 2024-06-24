@@ -242,6 +242,7 @@ void editarLibro(Libro libros[], int n)
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
+
 void aceptarLibroDonado(Libro libros[], int &n)
 {
     int nDonativos = 0;
@@ -326,6 +327,71 @@ void aceptarLibroDonado(Libro libros[], int &n)
     {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
+}
+
+void mostrarMenu(vector<string> &usuarios)
+{
+    for (size_t i = 0; i < usuarios.size(); ++i)
+    {
+        cout << i + 1 << ". " << usuarios[i] << "\n";
+    }
+
+    int opcion;
+    cout << "\nDesee el numero de orden del usuario que desea saber su estado de prestamos de libros: ";
+    cin >> opcion;
+    cout << endl;
+
+    if (opcion > 0 && opcion <= usuarios.size())
+    {
+        mostrarPrestamosUsuario(usuarios[opcion - 1]);
+    }
+    else
+    {
+        cout << "Opción inválida.\n";
+    }
+
+    cout << "0. Regresar\n1. Salir\n\nElija una opción: ";
+    cin >> opcion;
+    cout << endl;
+
+    if (opcion == 0)
+    {
+        limpiarPantalla();
+        mostrarMenu(usuarios);
+    }
+    else if (opcion != 1)
+    {
+        cout << "Opción inválida.\n";
+    }
+}
+
+void estadoUsuario()
+{
+
+    configurarConsolaUtf8();
+
+    vector<string> usuarios;
+    ifstream archivo("credUsuario.txt");
+    if (!archivo.is_open())
+    {
+        cerr << "No se pudo abrir el archivo credUsuario.txt\n";
+    }
+
+    string linea;
+    int contador = 0;
+    while (getline(archivo, linea))
+    {
+        // Solo guarda las líneas impares (nombres de usuario)
+        if (contador % 2 == 0)
+        {
+            usuarios.push_back(linea);
+        }
+        contador++;
+    }
+
+    archivo.close();
+
+    mostrarMenu(usuarios);
 }
 
 #endif // SISTLIBROADMIN_HPP
