@@ -726,28 +726,4 @@ void donarLibro(string &usuarioIngresado)
     }
 }
 
-void mostrarPrestamosUsuario(const string &usuario)
-{
-    ifstream archivo("libros(pedidos).txt");
-    if (!archivo.is_open())
-    {
-        cerr << "No se pudo abrir el archivo libros(pedidos).txt\n";
-        return;
-    }
-
-    string linea;
-    while (getline(archivo, linea))
-    {
-        if (linea == usuario)
-        {
-            getline(archivo, linea);
-            cout << "Código de libro: " << linea << "\n"; // Código del libro
-            getline(archivo, linea);
-            cout << "Título: " << linea << "\n\n"; // Título del libro
-        }
-    }
-
-    archivo.close();
-}
-
 #endif // SISTLIBROUSUARIO_HPP

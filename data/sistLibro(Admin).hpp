@@ -177,7 +177,7 @@ void editarLibro(Libro libros[], int n)
         dibujarTexto(20, 8, "3. Autor: " + libros[indiceLibro].autor);
         dibujarTexto(20, 10, "4. Año de publicación: " + to_string(libros[indiceLibro].anoPublicacion));
         dibujarTexto(20, 12, "5. Sinopsis: " + libros[indiceLibro].sinopsis);
-        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad)); 
+        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad));
         int opcion;
         dibujarTexto(20, 16, "Seleccione el número del campo que desea editar (1-6): ");
         cin >> opcion;
@@ -231,7 +231,7 @@ void editarLibro(Libro libros[], int n)
             Grabacion << libros[i].autor << endl;
             Grabacion << libros[i].anoPublicacion << endl;
             Grabacion << libros[i].sinopsis << endl;
-            Grabacion << libros[i].cantidad << endl; 
+            Grabacion << libros[i].cantidad << endl;
         }
         Grabacion.close();
 
@@ -327,6 +327,30 @@ void aceptarLibroDonado(Libro libros[], int &n)
     {
         cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
+}
+
+void mostrarPrestamosUsuario(const string &usuario)
+{
+    ifstream archivo("libros(pedidos).txt");
+    if (!archivo.is_open())
+    {
+        cerr << "No se pudo abrir el archivo libros(pedidos).txt\n";
+        return;
+    }
+
+    string linea;
+    while (getline(archivo, linea))
+    {
+        if (linea == usuario)
+        {
+            getline(archivo, linea);
+            cout << "Código de libro: " << linea << "\n"; // Código del libro
+            getline(archivo, linea);
+            cout << "Título: " << linea << "\n\n"; // Título del libro
+        }
+    }
+
+    archivo.close();
 }
 
 void mostrarMenu(vector<string> &usuarios)

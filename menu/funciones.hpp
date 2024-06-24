@@ -60,7 +60,7 @@ void leerLibro(Libro libros[], string libro, int &n)
         getline(Leer, libros[i].autor);
         getline(Leer, xano);
         getline(Leer, libros[i].sinopsis);
-        getline(Leer, xcantidad); 
+        getline(Leer, xcantidad);
         istringstream(xcodigo) >> libros[i].codigo;
         istringstream(xano) >> libros[i].anoPublicacion;
         istringstream(xcantidad) >> libros[i].cantidad;
