@@ -133,6 +133,29 @@ vector<Libro> buscarCoincidencias_gen(const vector<Libro> &libros, const string 
     return coincidencias;
 }
 
+bool buscarcoincidencia_cod(const std::string& codigo) {
+    std::ifstream archivo("libros.txt");
+    std::string linea;
+
+    // Verificar si se pudo abrir el archivo
+    if (!archivo.is_open()) {
+        std::cerr << "Error al abrir el archivo libros.txt" << std::endl;
+        return false; // No se pudo abrir el archivo
+    }
+
+    // Recorrer cada línea del archivo
+    while (std::getline(archivo, linea)) {
+        // Si la línea contiene el código buscado, retornar true
+        if (linea == codigo) {
+            archivo.close();
+            return true;
+        }
+    }
+
+    archivo.close();
+    return false; // No se encontró el código en el archivo
+}
+
 void mainBuscador_gen()
 {
     string nombreArchivo = "libros.txt";
@@ -738,9 +761,21 @@ void donarLibro(string &usuarioIngresado) {
         Libro nuevoLibro;
         nuevoLibro.nombre = nombreLibro;
         
-        cout << "Ingrese el código del libro: ";
-        cin >> nuevoLibro.codigo;
-        cin.ignore(); // Limpiar el buffer
+        bool codigoRepetido = true;
+        string codigoLibro;
+
+        while (codigoRepetido) {
+            cout << "Ingrese el código del libro: ";
+            cin >> codigoLibro;
+            cin.ignore(); // Limpiar el buffer
+
+            // Verificar si el código ya existe en libros.txt
+             if (buscarcoincidencia_cod(codigoLibro)) {
+                 cout << "El código ingresado ya existe. Por favor, ingrese otro código." << endl;
+            } else {
+                codigoRepetido = false; // Salir del bucle, código válido
+            }
+        }
         
         cout << "Ingrese el género del libro: ";
         getline(cin, nuevoLibro.genero);
