@@ -469,7 +469,7 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
     }
 }
 
-void pedirPrestado(Libro libros[], int n, int seleccion, const string &usuarioIngresado)
+void pedirPrestado(Libro libros[], int seleccion, const string &usuarioIngresado)
 {
     if (libros[seleccion].cantidad > 0)
     {
@@ -588,7 +588,7 @@ void prestarLibro(string &usuarioIngresado)
             cin >> confirmar;
             if (confirmar == 'S' || confirmar == 's')
             {
-                pedirPrestado(libros, n, seleccion, usuarioIngresado);
+                pedirPrestado(libros, seleccion, usuarioIngresado);
             }
         }
         else if (tecla == 27)
@@ -673,6 +673,7 @@ void donarLibro(string &usuarioIngresado)
         {
             cout << "Ingrese el código del libro: ";
             cin >> codigoLibro;
+            istringstream(codigoLibro) >> nuevoLibro.codigo;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
             // Verificar si el código ya existe en libros.txt

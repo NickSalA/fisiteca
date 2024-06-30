@@ -365,7 +365,7 @@ void mostrarMenu(vector<string> &usuarios)
     cin >> opcion;
     cout << endl;
 
-    if (opcion > 0 && opcion <= usuarios.size())
+    if (opcion > 0 && opcion <= static_cast<int>(usuarios.size()))
     {
         mostrarPrestamosUsuario(usuarios[opcion - 1]);
     }
