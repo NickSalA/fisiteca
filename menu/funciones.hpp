@@ -36,29 +36,35 @@ struct Libro
     int cantidad;
 };
 
-string xcodigo, xano, xcantidad;
+
 
 void leerLibro(Libro libros[], string libro, int &n)
 {
+    string xcodigo="", xano="", xcantidad="";
     ifstream Leer(libro, ios::in);
     if (Leer.fail())
     {
         cout << "Error en el archivo..." << endl;
         exit(1);
     }
+    if (Leer.peek() == ifstream::traits_type::eof())
+    {
+        Leer.close();
+        return;
+    }
     int i = 0;
     while (!Leer.eof())
     {
-        getline(Leer, xcodigo);
-        getline(Leer, libros[i].nombre);
-        getline(Leer, libros[i].genero);
-        getline(Leer, libros[i].autor);
-        getline(Leer, xano);
-        getline(Leer, libros[i].sinopsis);
-        getline(Leer, xcantidad); // Leemos la cantidad aquí
+        if (!getline(Leer, xcodigo)) break;
+        if (!getline(Leer, libros[i].nombre)) break;
+        if (!getline(Leer, libros[i].genero)) break;
+        if (!getline(Leer, libros[i].autor)) break;
+        if (!getline(Leer, xano)) break;
+        if (!getline(Leer, libros[i].sinopsis)) break;
+        if (!getline(Leer, xcantidad)) break;
         istringstream(xcodigo) >> libros[i].codigo;
         istringstream(xano) >> libros[i].anoPublicacion;
-        istringstream(xcantidad) >> libros[i].cantidad; // Convertimos la cantidad a int
+        istringstream(xcantidad) >> libros[i].cantidad;
         n++;
         i++;
     }
