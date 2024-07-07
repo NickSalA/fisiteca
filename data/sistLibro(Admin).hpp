@@ -256,6 +256,8 @@ void aceptarLibroDonado(Libro libros[], int &n)
     if (nDonativos == 0)
     {
         dibujarTexto(20, 5, "No hay libros donados para aceptar.");
+        dibujarGatito(85, 10);
+        Sleep(1000);
         ejecutarGradiente();
         return;
     }
@@ -352,10 +354,11 @@ void mostrarPrestamosUsuario(const string &usuario)
     {
         if (linea == usuario)
         {
+            dibujarTexto(20, 5, "Libros prestados:");
             getline(archivo, linea);
-            dibujarTexto(20, 5, "Codigo de libro: " + linea); // Código del libro
+            dibujarTexto(20, 8, "Codigo de libro: " + linea); // Código del libro
             getline(archivo, linea);
-            dibujarTexto(20, 7, "Titulo: " + linea); // Título del libro
+            dibujarTexto(20, 10, "Titulo: " + linea); // Título del libro
         }
     }
 
@@ -386,7 +389,8 @@ void mostrarMenu(vector<string> &usuarios)
     }
     else
     {
-        dibujarTexto(20, 5 + usuarios.size() * 2, "Opción inválida.");
+        limpiarPantalla();
+        dibujarTexto(20, usuarios.size() * 2, "Opción inválida.");
     }
 
     dibujarTexto(20, 15 + usuarios.size(), "0. Regresar");
