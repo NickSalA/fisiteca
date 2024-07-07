@@ -402,10 +402,10 @@ void BuscarLibro()
                 mainBuscador_gen();
                 break;
             case 2:
-                mainBuscar_autor();
+                mainBuscar_anio();
                 break;
             case 3:
-                mainBuscar_anio();
+                mainBuscar_autor();
                 break;
             case 4:
                 repite = false;
