@@ -138,6 +138,9 @@ void pausa()
 enum ConsoleColor
 {
     Black = 0,
+    DarkGray = BACKGROUND_INTENSITY,
+    Gray = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE,
+    LightGray = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE | BACKGROUND_INTENSITY,
     Blue = BACKGROUND_BLUE,
     Green = BACKGROUND_GREEN,
     Red = BACKGROUND_RED,
@@ -149,6 +152,42 @@ void setColor(ConsoleColor color)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, color);
+}
+
+void setConsoleBackground(ConsoleColor color) {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+    DWORD cells = 0;
+    DWORD written = 0;
+    COORD homeCoords = { 0, 0 };
+
+    if (!GetConsoleScreenBufferInfo(hConsole, &csbi)) {
+        return;
+    }
+
+    cells = csbi.dwSize.X * csbi.dwSize.Y;
+
+    // Establecer el color de fondo
+    FillConsoleOutputAttribute(hConsole, color, cells, homeCoords, &written);
+    // Limpiar la consola
+    FillConsoleOutputCharacter(hConsole, ' ', cells, homeCoords, &written);
+    SetConsoleCursorPosition(hConsole, homeCoords);
+}
+
+void ejecutarGradiente(int duracion = 230) {
+    const int steps = 5;
+    ConsoleColor colors[steps] = { White, LightGray, Gray, DarkGray, Black };
+
+    for (int i = 0; i < steps; ++i) {
+        setConsoleBackground(colors[i]);
+        std::this_thread::sleep_for(std::chrono::milliseconds(duracion / steps));
+    }
+    for (int i = 4; i>=0; i--){
+        setConsoleBackground(colors[i]);
+        std::this_thread::sleep_for(std::chrono::milliseconds(duracion / steps));
+    }
+
+    setConsoleBackground(White);
 }
 
 void dibujarCuadro(int x, int y, int ancho, int alto)
@@ -295,6 +334,31 @@ void Set_Console_Sizes(const int consola_ancho, const int consola_alto, bool cur
     SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
     CenterConsoleWindow();
     ShowConsoleCursor(cursor);
+}
+
+void mostrarIniciando(int x, int y, int duracion = 300, int tamano = 3) {
+    gotoxy(x, y);
+    cout << "Iniciando" << flush;
+
+    for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < tamano; ++i) {
+            cout << "." << flush;
+            this_thread::sleep_for(chrono::milliseconds(duracion));
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << "\b" << flush; 
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << " " << flush; 
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << "\b" << flush; 
+        }
+
+        this_thread::sleep_for(chrono::milliseconds(duracion));
+    }
+    gotoxy(x + 9, y);
+    cout << "   " << flush; // Borra los puntos finales
 }
 
 void dibujarTeslaASCII(int x, int y)
@@ -472,4 +536,8 @@ string obtenerFechaPlazo()
     sS << diaPlazo << "/" << localTime.wMonth << "/" << localTime.wYear;
     return sS.str();
 }
+
+
+
 #endif // FUNCIONES_HPP
+

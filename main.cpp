@@ -23,6 +23,10 @@ int main() {
     ocultarCursor();
     
     limpiarPantalla();
+    mostrarIniciando(52,12);
+    limpiarPantalla();
+    ejecutarGradiente();
+    limpiarPantalla();
     dibujarTitulo(2, 3, titulo);
     dibujarCuadro(pos.x-8, 2, 50, 25);
     dibujarMenu(pos.x+3, pos.y, opciones);
@@ -52,7 +56,7 @@ int main() {
         } else if (key == '\r') {
             limpiarPantalla();
             switch (opc) {
-                case 0: 
+                case 0:
                     ingresarUsuario();
                     break;
                 case 1: 
