@@ -124,41 +124,41 @@ void mainBuscador_ti()
     do
     {
         system("cls");
-
-        cout << "0.Regresar\n";
-        cout << "\t\tIngrese el titulo a buscar: ";
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(100, 25, "0. Regresar");
+        dibujarTeslaASCII(106, 3);
+        dibujarTexto(30, 5, "Ingrese el título a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
 
         if (busqueda == to_string(0))
         {
-
-            cout << "Regresando....";
+            dibujarTexto(40, 10, "Regresando....");
             Sleep(2000);
             break;
         }
 
         if (coincidencias.empty())
         {
-            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
+            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
-            cout << "Coincidencias encontradas:\n";
+            dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " << libro.codigo << endl;
-                cout << "Nombre: " << libro.nombre << endl;
-                cout << "Género: " << libro.genero << endl;
-                cout << "Autor: " << libro.autor << endl;
-                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout << "Cantidad: " << libro.cantidad << endl;
-                cout << endl;
+                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14, "Género: " + libro.genero);
+                dibujarTexto(10, 15, "Autor: " + libro.autor);
+                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
             }
-        }
-        esperaConMensaje("Presione una tecla para volver a buscar...");
+        
+        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        esperaConMensaje("");
     } while (true);
 }
 
@@ -200,8 +200,10 @@ void mainBuscador_gen()
     {
         system("cls");
 
-        cout << "0.Regresar\n";
-        cout << "\t\tIngrese el genero a buscar: ";
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(100, 25, "0. Regresar");
+        dibujarTeslaASCII(106, 3);
+        dibujarTexto(30, 5, "Ingrese el genero a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
@@ -209,31 +211,31 @@ void mainBuscador_gen()
         if (busqueda == to_string(0))
         {
 
-            cout << "Regresando....";
+            dibujarTexto(40, 10, "Regresando....");
             Sleep(2000);
             break;
         }
 
         if (coincidencias.empty())
         {
-            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
+            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
-            cout << "Coincidencias encontradas:\n";
+            dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " << libro.codigo << endl;
-                cout << "Nombre: " << libro.nombre << endl;
-                cout << "Género: " << libro.genero << endl;
-                cout << "Autor: " << libro.autor << endl;
-                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout << "Cantidad: " << libro.cantidad << endl;
-                cout << endl;
+                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14, "Género: " + libro.genero);
+                dibujarTexto(10, 15, "Autor: " + libro.autor);
+                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
             }
-        }
-        esperaConMensaje("Presione una tecla para volver a buscar...");
+        
+        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        esperaConMensaje("");    
     } while (true);
 }
 
@@ -248,9 +250,10 @@ void mainBuscar_autor()
     do
     {
         system("cls");
-
-        cout << "0.Regresar\n";
-        cout << "\t\tIngrese el autor a buscar: ";
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(100, 25, "0. Regresar");
+        dibujarTeslaASCII(106, 3);
+        dibujarTexto(30, 5, "Ingrese el autor a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
@@ -258,31 +261,30 @@ void mainBuscar_autor()
         if (busqueda == to_string(0))
         {
 
-            cout << "Regresando....";
+            dibujarTexto(40, 10, "Regresando....");
             Sleep(2000);
             break;
         }
 
         if (coincidencias.empty())
         {
-            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
+            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
-            cout << "Coincidencias encontradas:\n";
+            dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " << libro.codigo << endl;
-                cout << "Nombre: " << libro.nombre << endl;
-                cout << "Género: " << libro.genero << endl;
-                cout << "Autor: " << libro.autor << endl;
-                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout << "Cantidad: " << libro.cantidad << endl;
-                cout << endl;
+                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14, "Género: " + libro.genero);
+                dibujarTexto(10, 15, "Autor: " + libro.autor);
+                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
             }
-        }
-        esperaConMensaje("Presione una tecla para volver a buscar...");
+        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        esperaConMensaje("");
     } while (true);
 }
 
@@ -297,9 +299,10 @@ void mainBuscar_anio()
     do
     {
         system("cls");
-
-        cout << "0.Regresar\n";
-        cout << "\t\tIngrese el año a buscar: ";
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(100, 25, "0. Regresar");
+        dibujarTeslaASCII(106, 3);
+        dibujarTexto(30, 5, "Ingrese el título a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -307,31 +310,30 @@ void mainBuscar_anio()
         if (busqueda == to_string(0))
         {
 
-            cout << "Regresando....";
+            dibujarTexto(40, 10, "Regresando....");
             Sleep(2000);
             break;
         }
 
         if (coincidencias.empty())
         {
-            cout << "No se encontraron coincidencias para el término de búsqueda: " << busqueda << endl;
+            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
-            cout << "Coincidencias encontradas:\n";
+            dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " << libro.codigo << endl;
-                cout << "Nombre: " << libro.nombre << endl;
-                cout << "Género: " << libro.genero << endl;
-                cout << "Autor: " << libro.autor << endl;
-                cout << "Año de Publicación: " << libro.anoPublicacion << endl;
-                cout << "Sinopsis: " << libro.sinopsis << endl;
-                cout << "Cantidad: " << libro.cantidad << endl;
-                cout << endl;
+                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14, "Género: " + libro.genero);
+                dibujarTexto(10, 15, "Autor: " + libro.autor);
+                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
             }
-        }
-        esperaConMensaje("Presione una tecla para volver a buscar...");
+        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        esperaConMensaje("");
     } while (true);
 }
 

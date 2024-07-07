@@ -370,11 +370,11 @@ void mostrarIniciando(int x, int y, int duracion = 300, int tamano = 3) {
 void dibujarTeslaASCII(int x, int y)
 {
     gotoxy(x, y);
-    cout << "  /\\_/\\  ";
+    cout << "  /\\_/\\ ";
     gotoxy(x, y + 1);
-    cout << " ( o.o ) ";
+    cout << " ( o.o )";
     gotoxy(x, y + 2);
-    cout << "  > ^ <  ";
+    cout << "  > ^ < ";
 }
 
 void dibujarTituloASCII(int x, int y, const string &titulo)
