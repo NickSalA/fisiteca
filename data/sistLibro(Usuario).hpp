@@ -145,16 +145,18 @@ void mainBuscador_ti()
         }
         else
         {
+            int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14, "Género: " + libro.genero);
-                dibujarTexto(10, 15, "Autor: " + libro.autor);
-                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
+                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
+                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                i++;
             }
         
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
@@ -222,16 +224,18 @@ void mainBuscador_gen()
         }
         else
         {
+            int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14, "Género: " + libro.genero);
-                dibujarTexto(10, 15, "Autor: " + libro.autor);
-                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
+                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
+                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                i++;
             }
         
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
@@ -272,16 +276,18 @@ void mainBuscar_autor()
         }
         else
         {
+            int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14, "Género: " + libro.genero);
-                dibujarTexto(10, 15, "Autor: " + libro.autor);
-                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
+                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
+                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                i++;
             }
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
         esperaConMensaje("");
@@ -290,7 +296,7 @@ void mainBuscar_autor()
 
 void mainBuscar_anio()
 {
-
+    
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
@@ -321,16 +327,18 @@ void mainBuscar_anio()
         }
         else
         {
+            int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
-            {
-                dibujarTexto(10, 12, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14, "Género: " + libro.genero);
-                dibujarTexto(10, 15, "Autor: " + libro.autor);
-                dibujarTexto(10, 16, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19, "Cantidad: " + to_string(libro.cantidad));
+            {                
+                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
+                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
+                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
+                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
+                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
+                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
+                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                i++;
             }
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
         esperaConMensaje("");
