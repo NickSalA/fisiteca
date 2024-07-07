@@ -420,7 +420,7 @@ void dibujarGatito(int x, int y) {
     gotoxy(x, y + 7);
     std::cout << " \\ \\ ,  /      |" << std::endl;
     gotoxy(x, y + 8);
-    std::cout << "  || |-_\__   /" << std::endl;
+    std::cout << "  || |-___   /" << std::endl;
     gotoxy(x, y + 9);
     std::cout << " ((_/`(____,-'" << std::endl;
 }
