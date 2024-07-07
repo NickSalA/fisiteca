@@ -367,6 +367,31 @@ void mostrarIniciando(int x, int y, int duracion = 300, int tamano = 3) {
     cout << "   " << flush; // Borra los puntos finales
 }
 
+void mostrarSaliendo(int x, int y, int duracion = 300, int tamano = 3) {
+    gotoxy(x, y);
+    cout << "Saliendo" << flush;
+
+    for (int j = 0; j < 3; j++) {
+        for (int i = 0; i < tamano; ++i) {
+            cout << "." << flush;
+            this_thread::sleep_for(chrono::milliseconds(duracion));
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << "\b" << flush; 
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << " " << flush; 
+        }
+        for (int i = 0; i < tamano; ++i) {
+            cout << "\b" << flush; 
+        }
+
+        this_thread::sleep_for(chrono::milliseconds(duracion));
+    }
+    gotoxy(x + 9, y);
+    cout << "   " << flush; // Borra los puntos finales
+}
+
 void dibujarTeslaASCII(int x, int y)
 {
     gotoxy(x, y);
@@ -375,6 +400,29 @@ void dibujarTeslaASCII(int x, int y)
     cout << " ( o.o )";
     gotoxy(x, y + 2);
     cout << "  > ^ < ";
+}
+
+void dibujarGatito(int x, int y) {
+    gotoxy(x, y);
+    std::cout << " ,_     _" << std::endl;
+    gotoxy(x, y + 1);
+    std::cout << " |\\_,-~/" << std::endl;
+    gotoxy(x, y + 2);
+    std::cout << " / _  _ |    ,--." << std::endl;
+    gotoxy(x, y + 3);
+    std::cout << "(  @  @ )   / ,-'" << std::endl;
+    gotoxy(x, y + 4);
+    std::cout << " \\  _T_/-._( (" << std::endl;
+    gotoxy(x, y + 5);
+    std::cout << " /         `. \\" << std::endl;
+    gotoxy(x, y + 6);
+    std::cout << "|         _  \\ |" << std::endl;
+    gotoxy(x, y + 7);
+    std::cout << " \\ \\ ,  /      |" << std::endl;
+    gotoxy(x, y + 8);
+    std::cout << "  || |-_\__   /" << std::endl;
+    gotoxy(x, y + 9);
+    std::cout << " ((_/`(____,-'" << std::endl;
 }
 
 void dibujarTituloASCII(int x, int y, const string &titulo)

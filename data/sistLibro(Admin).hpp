@@ -39,7 +39,7 @@ void agregarLibro(Libro libros[], int &n)
     if (Grabacion.fail())
     {
         cout << "Error en el archivo..." << endl;
-        Sleep(2000);
+        ejecutarGradiente();
     }
     else
     {
@@ -59,25 +59,29 @@ void eliminarLibro(Libro libros[], int &n)
 {
     int numLibro;
 
+    dibujarCuadro(5, 2, 110, 25);
     for (int i = 0; i < n; i++)
     {
-        cout << "\nLibro " << i + 1 << ": " << libros[i].nombre << " - Cantidad: " << libros[i].cantidad << endl;
+        dibujarTexto(20, 5 + i * 1, "Libro " + to_string(i + 1) + ": " + libros[i].nombre + " - Cantidad: " + to_string(libros[i].cantidad));
     }
 
-    cout << "Seleccione el número del libro que desea eliminar: ";
+    dibujarTexto(20, 6 + n * 1, "Seleccione el número del libro que desea eliminar: ");
     cin >> numLibro;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    limpiarPantalla();
 
+    dibujarCuadro(5, 2, 110, 25);
     if (numLibro >= 1 && numLibro <= n)
     {
         int indiceLibro = numLibro - 1;
-        cout << "\nLibro: " << libros[indiceLibro].nombre << " - Cantidad: " << libros[indiceLibro].cantidad << endl;
-        cout << "Genero: " << libros[indiceLibro].genero << endl;
-        cout << "Autor: " << libros[indiceLibro].autor << endl;
-        cout << "Año de publicacion: " << libros[indiceLibro].anoPublicacion << endl;
+        dibujarTexto(20, 2, "Libro: " + libros[indiceLibro].nombre + " - Cantidad: " + to_string(libros[indiceLibro].cantidad));
+        dibujarTexto(20, 4, "Codigo: " + to_string(libros[indiceLibro].codigo));
+        dibujarTexto(20, 6, "Genero: " + libros[indiceLibro].genero);
+        dibujarTexto(20, 8, "Autor: " + libros[indiceLibro].autor);
+        dibujarTexto(20, 10, "Año de publicacion: " + to_string(libros[indiceLibro].anoPublicacion));
 
         char confirmacion;
-        cout << "¿Está seguro de que desea eliminar este libro? (S/N): ";
+        dibujarTexto(20, 12, "¿Está seguro de que desea eliminar este libro? (S/N): ");
         cin >> confirmacion;
         confirmacion = toupper(confirmacion);
 
@@ -150,7 +154,7 @@ void editarLibro(Libro libros[], int n)
 
     system("cls");
 
-    dibujarCuadro(10, 0, 100, 30);
+    dibujarCuadro(5, 2, 110, 25);
     dibujarTitulo(50, 2, "Editar libro");
     int numLibro;
 
@@ -170,7 +174,7 @@ void editarLibro(Libro libros[], int n)
     if (numLibro >= 1 && numLibro <= n)
     {
         int indiceLibro = numLibro - 1;
-        dibujarCuadro(10, 0, 100, 20);
+        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(20, 2, "Editar libro: " + libros[indiceLibro].nombre);
         dibujarTexto(20, 4, "1. Nombre: " + libros[indiceLibro].nombre);
         dibujarTexto(20, 6, "2. Genero: " + libros[indiceLibro].genero);
@@ -184,9 +188,8 @@ void editarLibro(Libro libros[], int n)
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
         system("cls");
-        system("cls");
 
-        dibujarCuadro(10, 0, 100, 20);
+        dibujarCuadro(5, 2, 110, 25);
         dibujarTitulo(50, 2, "Editor de libros");
         dibujarTeslaASCII(90, 15);
         switch (opcion)
@@ -248,30 +251,35 @@ void aceptarLibroDonado(Libro libros[], int &n)
     int nDonativos = 0;
     Libro librosDonativos[100];
     leerLibro(librosDonativos, "libros(donativo).txt", nDonativos);
+    dibujarCuadro(5, 2, 110, 25);
 
     if (nDonativos == 0)
     {
-        cout << "No hay libros donados para aceptar." << endl;
-        Sleep(1000);
+        dibujarTexto(20, 5, "No hay libros donados para aceptar.");
+        ejecutarGradiente();
         return;
     }
 
     limpiarPantalla();
-    cout << "Seleccione el libro que desea aceptar:" << endl;
+    dibujarCuadro(5, 2, 110, 25);
+    dibujarGatito(85, 10);
+    dibujarTexto(20, 4, "Selecciones el libro que desea aceptar:");
     for (int i = 0; i < nDonativos; i++)
     {
-        cout << "\nLibro " << i + 1 << endl;
-        cout << "Codigo: " << librosDonativos[i].codigo << endl;
-        cout << "Nombre: " << librosDonativos[i].nombre << endl;
-        cout << "Genero: " << librosDonativos[i].genero << endl;
-        cout << "Autor: " << librosDonativos[i].autor << endl;
-        cout << "Año de publicacion: " << librosDonativos[i].anoPublicacion << endl;
-        cout << "Sinopsis: " << librosDonativos[i].sinopsis << endl;
-        cout << "Cantidad: " << librosDonativos[i].cantidad << endl;
+        dibujarTexto(20, 6 + i * 9, "Libro " + to_string(i + 1));
+        dibujarTexto(20, 7 + i * 9, "Codigo: " + to_string(librosDonativos[i].codigo));
+        dibujarTexto(20, 8 + i * 9, "Nombre: " + librosDonativos[i].nombre);
+        dibujarTexto(20, 9 + i * 9, "Genero: " + librosDonativos[i].genero);
+        dibujarTexto(20, 10 + i * 9, "Autor: " + librosDonativos[i].autor);
+        dibujarTexto(20, 11 + i * 9, "Año de publicacion: " + to_string(librosDonativos[i].anoPublicacion));
+        dibujarTexto(20, 12 + i * 9, "Sinopsis: " + librosDonativos[i].sinopsis);
+        dibujarTexto(20, 13 + i * 9, "Cantidad: " + to_string(librosDonativos[i].cantidad));
+        dibujarTexto(20, 14 + i * 9, "------------------------------------------");
     }
 
     int seleccion;
-    cout << "Ingrese el número del libro que desea aceptar: ";
+    cout<<endl;
+    cout<<"\t\t    Ingrese el número del libro que desea aceptar: ";
     cin >> seleccion;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -297,7 +305,7 @@ void aceptarLibroDonado(Libro libros[], int &n)
                   << librosDonativos[indice].cantidad << endl;
         Grabacion.close();
 
-        cout << "Libro aceptado exitosamente." << endl;
+        cout << "\t\t    Libro aceptado exitosamente." << endl;
 
         for (int i = indice; i < nDonativos - 1; ++i)
         {
@@ -325,7 +333,7 @@ void aceptarLibroDonado(Libro libros[], int &n)
     }
     else
     {
-        cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
+        cout << "\t\t    Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
 
@@ -339,14 +347,15 @@ void mostrarPrestamosUsuario(const string &usuario)
     }
 
     string linea;
+    dibujarCuadro(5, 2, 110, 25);
     while (getline(archivo, linea))
     {
         if (linea == usuario)
         {
             getline(archivo, linea);
-            cout << "Código de libro: " << linea << "\n"; // Código del libro
+            dibujarTexto(20, 5, "Codigo de libro: " + linea); // Código del libro
             getline(archivo, linea);
-            cout << "Título: " << linea << "\n\n"; // Título del libro
+            dibujarTexto(20, 7, "Titulo: " + linea); // Título del libro
         }
     }
 
@@ -355,37 +364,47 @@ void mostrarPrestamosUsuario(const string &usuario)
 
 void mostrarMenu(vector<string> &usuarios)
 {
+    dibujarCuadro(5, 2, 110, 25);
+    dibujarTitulo(50, 5, "Estado de usuarios");
+    dibujarGatito(85, 10);
     for (size_t i = 0; i < usuarios.size(); ++i)
     {
-        cout << i + 1 << ". " << usuarios[i] << "\n";
+        dibujarTexto(20, 8 + i * 2, to_string(i + 1) + ". " + usuarios[i]);
     }
 
     int opcion;
-    cout << "\nDesee el numero de orden del usuario que desea saber su estado de prestamos de libros: ";
+    cout << "\n\n\n\n\t\t    Ingrese el numero de orden del usuario: ";
     cin >> opcion;
     cout << endl;
 
     if (opcion > 0 && opcion <= static_cast<int>(usuarios.size()))
     {
+        limpiarPantalla();
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarGatito(85, 10);
         mostrarPrestamosUsuario(usuarios[opcion - 1]);
     }
     else
     {
-        cout << "Opción inválida.\n";
+        dibujarTexto(20, 5 + usuarios.size() * 2, "Opción inválida.");
     }
 
-    cout << "0. Regresar\n1. Salir\n\nElija una opción: ";
+    dibujarTexto(20, 15 + usuarios.size(), "0. Regresar");
+    dibujarTexto(20, 16 + usuarios.size(), "1. Salir");
+    dibujarTexto(20, 18 + usuarios.size(), "Elija una opción: ");
     cin >> opcion;
     cout << endl;
+    ejecutarGradiente();
 
     if (opcion == 0)
     {
         limpiarPantalla();
+        dibujarCuadro(5, 2, 110, 25);
         mostrarMenu(usuarios);
     }
     else if (opcion != 1)
     {
-        cout << "Opción inválida.\n";
+        dibujarTexto(20, 13 + usuarios.size(), "Opción inválida.");
     }
 }
 

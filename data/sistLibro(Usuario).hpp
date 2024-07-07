@@ -134,8 +134,8 @@ void mainBuscador_ti()
 
         if (busqueda == to_string(0))
         {
-            dibujarTexto(40, 10, "Regresando....");
-            Sleep(2000);
+            dibujarTexto(20, 20, "Regresando....");
+            ejecutarGradiente();
             break;
         }
 
@@ -212,7 +212,7 @@ void mainBuscador_gen()
         {
 
             dibujarTexto(40, 10, "Regresando....");
-            Sleep(2000);
+            ejecutarGradiente();
             break;
         }
 
@@ -262,7 +262,7 @@ void mainBuscar_autor()
         {
 
             dibujarTexto(40, 10, "Regresando....");
-            Sleep(2000);
+            ejecutarGradiente();
             break;
         }
 
@@ -311,7 +311,7 @@ void mainBuscar_anio()
         {
 
             dibujarTexto(40, 10, "Regresando....");
-            Sleep(2000);
+            ejecutarGradiente();
             break;
         }
 
@@ -409,6 +409,7 @@ void BuscarLibro()
                 break;
             case 4:
                 repite = false;
+                ejecutarGradiente();
                 break;
             }
             limpiarPantalla();
@@ -467,7 +468,8 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
 {
     for (int i = 0; i < n; ++i)
     {
-        cout << (i == seleccion ? "> " : "  ") << libros[i].nombre << endl;
+        dibujarTexto(20, 5 + i, (i == seleccion ? "> " : "  ") + libros[i].nombre);
+        
     }
 }
 
@@ -537,13 +539,14 @@ void pedirPrestado(Libro libros[], int seleccion, const string &usuarioIngresado
                        << libros[seleccion].nombre << endl;
         EscribirPedido.close();
 
-        cout << "¡Has pedido prestado el libro: " << libros[seleccion].nombre << "!" << endl;
+        dibujarTexto(10, 18, "Has pedido prestado el libro: " + libros[seleccion].nombre + "!");
     }
     else
     {
-        cout << "Lo siento, no hay copias disponibles de este libro." << endl;
+        dibujarTexto(10, 18, "Lo siento, no hay copias disponibles de este libro.");
     }
     system("pause");
+    ejecutarGradiente();
 }
 
 void prestarLibro(string &usuarioIngresado)
@@ -562,7 +565,9 @@ void prestarLibro(string &usuarioIngresado)
     while (true)
     {
         limpiarPantalla();
+        dibujarCuadro(5, 2, 100, 25);
         mostrarLibros(libros, n, seleccion);
+        dibujarTexto(77, 26, "Presiona ESC para regresar.");
 
         tecla = _getch();
         if (tecla == 72 && seleccion > 0)
@@ -576,16 +581,18 @@ void prestarLibro(string &usuarioIngresado)
         else if (tecla == 13)
         { // Enter
             limpiarPantalla();
-            cout << "Detalles del libro seleccionado:" << endl;
-            cout << "Código: " << libros[seleccion].codigo << endl
-                 << "Nombre: " << libros[seleccion].nombre << endl
-                 << "Género: " << libros[seleccion].genero << endl
-                 << "Autor: " << libros[seleccion].autor << endl
-                 << "Año de publicación: " << libros[seleccion].anoPublicacion << endl
-                 << "Sinopsis: " << libros[seleccion].sinopsis << endl
-                 << "Cantidad disponible: " << libros[seleccion].cantidad << endl;
+            dibujarCuadro(5, 2, 100, 25);
+            dibujarTexto(10, 5, "Detalles del libro seleccionado:");
+            dibujarTexto(10, 8, "Código: " + to_string(libros[seleccion].codigo));
+            dibujarTexto(10, 9, "Nombre: " + libros[seleccion].nombre);
+            dibujarTexto(10, 10, "Género: " + libros[seleccion].genero);
+            dibujarTexto(10, 11, "Autor: " + libros[seleccion].autor);
+            dibujarTexto(10, 12, "Año de publicación: " + to_string(libros[seleccion].anoPublicacion));
+            dibujarTexto(10, 13, "Sinopsis: " + libros[seleccion].sinopsis);
+            dibujarTexto(10, 14, "Cantidad disponible: " + to_string(libros[seleccion].cantidad));
 
-            cout << "¿Estás seguro de que deseas pedir prestado este libro? (S/N): ";
+            dibujarTexto(10, 16, "¿Estás seguro de que deseas pedir prestado este libro? (S/N): ");
+            
             char confirmar;
             cin >> confirmar;
             if (confirmar == 'S' || confirmar == 's')
@@ -595,6 +602,7 @@ void prestarLibro(string &usuarioIngresado)
         }
         else if (tecla == 27)
         { // Escape
+            ejecutarGradiente();
             break;
         }
     }
@@ -607,7 +615,8 @@ void donarLibro(string &usuarioIngresado)
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
 
     string nombreLibro;
-    cout << "Ingrese el nombre del libro: ";
+    dibujarCuadro(5, 2, 110, 25);
+    dibujarTexto(10, 5, "Ingrese el nombre del libro: ");
     getline(cin, nombreLibro);
 
     // Buscar coincidencias del nombre del libro
@@ -615,15 +624,15 @@ void donarLibro(string &usuarioIngresado)
 
     if (!coincidencias.empty())
     {
-        cout << "El libro ya existe en la biblioteca.\n";
+        dibujarTexto(10, 7, "El libro ya existe en la biblioteca.");
         char respuesta;
-        cout << "¿Desea añadir más existencias del libro en donaciones? (S/N): ";
+        dibujarTexto(10, 8, "¿Desea añadir más existencias del libro en donaciones? (S/N): ");
         cin >> respuesta;
         cin.ignore(); // Limpiar el buffer
 
         if (respuesta == 'S' || respuesta == 's')
         {
-            cout << "Ingrese la cantidad de existencias adicionales para la donación: ";
+            dibujarTexto(10, 10, "Ingrese la cantidad de existencias adicionales para la donación: ");
             int cantidadAdicional;
             cin >> cantidadAdicional;
             cin.ignore(); // Limpiar el buffer
@@ -644,25 +653,25 @@ void donarLibro(string &usuarioIngresado)
                 archivo << libroExistente.sinopsis << endl;
                 archivo << cantidadAdicional << endl;
                 archivo.close();
-                cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
-                Sleep(2000);
+                dibujarTexto(10, 12, "El libro ha sido donado y registrado en el archivo de donativos.");
+                ejecutarGradiente();
             }
             else
             {
                 cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
-                Sleep(2000);
+                ejecutarGradiente();
             }
         }
         else
         {
-            cout << "No se han añadido existencias adicionales en donaciones." << endl;
-            Sleep(2000);
+            dibujarTexto(10, 10, "No se han añadido existencias adicionales en donaciones.");
+            ejecutarGradiente();
         }
     }
     else
     {
         // Si no hay coincidencias, el libro no existe en la biblioteca
-        cout << "El libro no existe en la biblioteca. Por favor, ingrese los datos del libro para donarlo." << endl;
+        dibujarTexto(10, 7, "El libro no existe en la biblioteca. Por favor, ingrese los datos del libro para donarlo.");
 
         // Solicitar todos los demás datos del libro para agregarlo
         Libro nuevoLibro;
@@ -673,7 +682,7 @@ void donarLibro(string &usuarioIngresado)
 
         while (codigoRepetido)
         {
-            cout << "Ingrese el código del libro: ";
+            dibujarTexto(10, 9, "Ingrese el código del libro: ");
             cin >> codigoLibro;
             istringstream(codigoLibro) >> nuevoLibro.codigo;
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -681,28 +690,27 @@ void donarLibro(string &usuarioIngresado)
             // Verificar si el código ya existe en libros.txt
             if (buscarcoincidencia_cod(codigoLibro))
             {
-                cout << "El código ingresado ya existe. Por favor, ingrese otro código." << endl;
+                dibujarTexto(10, 11, "El código ingresado ya existe. Por favor, ingrese otro código.");
             }
             else
             {
                 codigoRepetido = false; // Salir del bucle, código válido
             }
         }
-
-        cout << "Ingrese el género del libro: ";
+        dibujarTexto(10, 11, "Ingrese el género del libro: ");
         getline(cin, nuevoLibro.genero);
 
-        cout << "Ingrese el autor del libro: ";
+        dibujarTexto(10, 13, "Ingrese el autor del libro: ");
         getline(cin, nuevoLibro.autor);
 
-        cout << "Ingrese el año de publicación del libro: ";
+        dibujarTexto(10, 15, "Ingrese el año de publicación del libro: ");
         cin >> nuevoLibro.anoPublicacion;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
-        cout << "Ingrese la sinopsis del libro: ";
+        dibujarTexto(10, 17, "Ingrese la sinopsis del libro: ");
         getline(cin, nuevoLibro.sinopsis);
 
-        cout << "Ingrese la cantidad de existencias para la donación: ";
+        dibujarTexto(10, 19, "Ingrese la cantidad de existencias para la donación: ");
         cin >> nuevoLibro.cantidad;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -718,13 +726,13 @@ void donarLibro(string &usuarioIngresado)
             archivo << nuevoLibro.sinopsis << endl;
             archivo << nuevoLibro.cantidad << endl;
             archivo.close();
-            cout << "El libro ha sido donado y registrado en el archivo de donativos." << endl;
-            Sleep(2000);
+            dibujarTexto(10, 21, "El libro ha sido donado y registrado en el archivo de donativos.");
+            ejecutarGradiente();
         }
         else
         {
             cerr << "No se pudo abrir el archivo " << archivoDonativos << endl;
-            Sleep(2000);
+            ejecutarGradiente();
         }
     }
 }

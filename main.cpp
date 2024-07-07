@@ -24,6 +24,7 @@ int main()
     ocultarCursor();
     
     limpiarPantalla();
+    dibujarTeslaASCII(50, 5);
     mostrarIniciando(52,12);
     limpiarPantalla();
     ejecutarGradiente();
@@ -74,9 +75,12 @@ int main()
                 break;
             case 2:
                 registrarUsuario();
+                ejecutarGradiente();
                 break;
             case 3:
-                cout << "Saliendo... uwu";
+                ejecutarGradiente();
+                dibujarTeslaASCII(50, 5);
+                mostrarSaliendo(52,12);
                 return 0;
             }
             limpiarPantalla();

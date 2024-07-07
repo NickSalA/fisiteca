@@ -216,6 +216,7 @@ void menuUsuario(string &usuarioIngresado)
                 break;
             case 3:
                 iterador = false;
+                ejecutarGradiente();
                 break;
             }
             limpiarPantalla();
@@ -308,6 +309,7 @@ void menuAdmin()
                 break;
             case 5:
                 iterador = false;
+                ejecutarGradiente();
                 break;
             }
             limpiarPantalla();
