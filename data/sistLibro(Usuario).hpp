@@ -420,7 +420,7 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
     for (int i = 0; i < n; ++i)
     {
         dibujarTexto(20, 5 + i, (i == seleccion ? "> " : "  ") + libros[i].nombre);
-        
+    
     }
 }
 
@@ -641,10 +641,11 @@ void donarLibro(string &usuarioIngresado)
             // Verificar si el código ya existe en libros.txt
             if (buscarcoincidencia_cod(codigoLibro))
             {
-                dibujarTexto(10, 11, "El código ingresado ya existe. Por favor, ingrese otro código.");
+                dibujarTexto(10, 23, "El código ingresado ya existe. Por favor, ingrese otro código.");
             }
             else
             {
+                espacioEnUnaFilaHasta(10, 23, 100);
                 codigoRepetido = false; // Salir del bucle, código válido
             }
         }
