@@ -368,15 +368,20 @@ void mostrarPrestamosUsuario(const string &usuario)
 
     string linea;
     dibujarCuadro(5, 2, 110, 25);
+    dibujarTexto(20, 5, "Libros prestados:");
+
+    int i = 0;
+
     while (getline(archivo, linea))
     {
         if (linea == usuario)
         {
-            dibujarTexto(20, 5, "Libros prestados:");
             getline(archivo, linea);
-            dibujarTexto(20, 8, "Codigo de libro: " + linea); // Código del libro
+            dibujarTexto(20, 8 + i * 3, "Codigo de libro: " + linea); // Código del libro
             getline(archivo, linea);
-            dibujarTexto(20, 10, "Titulo: " + linea); // Título del libro
+            dibujarTexto(20, 9 + i * 3, "Titulo: " + linea); // Título del libro
+            std::cout<<endl;
+            i++;
         }
     }
 

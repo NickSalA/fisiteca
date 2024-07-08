@@ -251,7 +251,7 @@ void mainBuscar_anio()
         dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el año de búsqueda: ");
+        dibujarTexto(30, 5, "Ingrese el año a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
