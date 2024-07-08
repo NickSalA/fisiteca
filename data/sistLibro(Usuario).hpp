@@ -419,8 +419,7 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
 {
     for (int i = 0; i < n; ++i)
     {
-        dibujarTexto(20, 5 + i, (i == seleccion ? "> " : "  ") + libros[i].nombre);
-    
+        dibujarTexto(20, 5 + i, libros[i].nombre);
     }
 }
 
@@ -513,23 +512,28 @@ void prestarLibro(string &usuarioIngresado)
     int seleccion = 0;
     char tecla;
 
-    while (true)
-    {
-        limpiarPantalla();
+        while (true){
         dibujarCuadro(5, 2, 100, 25);
         mostrarLibros(libros, n, seleccion);
         dibujarTexto(77, 26, "Presiona ESC para regresar.");
-
+        
+        gotoxy(17, 5 + seleccion);
+        cout << "=>";
+        
         tecla = _getch();
         if (tecla == 72 && seleccion > 0)
         { // Flecha arriba
+        gotoxy(17, 5 + seleccion);
+        cout << "  ";
             seleccion--;
         }
         else if (tecla == 80 && seleccion < n - 1)
         { // Flecha abajo
+        gotoxy(17, 5 + seleccion);
+            cout << "  ";
             seleccion++;
         }
-        else if (tecla == 13)
+        if (tecla == 13)
         { // Enter
             limpiarPantalla();
             dibujarCuadro(5, 2, 100, 25);
