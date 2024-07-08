@@ -117,20 +117,24 @@ void mainBuscador_ti()
         else
         {
             ejecutarGradiente();
-            cout << "\nCoincidencias encontradas:" << endl;
+            cout << "\n\t\tCoincidencias encontradas:" << endl;
+            cout<<"\t|\t------------------------------------------------------------------------"<<endl;
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " + to_string(libro.codigo) << endl;
-                cout << "Nombre: " + libro.nombre << endl;
-                cout << "Género: " + libro.genero << endl;
-                cout << "Autor: " + libro.autor << endl;
-                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
-                cout << "Sinopsis: " + libro.sinopsis << endl;
-                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
-                cout << endl;
+                cout<<"\t|"<<endl;
+                cout << "\t|\tCódigo: " + to_string(libro.codigo) << endl;
+                cout << "\t|\tNombre: " + libro.nombre << endl;
+                cout << "\t|\tGénero: " + libro.genero << endl;
+                cout << "\t|\tAutor: " + libro.autor << endl;
+                cout << "\t|\tAño de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "\t|\tSinopsis: " + libro.sinopsis << endl;
+                cout << "\t|\tCantidad: " + to_string(libro.cantidad) << endl;
+                cout<<"\t|\t------------------------------------------------------------------------"<<endl;
+                cout <<"\t|"<<endl;
             }
         }
         esperaConMensaje("");
+        ejecutarGradiente();
     } while (true);
 }
 
@@ -168,20 +172,24 @@ void mainBuscador_gen()
         else
         {
             ejecutarGradiente();
-            cout << "\nCoincidencias encontradas:" << endl;
+            cout << "\n\t\tCoincidencias encontradas:" << endl;
+            cout<<"\t|\t------------------------------------------------------------------------"<<endl;
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " + to_string(libro.codigo) << endl;
-                cout << "Nombre: " + libro.nombre << endl;
-                cout << "Género: " + libro.genero << endl;
-                cout << "Autor: " + libro.autor << endl;
-                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
-                cout << "Sinopsis: " + libro.sinopsis << endl;
-                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
-                cout << endl;
+                cout <<"\t|"<<endl;
+                cout << "\t|\tCódigo: " + to_string(libro.codigo) << endl;
+                cout << "\t|\tNombre: " + libro.nombre << endl;
+                cout << "\t|\tGénero: " + libro.genero << endl;
+                cout << "\t|\tAutor: " + libro.autor << endl;
+                cout << "\t|\tAño de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "\t|\tSinopsis: " + libro.sinopsis << endl;
+                cout << "\t|\tCantidad: " + to_string(libro.cantidad) << endl;
+                cout<<"\t|\t------------------------------------------------------------------------"<<endl;
+                cout <<"\t|"<<endl;
             }
         }
         esperaConMensaje("");
+        ejecutarGradiente();
     } while (true);
 }
 
@@ -220,20 +228,24 @@ void mainBuscar_autor()
         else
         {
             ejecutarGradiente();
-            cout << "\nCoincidencias encontradas:" << endl;
+            cout << "\n\t\tCoincidencias encontradas:" << endl;
+            cout<<"\t|\t------------------------------------------------------------------------"<<endl;
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " + to_string(libro.codigo) << endl;
-                cout << "Nombre: " + libro.nombre << endl;
-                cout << "Género: " + libro.genero << endl;
-                cout << "Autor: " + libro.autor << endl;
-                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
-                cout << "Sinopsis: " + libro.sinopsis << endl;
-                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
-                cout << endl;
+                cout <<"\t|"<<endl;
+                cout << "\t|\tCódigo: " + to_string(libro.codigo) << endl;
+                cout << "\t|\tNombre: " + libro.nombre << endl;
+                cout << "\t|\tGénero: " + libro.genero << endl;
+                cout << "\t|\tAutor: " + libro.autor << endl;
+                cout << "\t|\tAño de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "\t|\tSinopsis: " + libro.sinopsis << endl;
+                cout << "\t|\tCantidad: " + to_string(libro.cantidad) << endl;
+                cout<<"\t|\t------------------------------------------------------------------------"<<endl;
+                cout <<"\t|"<<endl;
             }
         }
         esperaConMensaje("");
+        ejecutarGradiente();
     } while (true);
 }
 
@@ -272,20 +284,24 @@ void mainBuscar_anio()
         else
         {
             ejecutarGradiente();
-            cout << "\nCoincidencias encontradas:" << endl;
+            cout << "\n\t\tCoincidencias encontradas:" << endl;
+            cout<<"\t|\t------------------------------------------------------------------------"<<endl;
             for (const Libro &libro : coincidencias)
             {
-                cout << "Código: " + to_string(libro.codigo) << endl;
-                cout << "Nombre: " + libro.nombre << endl;
-                cout << "Género: " + libro.genero << endl;
-                cout << "Autor: " + libro.autor << endl;
-                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
-                cout << "Sinopsis: " + libro.sinopsis << endl;
-                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
-                cout << endl;
+                cout <<"\t|"<<endl;
+                cout << "\t|\tf: " + to_string(libro.codigo) << endl;
+                cout << "\t|\tNombre: " + libro.nombre << endl;
+                cout << "\t|\tGénero: " + libro.genero << endl;
+                cout << "\t|\tAutor: " + libro.autor << endl;
+                cout << "\t|\tAño de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "\t|\tSinopsis: " + libro.sinopsis << endl;
+                cout << "\t|\tCantidad: " + to_string(libro.cantidad) << endl;
+                cout<<"\t|\t------------------------------------------------------------------------"<<endl;
+                cout <<"\t|"<<endl;
             }
         }
         esperaConMensaje("");
+        ejecutarGradiente();
     } while (true);
 }
 
