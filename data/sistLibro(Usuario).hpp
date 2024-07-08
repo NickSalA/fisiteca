@@ -124,10 +124,11 @@ void mainBuscador_ti()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el título a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el título a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
@@ -141,14 +142,18 @@ void mainBuscador_ti()
 
         if (coincidencias.empty())
         {
-            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
+            dibujarTexto(20, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
+            
             int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            
+            dibujarTexto(45, 5, "Coincidencias encontradas:");
+            cout<<endl;
             for (const Libro &libro : coincidencias)
-            {
+            {   
+                
                 dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
                 dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
                 dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
@@ -201,11 +206,11 @@ void mainBuscador_gen()
     do
     {
         system("cls");
-
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el genero a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el genero a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
@@ -223,7 +228,8 @@ void mainBuscador_gen()
             dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
-        {
+        {   
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -254,10 +260,11 @@ void mainBuscar_autor()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el autor a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el autor a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
@@ -276,6 +283,7 @@ void mainBuscar_autor()
         }
         else
         {
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -305,10 +313,11 @@ void mainBuscar_anio()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el año de búsqueda: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el año de búsqueda: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -327,6 +336,7 @@ void mainBuscar_anio()
         }
         else
         {
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -348,7 +358,7 @@ void mainBuscar_anio()
 void BuscarLibro()
 {
     configurarConsolaUtf8();
-    int opcionSeleccionada = 1; // Indica la opción seleccionada
+    int opcionSeleccionada = 0; // Indica la opción seleccionada
     int lastopcionSeleccionada = -1;
     vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
     coordXY pos = {40, 15};
@@ -367,6 +377,7 @@ void BuscarLibro()
     dibujarTitulo(2, 3, titulo);
     dibujarCuadro(pos.x - 10, 2, 60, 25);
     dibujarMenu(pos.x + 3, pos.y - 2, opciones);
+
     bool repite = true;
 
     while (repite)
