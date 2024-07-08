@@ -126,7 +126,7 @@ void mainBuscador_ti()
                 dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
                 dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
                 dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
                 i++;
             }
         
@@ -178,7 +178,7 @@ void mainBuscador_gen()
                 dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
                 dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
                 dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
                 i++;
             }
         
@@ -231,7 +231,7 @@ void mainBuscar_autor()
                 dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
                 dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
                 dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
                 i++;
             }
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
@@ -283,7 +283,7 @@ void mainBuscar_anio()
                 dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
                 dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
                 dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 19 + i * 7, "Cantidad: " + to_string(libro.cantidad));
+                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
                 i++;
             }
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
