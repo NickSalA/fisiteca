@@ -389,7 +389,7 @@ void mostrarMenu(vector<string> &usuarios)
     }
     else
     {
-        dibujarTexto(20, 3 usuarios.size() * 2, "Opción inválida.");
+        dibujarTexto(20, 3 + usuarios.size() * 2, "Opción inválida.");
     }
 
     dibujarTexto(20, 15 + usuarios.size(), "0. Regresar");
