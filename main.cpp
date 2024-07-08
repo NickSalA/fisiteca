@@ -24,7 +24,7 @@ int main()
     ocultarCursor();
     
     limpiarPantalla();
-    dibujarTeslaASCII(50, 5);
+    dibujarTeslaASCII(52, 7);
     mostrarIniciando(52,12);
     limpiarPantalla();
     ejecutarGradiente();
@@ -79,7 +79,7 @@ int main()
                 break;
             case 3:
                 ejecutarGradiente();
-                dibujarTeslaASCII(50, 5);
+                dibujarTeslaASCII(52, 7);
                 mostrarSaliendo(52,12);
                 return 0;
             }
