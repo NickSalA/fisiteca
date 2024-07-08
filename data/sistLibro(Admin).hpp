@@ -7,28 +7,15 @@ using namespace std;
 void agregarLibro(Libro libros[], int &n)
 {
     limpiarPantalla();
-    string codLibro;
     ofstream Grabacion("libros.txt", ios::app);
     dibujarTitulo(50, 2, "AGREGAR LIBRO");
     dibujarCuadro(10, 5, 100, 20);
     dibujarTexto(20, 7, "Ingrese los datos del libro:");
     Libro newLibro;
-    bool codigoExistente = true;
-    while (codigoExistente) {
-        dibujarTexto(20, 9, "Codigo: ");
-        cin >> codLibro;
-        fflush(stdin);
-        cin.ignore();
-        istringstream(codLibro) >> newLibro.codigo;
-        
-        if (buscarcoincidencia_cod(codLibro)) {
-            dibujarTexto(20, 23, "¡Error! El código ya existe en el archivo.");
-            Sleep(1000);
-        } else {
-            espacioEnUnaFilaHasta(20, 23, 70);
-            codigoExistente = false; // Salir del bucle si el código no existe
-        }
-    }
+    dibujarTexto(20, 9, "Codigo: ");
+    cin >> newLibro.codigo;
+    fflush(stdin);
+    cin.ignore();
     dibujarTexto(20, 11, "Nombre: ");
     getline(cin, newLibro.nombre);
     dibujarTexto(20, 13, "Genero: ");
@@ -66,7 +53,6 @@ void agregarLibro(Libro libros[], int &n)
         Grabacion.close();
     }
     dibujarTexto(20, 23, "Libro agregado exitosamente.");
-    Sleep(1000);
 }
 
 void eliminarLibro(Libro libros[], int &n)
@@ -74,13 +60,12 @@ void eliminarLibro(Libro libros[], int &n)
     int numLibro;
 
     dibujarCuadro(5, 2, 110, 25);
-    dibujarTexto(20, 4, "Eliminar libro");
     for (int i = 0; i < n; i++)
     {
-        dibujarTexto(20, 6 + i * 1, "Libro " + to_string(i + 1) + ": " + libros[i].nombre + " - Cantidad: " + to_string(libros[i].cantidad));
+        dibujarTexto(20, 5 + i * 1, "Libro " + to_string(i + 1) + ": " + libros[i].nombre + " - Cantidad: " + to_string(libros[i].cantidad));
     }
 
-    dibujarTexto(20, 7 + n * 1, "Seleccione el número del libro que desea eliminar: ");
+    dibujarTexto(20, 6 + n * 1, "Seleccione el número del libro que desea eliminar: ");
     cin >> numLibro;
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
     limpiarPantalla();
@@ -89,14 +74,14 @@ void eliminarLibro(Libro libros[], int &n)
     if (numLibro >= 1 && numLibro <= n)
     {
         int indiceLibro = numLibro - 1;
-        dibujarTexto(20, 4, "Libro: " + libros[indiceLibro].nombre + " - Cantidad: " + to_string(libros[indiceLibro].cantidad));
-        dibujarTexto(20, 6, "Codigo: " + to_string(libros[indiceLibro].codigo));
-        dibujarTexto(20, 8, "Genero: " + libros[indiceLibro].genero);
-        dibujarTexto(20, 10, "Autor: " + libros[indiceLibro].autor);
-        dibujarTexto(20, 12, "Año de publicacion: " + to_string(libros[indiceLibro].anoPublicacion));
+        dibujarTexto(20, 2, "Libro: " + libros[indiceLibro].nombre + " - Cantidad: " + to_string(libros[indiceLibro].cantidad));
+        dibujarTexto(20, 4, "Codigo: " + to_string(libros[indiceLibro].codigo));
+        dibujarTexto(20, 6, "Genero: " + libros[indiceLibro].genero);
+        dibujarTexto(20, 8, "Autor: " + libros[indiceLibro].autor);
+        dibujarTexto(20, 10, "Año de publicacion: " + to_string(libros[indiceLibro].anoPublicacion));
 
         char confirmacion;
-        dibujarTexto(20, 14, "¿Está seguro de que desea eliminar este libro? (S/N): ");
+        dibujarTexto(20, 12, "¿Está seguro de que desea eliminar este libro? (S/N): ");
         cin >> confirmacion;
         confirmacion = toupper(confirmacion);
 
@@ -150,19 +135,17 @@ void eliminarLibro(Libro libros[], int &n)
                          << libros[i].cantidad << endl;
             }
             Escribir.close();
-            dibujarTexto(20, 16, "Libro eliminado exitosamente.");
-            Sleep(1000);
+
+            cout << "Libro eliminado exitosamente." << endl;
         }
         else
         {
-            dibujarTexto(20, 16, "Operación cancelada. El libro no ha sido eliminado.");
-            Sleep(1000);
+            cout << "Operación cancelada. El libro no ha sido eliminado." << endl;
         }
     }
     else
     {
-        dibujarTexto(20, 4, "Número de libro no válido. Por favor, seleccione un número de libro válido.");
-        Sleep(1000);
+        cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
 
@@ -192,15 +175,15 @@ void editarLibro(Libro libros[], int n)
     {
         int indiceLibro = numLibro - 1;
         dibujarCuadro(5, 2, 110, 25);
-        dibujarTexto(20, 4, "Editar libro: " + libros[indiceLibro].nombre);
-        dibujarTexto(20, 6, "1. Nombre: " + libros[indiceLibro].nombre);
-        dibujarTexto(20, 8, "2. Genero: " + libros[indiceLibro].genero);
-        dibujarTexto(20, 10, "3. Autor: " + libros[indiceLibro].autor);
-        dibujarTexto(20, 12, "4. Año de publicación: " + to_string(libros[indiceLibro].anoPublicacion));
-        dibujarTexto(20, 14, "5. Sinopsis: " + libros[indiceLibro].sinopsis);
-        dibujarTexto(20, 16, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad));
+        dibujarTexto(20, 2, "Editar libro: " + libros[indiceLibro].nombre);
+        dibujarTexto(20, 4, "1. Nombre: " + libros[indiceLibro].nombre);
+        dibujarTexto(20, 6, "2. Genero: " + libros[indiceLibro].genero);
+        dibujarTexto(20, 8, "3. Autor: " + libros[indiceLibro].autor);
+        dibujarTexto(20, 10, "4. Año de publicación: " + to_string(libros[indiceLibro].anoPublicacion));
+        dibujarTexto(20, 12, "5. Sinopsis: " + libros[indiceLibro].sinopsis);
+        dibujarTexto(20, 14, "6. Cantidad: " + to_string(libros[indiceLibro].cantidad));
         int opcion;
-        dibujarTexto(20, 18, "Seleccione el número del campo que desea editar (1-6): ");
+        dibujarTexto(20, 16, "Seleccione el número del campo que desea editar (1-6): ");
         cin >> opcion;
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -254,13 +237,12 @@ void editarLibro(Libro libros[], int n)
             Grabacion << libros[i].cantidad << endl;
         }
         Grabacion.close();
-        dibujarTexto(20, 12, "Información del libro editada exitosamente.");
-        Sleep(1000);
+
+        cout << "Información del libro editada exitosamente." << endl;
     }
     else
     {
-        dibujarTexto(20, 4, "Número de libro no válido. Por favor, seleccione un número de libro válido.");
-        Sleep(1000);
+        cout << "Número de libro no válido. Por favor, seleccione un número de libro válido." << endl;
     }
 }
 
@@ -324,8 +306,8 @@ void aceptarLibroDonado(Libro libros[], int &n)
                   << librosDonativos[indice].sinopsis << endl
                   << librosDonativos[indice].cantidad << endl;
         Grabacion.close();
-        dibujarTexto(20, 16, "Libro aceptado exitosamente.");
-        Sleep(1000);
+
+        cout << "\t\t    Libro aceptado exitosamente." << endl;
 
         for (int i = indice; i < nDonativos - 1; ++i)
         {
@@ -368,20 +350,15 @@ void mostrarPrestamosUsuario(const string &usuario)
 
     string linea;
     dibujarCuadro(5, 2, 110, 25);
-    dibujarTexto(20, 5, "Libros prestados:");
-
-    int i = 0;
-
     while (getline(archivo, linea))
     {
         if (linea == usuario)
         {
+            dibujarTexto(20, 5, "Libros prestados:");
             getline(archivo, linea);
-            dibujarTexto(20, 8 + i * 3, "Codigo de libro: " + linea); // Código del libro
+            dibujarTexto(20, 8, "Codigo de libro: " + linea); // Código del libro
             getline(archivo, linea);
-            dibujarTexto(20, 9 + i * 3, "Titulo: " + linea); // Título del libro
-            std::cout<<endl;
-            i++;
+            dibujarTexto(20, 10, "Titulo: " + linea); // Título del libro
         }
     }
 

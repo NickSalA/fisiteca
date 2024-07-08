@@ -4,6 +4,36 @@
 
 using namespace std;
 
+vector<Libro> cargarLibrosDesdeArchivo_ti(const string &nombreArchivo)
+{
+    vector<Libro> libros;
+    ifstream archivo(nombreArchivo.c_str(), ios::in);
+    if (archivo.is_open())
+    {
+        Libro libro;
+        while (archivo >> libro.codigo)
+        {
+
+            archivo.ignore();
+            getline(archivo, libro.nombre);
+            getline(archivo, libro.genero);
+            getline(archivo, libro.autor);
+            archivo >> libro.anoPublicacion;
+            archivo.ignore();
+            getline(archivo, libro.sinopsis);
+            archivo >> libro.cantidad;
+            archivo.ignore();
+            libros.push_back(libro);
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
+    }
+    return libros;
+}
+
 vector<Libro> buscarCoincidencias_ti(const vector<Libro> &libros, const string &busqueda)
 {
     vector<Libro> coincidencias;
@@ -94,10 +124,11 @@ void mainBuscador_ti()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el título a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el título a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
@@ -111,14 +142,18 @@ void mainBuscador_ti()
 
         if (coincidencias.empty())
         {
-            dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
+            dibujarTexto(20, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
         {
+            
             int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            
+            dibujarTexto(45, 5, "Coincidencias encontradas:");
+            cout<<endl;
             for (const Libro &libro : coincidencias)
-            {
+            {   
+                
                 dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
                 dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
                 dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
@@ -134,6 +169,33 @@ void mainBuscador_ti()
     } while (true);
 }
 
+bool buscarcoincidencia_cod(const std::string &codigo)
+{
+    std::ifstream archivo("libros.txt");
+    std::string linea;
+
+    // Verificar si se pudo abrir el archivo
+    if (!archivo.is_open())
+    {
+        std::cerr << "Error al abrir el archivo libros.txt" << std::endl;
+        return false; // No se pudo abrir el archivo
+    }
+
+    // Recorrer cada línea del archivo
+    while (std::getline(archivo, linea))
+    {
+        // Si la línea contiene el código buscado, retornar true
+        if (linea == codigo)
+        {
+            archivo.close();
+            return true;
+        }
+    }
+
+    archivo.close();
+    return false; // No se encontró el código en el archivo
+}
+
 void mainBuscador_gen()
 {
     string nombreArchivo = "libros.txt";
@@ -144,11 +206,11 @@ void mainBuscador_gen()
     do
     {
         system("cls");
-
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el genero a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el genero a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
@@ -166,7 +228,8 @@ void mainBuscador_gen()
             dibujarTexto(10, 10, "No se encontraron coincidencias para el término de búsqueda: " + busqueda);
         }
         else
-        {
+        {   
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -197,10 +260,11 @@ void mainBuscar_autor()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el autor a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el autor a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
@@ -219,6 +283,7 @@ void mainBuscar_autor()
         }
         else
         {
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -248,10 +313,11 @@ void mainBuscar_anio()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el año a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el año de búsqueda: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -270,6 +336,7 @@ void mainBuscar_anio()
         }
         else
         {
+            
             int i = 0;
             dibujarTexto(10, 10, "Coincidencias encontradas:");
             for (const Libro &libro : coincidencias)
@@ -291,7 +358,7 @@ void mainBuscar_anio()
 void BuscarLibro()
 {
     configurarConsolaUtf8();
-    int opcionSeleccionada = 1; // Indica la opción seleccionada
+    int opcionSeleccionada = 0; // Indica la opción seleccionada
     int lastopcionSeleccionada = -1;
     vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
     coordXY pos = {40, 15};
@@ -310,6 +377,7 @@ void BuscarLibro()
     dibujarTitulo(2, 3, titulo);
     dibujarCuadro(pos.x - 10, 2, 60, 25);
     dibujarMenu(pos.x + 3, pos.y - 2, opciones);
+
     bool repite = true;
 
     while (repite)
@@ -419,7 +487,8 @@ void mostrarLibros(const Libro libros[], int n, int seleccion)
 {
     for (int i = 0; i < n; ++i)
     {
-        dibujarTexto(20, 5 + i, libros[i].nombre);
+        dibujarTexto(20, 5 + i, (i == seleccion ? "> " : "  ") + libros[i].nombre);
+        
     }
 }
 
@@ -512,28 +581,23 @@ void prestarLibro(string &usuarioIngresado)
     int seleccion = 0;
     char tecla;
 
-        while (true){
+    while (true)
+    {
+        limpiarPantalla();
         dibujarCuadro(5, 2, 100, 25);
         mostrarLibros(libros, n, seleccion);
         dibujarTexto(77, 26, "Presiona ESC para regresar.");
-        
-        gotoxy(17, 5 + seleccion);
-        cout << "=>";
-        
+
         tecla = _getch();
         if (tecla == 72 && seleccion > 0)
         { // Flecha arriba
-        gotoxy(17, 5 + seleccion);
-        cout << "  ";
             seleccion--;
         }
         else if (tecla == 80 && seleccion < n - 1)
         { // Flecha abajo
-        gotoxy(17, 5 + seleccion);
-            cout << "  ";
             seleccion++;
         }
-        if (tecla == 13)
+        else if (tecla == 13)
         { // Enter
             limpiarPantalla();
             dibujarCuadro(5, 2, 100, 25);
@@ -645,11 +709,10 @@ void donarLibro(string &usuarioIngresado)
             // Verificar si el código ya existe en libros.txt
             if (buscarcoincidencia_cod(codigoLibro))
             {
-                dibujarTexto(10, 23, "El código ingresado ya existe. Por favor, ingrese otro código.");
+                dibujarTexto(10, 11, "El código ingresado ya existe. Por favor, ingrese otro código.");
             }
             else
             {
-                espacioEnUnaFilaHasta(10, 23, 100);
                 codigoRepetido = false; // Salir del bucle, código válido
             }
         }
