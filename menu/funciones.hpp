@@ -591,7 +591,67 @@ string obtenerFechaPlazo()
     return sS.str();
 }
 
+bool buscarcoincidencia_cod(const std::string &codigo)
+{
+    std::ifstream archivo("libros.txt");
+    std::string linea;
 
+    if (!archivo.is_open())
+    {
+        std::cerr << "Error al abrir el archivo libros.txt" << std::endl;
+        return false; 
+    }
 
+    while (std::getline(archivo, linea))
+    {
+        if (linea == codigo)
+        {
+            archivo.close();
+            return true;
+        }
+    }
+
+    archivo.close();
+    return false; // No se encontró el código en el archivo
+}
+
+vector<Libro> cargarLibrosDesdeArchivo_ti(const string &nombreArchivo)
+{
+    vector<Libro> libros;
+    ifstream archivo(nombreArchivo.c_str(), ios::in);
+    if (archivo.is_open())
+    {
+        Libro libro;
+        while (archivo >> libro.codigo)
+        {
+
+            archivo.ignore();
+            getline(archivo, libro.nombre);
+            getline(archivo, libro.genero);
+            getline(archivo, libro.autor);
+            archivo >> libro.anoPublicacion;
+            archivo.ignore();
+            getline(archivo, libro.sinopsis);
+            archivo >> libro.cantidad;
+            archivo.ignore();
+            libros.push_back(libro);
+        }
+        archivo.close();
+    }
+    else
+    {
+        cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
+    }
+    return libros;
+}
+
+void espacioEnUnaFilaHasta(int x, int y, int x2)
+{
+    for (int i = x; i < x2; i++)
+    {
+        gotoxy(i, y);
+        cout << " ";
+    }
+}
 #endif // FUNCIONES_HPP
 

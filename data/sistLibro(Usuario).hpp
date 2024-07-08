@@ -4,36 +4,6 @@
 
 using namespace std;
 
-vector<Libro> cargarLibrosDesdeArchivo_ti(const string &nombreArchivo)
-{
-    vector<Libro> libros;
-    ifstream archivo(nombreArchivo.c_str(), ios::in);
-    if (archivo.is_open())
-    {
-        Libro libro;
-        while (archivo >> libro.codigo)
-        {
-
-            archivo.ignore();
-            getline(archivo, libro.nombre);
-            getline(archivo, libro.genero);
-            getline(archivo, libro.autor);
-            archivo >> libro.anoPublicacion;
-            archivo.ignore();
-            getline(archivo, libro.sinopsis);
-            archivo >> libro.cantidad;
-            archivo.ignore();
-            libros.push_back(libro);
-        }
-        archivo.close();
-    }
-    else
-    {
-        cerr << "No se pudo abrir el archivo " << nombreArchivo << endl;
-    }
-    return libros;
-}
-
 vector<Libro> buscarCoincidencias_ti(const vector<Libro> &libros, const string &busqueda)
 {
     vector<Libro> coincidencias;
@@ -162,33 +132,6 @@ void mainBuscador_ti()
         dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
         esperaConMensaje("");
     } while (true);
-}
-
-bool buscarcoincidencia_cod(const std::string &codigo)
-{
-    std::ifstream archivo("libros.txt");
-    std::string linea;
-
-    // Verificar si se pudo abrir el archivo
-    if (!archivo.is_open())
-    {
-        std::cerr << "Error al abrir el archivo libros.txt" << std::endl;
-        return false; // No se pudo abrir el archivo
-    }
-
-    // Recorrer cada línea del archivo
-    while (std::getline(archivo, linea))
-    {
-        // Si la línea contiene el código buscado, retornar true
-        if (linea == codigo)
-        {
-            archivo.close();
-            return true;
-        }
-    }
-
-    archivo.close();
-    return false; // No se encontró el código en el archivo
 }
 
 void mainBuscador_gen()
