@@ -254,8 +254,8 @@ void menuAdmin()
 
     limpiarPantalla();
     dibujarTitulo(2, 3, titulo);
-    dibujarCuadro(pos.x - 8, 2, 50, 25);
-    dibujarMenu(pos.x + 9, pos.y - 1, opciones);
+    dibujarCuadro(pos.x - 8, 2, 50, 27);
+    dibujarMenu(pos.x + 9, pos.y - 2, opciones);
 
     bool iterador = true;
     while (iterador)
@@ -264,15 +264,15 @@ void menuAdmin()
         {
             if (lastOpc != -1)
             {
-                moverCursor({pos.x + 4, pos.y - 1 + lastOpc * 3});
+                moverCursor({pos.x + 4, pos.y - 2 + lastOpc * 3});
                 cout << "  ";
-                moverCursor({pos.x + 29, pos.y - 1 + lastOpc * 3});
+                moverCursor({pos.x + 29, pos.y - 2 + lastOpc * 3});
                 cout << "  ";
             }
 
-            moverCursor({pos.x + 4, pos.y - 1 + opc * 3});
+            moverCursor({pos.x + 4, pos.y - 2 + opc * 3});
             cout << "=>";
-            moverCursor({pos.x + 29, pos.y - 1 + opc * 3});
+            moverCursor({pos.x + 29, pos.y - 2 + opc * 3});
             cout << "<=";
 
             lastOpc = opc;

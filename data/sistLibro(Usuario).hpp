@@ -116,21 +116,20 @@ void mainBuscador_ti()
         }
         else
         {
-            int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            ejecutarGradiente();
+            cout << "\nCoincidencias encontradas:" << endl;
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
-                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
-                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
-                i++;
+                cout << "Código: " + to_string(libro.codigo) << endl;
+                cout << "Nombre: " + libro.nombre << endl;
+                cout << "Género: " + libro.genero << endl;
+                cout << "Autor: " + libro.autor << endl;
+                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "Sinopsis: " + libro.sinopsis << endl;
+                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
+                cout << endl;
             }
-        
-        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        }
         esperaConMensaje("");
     } while (true);
 }
@@ -168,22 +167,21 @@ void mainBuscador_gen()
         }
         else
         {
-            int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            ejecutarGradiente();
+            cout << "\nCoincidencias encontradas:" << endl;
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
-                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
-                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
-                i++;
+                cout << "Código: " + to_string(libro.codigo) << endl;
+                cout << "Nombre: " + libro.nombre << endl;
+                cout << "Género: " + libro.genero << endl;
+                cout << "Autor: " + libro.autor << endl;
+                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "Sinopsis: " + libro.sinopsis << endl;
+                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
+                cout << endl;
             }
-        
-        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
-        esperaConMensaje("");    
+        }
+        esperaConMensaje("");
     } while (true);
 }
 
@@ -221,27 +219,27 @@ void mainBuscar_autor()
         }
         else
         {
-            int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            ejecutarGradiente();
+            cout << "\nCoincidencias encontradas:" << endl;
             for (const Libro &libro : coincidencias)
             {
-                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
-                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
-                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
-                i++;
+                cout << "Código: " + to_string(libro.codigo) << endl;
+                cout << "Nombre: " + libro.nombre << endl;
+                cout << "Género: " + libro.genero << endl;
+                cout << "Autor: " + libro.autor << endl;
+                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "Sinopsis: " + libro.sinopsis << endl;
+                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
+                cout << endl;
             }
-        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        }
         esperaConMensaje("");
     } while (true);
 }
 
 void mainBuscar_anio()
 {
-    
+
     string nombreArchivo = "libros.txt";
 
     vector<Libro> libros = cargarLibrosDesdeArchivo_ti(nombreArchivo);
@@ -273,20 +271,20 @@ void mainBuscar_anio()
         }
         else
         {
-            int i = 0;
-            dibujarTexto(10, 10, "Coincidencias encontradas:");
+            ejecutarGradiente();
+            cout << "\nCoincidencias encontradas:" << endl;
             for (const Libro &libro : coincidencias)
-            {                
-                dibujarTexto(10, 12 + i * 7, "Código: " + to_string(libro.codigo));
-                dibujarTexto(10, 13 + i * 7, "Nombre: " + libro.nombre);
-                dibujarTexto(10, 14 + i * 7, "Género: " + libro.genero);
-                dibujarTexto(10, 15 + i * 7, "Autor: " + libro.autor);
-                dibujarTexto(10, 16 + i * 7, "Año de Publicación: " + to_string(libro.anoPublicacion));
-                dibujarTexto(10, 17 + i * 7, "Sinopsis: " + libro.sinopsis);
-                dibujarTexto(10, 18 + i * 7, "Cantidad: " + to_string(libro.cantidad));
-                i++;
+            {
+                cout << "Código: " + to_string(libro.codigo) << endl;
+                cout << "Nombre: " + libro.nombre << endl;
+                cout << "Género: " + libro.genero << endl;
+                cout << "Autor: " + libro.autor << endl;
+                cout << "Año de Publicación: " + to_string(libro.anoPublicacion) << endl;
+                cout << "Sinopsis: " + libro.sinopsis << endl;
+                cout << "Cantidad: " + to_string(libro.cantidad) << endl;
+                cout << endl;
             }
-        dibujarTexto(10, 25, "Presione una tecla para volver a buscar...");}
+        }
         esperaConMensaje("");
     } while (true);
 }
@@ -515,24 +513,25 @@ void prestarLibro(string &usuarioIngresado)
     int seleccion = 0;
     char tecla;
 
-        while (true){
+    while (true)
+    {
         dibujarCuadro(5, 2, 100, 25);
         mostrarLibros(libros, n, seleccion);
         dibujarTexto(77, 26, "Presiona ESC para regresar.");
-        
+
         gotoxy(17, 5 + seleccion);
         cout << "=>";
-        
+
         tecla = _getch();
         if (tecla == 72 && seleccion > 0)
         { // Flecha arriba
-        gotoxy(17, 5 + seleccion);
-        cout << "  ";
+            gotoxy(17, 5 + seleccion);
+            cout << "  ";
             seleccion--;
         }
         else if (tecla == 80 && seleccion < n - 1)
         { // Flecha abajo
-        gotoxy(17, 5 + seleccion);
+            gotoxy(17, 5 + seleccion);
             cout << "  ";
             seleccion++;
         }
@@ -550,7 +549,7 @@ void prestarLibro(string &usuarioIngresado)
             dibujarTexto(10, 14, "Cantidad disponible: " + to_string(libros[seleccion].cantidad));
 
             dibujarTexto(10, 16, "¿Estás seguro de que deseas pedir prestado este libro? (S/N): ");
-            
+
             char confirmar;
             cin >> confirmar;
             if (confirmar == 'S' || confirmar == 's')
