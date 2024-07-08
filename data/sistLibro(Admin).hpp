@@ -324,7 +324,7 @@ void aceptarLibroDonado(Libro libros[], int &n)
                   << librosDonativos[indice].sinopsis << endl
                   << librosDonativos[indice].cantidad << endl;
         Grabacion.close();
-        dibujarTexto(20, 16, "Libro aceptado exitosamente.");
+        dibujarTexto(20, 23, "Libro aceptado exitosamente.");
         Sleep(1000);
 
         for (int i = indice; i < nDonativos - 1; ++i)

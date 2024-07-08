@@ -439,23 +439,23 @@ void dibujarTituloASCII(int x, int y, const string &titulo)
 void mostrarBarraDeCarga(int x, int y, int duracion, int tamano = 50)
 {
     gotoxy(x, y);
-    std::cout << "[";
+    cout << "[";
     for (int i = 0; i < tamano; ++i)
     {
-        std::cout << " ";
+        cout << " ";
     }
-    std::cout << "]\r";
+    cout << "]\r";
     gotoxy(x + 1, y); // Mueve el cursor dentro de la barra
 
     for (int i = 0; i < tamano; ++i)
     {
-        std::this_thread::sleep_for(std::chrono::milliseconds(duracion / tamano));
-        std::cout << "=";
-        std::cout.flush();
+        this_thread::sleep_for(chrono::milliseconds(duracion / tamano));
+        cout << "=";
+        cout.flush();
     }
 
     gotoxy(x + tamano + 1, y); // Mueve el cursor al final de la barra
-    std::cout << "]" << std::endl;
+    cout << "]" << std::endl;
 }
 
 void obtenerDimensionConsola(int &ancho, int &alto)

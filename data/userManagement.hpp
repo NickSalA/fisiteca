@@ -209,7 +209,7 @@ void menuUsuario(string &usuarioIngresado)
                 BuscarLibro();
                 break;
             case 1:
-                donarLibro(usuarioIngresado);
+                donarLibro();
                 break;
             case 2:
                 prestarLibro(usuarioIngresado);
@@ -314,8 +314,8 @@ void menuAdmin()
             }
             limpiarPantalla();
             dibujarTitulo(2, 3, titulo);
-            dibujarCuadro(pos.x - 8, 2, 50, 25);
-            dibujarMenu(pos.x + 9, pos.y - 1, opciones);
+            dibujarCuadro(pos.x - 8, 2, 50, 27);
+            dibujarMenu(pos.x + 9, pos.y - 2, opciones);
             lastOpc = -1;
         }
     }

@@ -416,7 +416,7 @@ int buscarLibro(const vector<Libro> &libros, int codigo)
     return -1;
 }
 
-void mostrarLibros(const Libro libros[], int n, int seleccion)
+void mostrarLibros(const Libro libros[], int n)
 {
     for (int i = 0; i < n; ++i)
     {
@@ -496,7 +496,7 @@ void pedirPrestado(Libro libros[], int seleccion, const string &usuarioIngresado
     {
         dibujarTexto(10, 18, "Lo siento, no hay copias disponibles de este libro.");
     }
-    system("pause");
+    Sleep(1000);
     ejecutarGradiente();
 }
 
@@ -516,7 +516,7 @@ void prestarLibro(string &usuarioIngresado)
     while (true)
     {
         dibujarCuadro(5, 2, 100, 25);
-        mostrarLibros(libros, n, seleccion);
+        mostrarLibros(libros, n);
         dibujarTexto(77, 26, "Presiona ESC para regresar.");
 
         gotoxy(17, 5 + seleccion);
@@ -565,7 +565,7 @@ void prestarLibro(string &usuarioIngresado)
     }
 }
 
-void donarLibro(string &usuarioIngresado)
+void donarLibro()
 {
     string nombreArchivo = "libros.txt";
     string archivoDonativos = "libros(donativo).txt";
@@ -601,7 +601,6 @@ void donarLibro(string &usuarioIngresado)
             ofstream archivo(archivoDonativos.c_str(), ios::app);
             if (archivo.is_open())
             {
-                archivo << usuarioIngresado << endl;
                 archivo << libroExistente.codigo << endl;
                 archivo << libroExistente.nombre << endl;
                 archivo << libroExistente.genero << endl;
