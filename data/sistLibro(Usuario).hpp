@@ -94,10 +94,11 @@ void mainBuscador_ti()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el título a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el título a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_ti(libros, busqueda);
@@ -144,11 +145,11 @@ void mainBuscador_gen()
     do
     {
         system("cls");
-
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el genero a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el genero a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_gen(libros, busqueda);
@@ -197,10 +198,11 @@ void mainBuscar_autor()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el autor a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el autor a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_autor(libros, busqueda);
@@ -248,10 +250,11 @@ void mainBuscar_anio()
     do
     {
         system("cls");
-        dibujarCuadro(5, 2, 110, 25);
         dibujarTexto(100, 25, "0. Regresar");
         dibujarTeslaASCII(106, 3);
-        dibujarTexto(30, 5, "Ingrese el año a buscar: ");
+        dibujarTeslaASCII(8, 3);
+        dibujarCuadro(5, 2, 110, 25);
+        dibujarTexto(45, 15, "Ingrese el año a buscar: ");
         getline(cin, busqueda);
 
         vector<Libro> coincidencias = buscarCoincidencias_anio(libros, busqueda);
@@ -291,7 +294,7 @@ void mainBuscar_anio()
 void BuscarLibro()
 {
     configurarConsolaUtf8();
-    int opcionSeleccionada = 1; // Indica la opción seleccionada
+    int opcionSeleccionada = 0; // Indica la opción seleccionada
     int lastopcionSeleccionada = -1;
     vector<string> opciones = {" Buscar por título", " Buscar por género", " Buscar por año de publicación", " Buscar por autor", " Regresar al menu de usuario"};
     coordXY pos = {40, 15};
