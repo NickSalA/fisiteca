@@ -448,7 +448,7 @@ void estadoUsuario()
 
     string linea;
     int contador = 0;
-    while (getline(archivo, linean))
+    while (getline(archivo, linea))
     {
         // Solo guarda las líneas impares (nombres de usuario)
         if (contador % 2 == 0)
